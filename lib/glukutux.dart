@@ -1,5 +1,3 @@
-library glukutux;
-
 // Components
 export 'package:glukutux/src/components/button/button.dart';
 
