@@ -38,8 +38,9 @@ class TuxButton extends StatelessWidget {
     return OutlineButton(
       onPressed: onPressed,
       borderSide: BorderSide(color: tuxColor(status: tuxStatus)),
-      textColor:
-          (tuxStatus != null) ? TuxColor.white : TuxColor.background_default,
+      textColor: (tuxStatus != null)
+          ? tuxColor(status: tuxStatus)
+          : TuxColor.background_default,
       child: child,
       padding: padding,
       shape: shape,
@@ -50,8 +51,9 @@ class TuxButton extends StatelessWidget {
   Widget buttonGhost() {
     return FlatButton(
       onPressed: onPressed,
-      textColor:
-          (tuxStatus != null) ? TuxColor.white : TuxColor.background_default,
+      textColor: (tuxStatus != null)
+          ? tuxColor(status: tuxStatus)
+          : TuxColor.background_default,
       child: child,
       padding: padding,
       shape: shape,
