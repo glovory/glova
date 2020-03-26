@@ -8,20 +8,29 @@ class TuxButton extends StatelessWidget {
   final TuxStatus tuxStatus;
   final Widget child;
   final VoidCallback onPressed;
+  final EdgeInsetsGeometry padding;
+  final ShapeBorder shape;
+  final double elevation;
 
   TuxButton({
     @required this.onPressed,
     this.tuxAppearance = TuxAppearance.filled,
-    this.tuxStatus = TuxStatus.primary,
+    this.tuxStatus,
     this.child,
+    this.padding,
+    this.shape,
+    this.elevation = 0.0,
   });
 
   Widget buttonFilled() {
     return RaisedButton(
       onPressed: onPressed,
       color: tuxColor(status: tuxStatus),
-      textColor: ColorConfig.white,
+      textColor: (tuxStatus != null) ? TuxColor.white : TuxColor.black,
       child: child,
+      padding: padding,
+      shape: shape,
+      elevation: elevation,
     );
   }
 
@@ -29,33 +38,40 @@ class TuxButton extends StatelessWidget {
     return OutlineButton(
       onPressed: onPressed,
       borderSide: BorderSide(color: tuxColor(status: tuxStatus)),
-      textColor: tuxColor(status: tuxStatus),
+      textColor:
+          (tuxStatus != null) ? TuxColor.white : TuxColor.background_default,
       child: child,
+      padding: padding,
+      shape: shape,
+      highlightElevation: elevation,
     );
   }
 
   Widget buttonGhost() {
     return FlatButton(
       onPressed: onPressed,
+      textColor:
+          (tuxStatus != null) ? TuxColor.white : TuxColor.background_default,
       child: child,
-      textColor: tuxColor(status: tuxStatus),
+      padding: padding,
+      shape: shape,
     );
   }
 
   Color tuxColor({TuxStatus status}) {
     switch (status) {
       case TuxStatus.primary:
-        return ColorConfig.primary;
+        return TuxColor.primary;
       case TuxStatus.success:
-        return ColorConfig.success;
+        return TuxColor.success;
       case TuxStatus.info:
-        return ColorConfig.info;
+        return TuxColor.info;
       case TuxStatus.warning:
-        return ColorConfig.warning;
+        return TuxColor.warning;
       case TuxStatus.danger:
-        return ColorConfig.danger;
+        return TuxColor.danger;
       default:
-        return ColorConfig.primary;
+        return TuxColor.background_default;
     }
   }
 
