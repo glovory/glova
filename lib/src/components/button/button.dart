@@ -6,28 +6,89 @@ import '../../model/params.dart';
 class TuxButton extends StatelessWidget {
   final TuxAppearance tuxAppearance;
   final TuxStatus tuxStatus;
-  final Widget child;
+  final String label;
+  final Icon leftIcon;
+  final Icon rightIcon;
   final VoidCallback onPressed;
   final EdgeInsetsGeometry padding;
   final ShapeBorder shape;
   final double elevation;
 
-  TuxButton({
+  const TuxButton({
     @required this.onPressed,
+    @required this.label,
+    this.leftIcon,
+    this.rightIcon,
     this.tuxAppearance = TuxAppearance.filled,
     this.tuxStatus,
-    this.child,
     this.padding,
     this.shape,
     this.elevation = 0.0,
   });
+
+  const TuxButton.filled({
+    @required this.onPressed,
+    @required this.label,
+    this.leftIcon,
+    this.rightIcon,
+    this.tuxStatus,
+    this.padding,
+    this.shape,
+    this.elevation = 0.0,
+  }) : this.tuxAppearance = TuxAppearance.filled;
+
+  const TuxButton.outline({
+    @required this.onPressed,
+    @required this.label,
+    this.leftIcon,
+    this.rightIcon,
+    this.tuxStatus,
+    this.padding,
+    this.shape,
+    this.elevation = 0.0,
+  }) : this.tuxAppearance = TuxAppearance.outline;
+
+  const TuxButton.ghost({
+    @required this.onPressed,
+    @required this.label,
+    this.leftIcon,
+    this.rightIcon,
+    this.tuxStatus,
+    this.padding,
+    this.shape,
+    this.elevation = 0.0,
+  }) : this.tuxAppearance = TuxAppearance.ghost;
+
+  Widget listChild() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (leftIcon != null) ...[
+          leftIcon,
+          SizedBox(
+            width: 16,
+          ),
+        ],
+        Text(
+          label,
+          textAlign: TextAlign.center,
+        ),
+        if (rightIcon != null) ...[
+          SizedBox(
+            width: 16,
+          ),
+          rightIcon,
+        ]
+      ],
+    );
+  }
 
   Widget buttonFilled() {
     return RaisedButton(
       onPressed: onPressed,
       color: tuxColor(status: tuxStatus),
       textColor: (tuxStatus != null) ? TuxColor.white : TuxColor.black,
-      child: child,
+      child: listChild(),
       padding: padding,
       shape: shape,
       elevation: elevation,
@@ -41,7 +102,7 @@ class TuxButton extends StatelessWidget {
       textColor: (tuxStatus != null)
           ? tuxColor(status: tuxStatus)
           : TuxColor.background_default,
-      child: child,
+      child: listChild(),
       padding: padding,
       shape: shape,
       highlightElevation: elevation,
@@ -54,7 +115,7 @@ class TuxButton extends StatelessWidget {
       textColor: (tuxStatus != null)
           ? tuxColor(status: tuxStatus)
           : TuxColor.background_default,
-      child: child,
+      child: listChild(),
       padding: padding,
       shape: shape,
     );
