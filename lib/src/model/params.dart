@@ -11,3 +11,9 @@ enum TuxStatus {
   warning,
   danger,
 }
+
+enum TuxImageAvatar {
+  circle,
+  square,
+  rounded
+}
