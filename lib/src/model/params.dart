@@ -17,3 +17,13 @@ enum TuxImageAvatar {
   square,
   rounded
 }
+
+enum TuxShape {
+  circle,
+  square,
+  rounded,
+  roundedTop,
+  roundedBottom,
+  roundedLeft,
+  roundedRight
+}
