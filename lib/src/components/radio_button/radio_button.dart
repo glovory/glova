@@ -41,26 +41,12 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     });
   }
 
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.primary;
-    }
-  }
-
   Color colorRadio() {
     if (widget.enabled) {
-      return tuxColor(status: widget.tuxStatus);
+      return TuxColorUtils.colorByStatus(
+        tuxStatus: widget.tuxStatus,
+        defaultColor: TuxColor.primary,
+      );
     } else {
       return Colors.grey;
     }

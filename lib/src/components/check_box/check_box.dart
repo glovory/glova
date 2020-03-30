@@ -31,23 +31,6 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
   }
 
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.primary;
-    }
-  }
-
   bool valueCheckBox() {
     if (widget.value == null) {
       return true;
@@ -74,7 +57,10 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
 
   Color colorCheckBox() {
     if (widget.enable) {
-      return tuxColor(status: widget.tuxStatus);
+      return TuxColorUtils.colorByStatus(
+        tuxStatus: widget.tuxStatus,
+        defaultColor: TuxColor.primary,
+      );
     } else {
       return Colors.grey;
     }

@@ -86,7 +86,10 @@ class TuxButton extends StatelessWidget {
   Widget buttonFilled() {
     return RaisedButton(
       onPressed: onPressed,
-      color: tuxColor(status: tuxStatus),
+      color: TuxColorUtils.colorByStatus(
+        tuxStatus: tuxStatus,
+        defaultColor: TuxColor.background_default,
+      ),
       textColor: (tuxStatus != null) ? TuxColor.white : TuxColor.black,
       child: listChild(),
       padding: padding,
@@ -98,9 +101,17 @@ class TuxButton extends StatelessWidget {
   Widget buttonOutline() {
     return OutlineButton(
       onPressed: onPressed,
-      borderSide: BorderSide(color: tuxColor(status: tuxStatus)),
+      borderSide: BorderSide(
+        color: TuxColorUtils.colorByStatus(
+          tuxStatus: tuxStatus,
+          defaultColor: TuxColor.background_default,
+        ),
+      ),
       textColor: (tuxStatus != null)
-          ? tuxColor(status: tuxStatus)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: TuxColor.background_default,
+            )
           : TuxColor.background_default,
       child: listChild(),
       padding: padding,
@@ -113,29 +124,15 @@ class TuxButton extends StatelessWidget {
     return FlatButton(
       onPressed: onPressed,
       textColor: (tuxStatus != null)
-          ? tuxColor(status: tuxStatus)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: TuxColor.background_default,
+            )
           : TuxColor.background_default,
       child: listChild(),
       padding: padding,
       shape: shape,
     );
-  }
-
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.background_default;
-    }
   }
 
   Widget tuxButton() {

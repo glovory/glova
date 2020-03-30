@@ -98,27 +98,15 @@ class TuxTextFormField extends StatelessWidget {
     this.description,
   }) : this.isPrefix = false;
 
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.primary;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(primaryColor: tuxColor(status: tuxStatus)),
+      data: Theme.of(context).copyWith(
+        primaryColor: TuxColorUtils.colorByStatus(
+          tuxStatus: tuxStatus,
+          defaultColor: TuxColor.primary,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -165,7 +153,10 @@ class TuxTextFormField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(radius),
                 borderSide: BorderSide(
-                  color: tuxColor(status: tuxStatus),
+                  color: TuxColorUtils.colorByStatus(
+                    tuxStatus: tuxStatus,
+                    defaultColor: TuxColor.primary,
+                  ),
                   width: widthBorder,
                 ),
               ),

@@ -37,28 +37,14 @@ class _TuxToogleState extends State<TuxToogle>
             parent: _animationController, curve: Curves.linear));
   }
 
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.primary;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Color colorToogle;
     if (widget.enable) {
-      colorToogle = tuxColor(status: widget.tuxStatus);
+      colorToogle = TuxColorUtils.colorByStatus(
+        tuxStatus: widget.tuxStatus,
+        defaultColor: TuxColor.primary,
+      );
     } else {
       colorToogle = Colors.grey;
     }

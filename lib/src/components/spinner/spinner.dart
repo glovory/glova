@@ -40,23 +40,6 @@ class _TuxSpinnerState extends State<TuxSpinner>
     super.dispose();
   }
 
-  Color tuxColor({TuxStatus status}) {
-    switch (status) {
-      case TuxStatus.primary:
-        return TuxColor.primary;
-      case TuxStatus.success:
-        return TuxColor.success;
-      case TuxStatus.info:
-        return TuxColor.info;
-      case TuxStatus.warning:
-        return TuxColor.warning;
-      case TuxStatus.danger:
-        return TuxColor.danger;
-      default:
-        return TuxColor.primary;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -69,7 +52,10 @@ class _TuxSpinnerState extends State<TuxSpinner>
             angle: animation.value * pi * 2.0,
             child: CustomPaint(
               painter: SpinnerPainter(
-                color: tuxColor(status: widget.tuxStatus),
+                color: TuxColorUtils.colorByStatus(
+                  tuxStatus: widget.tuxStatus,
+                  defaultColor: TuxColor.primary,
+                ),
                 strokeWidth: widget.size / 6,
               ),
               isComplex: false,
