@@ -3,6 +3,7 @@ export 'package:glukutux/src/model/colors.dart';
 export 'package:glukutux/src/model/params.dart';
 
 // Components
+export 'package:glukutux/src/components/app_bar/app_bar.dart';
 export 'package:glukutux/src/components/avatar/avatar.dart';
 export 'package:glukutux/src/components/button/button.dart';
 export 'package:glukutux/src/components/card/card.dart';
