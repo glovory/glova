@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:glukutux/glukutux.dart';
 
 class TuxColor {
   static const Color black = Color(0xFF000000);
@@ -11,4 +12,23 @@ class TuxColor {
   static const Color warning = Color(0xFFf6a829);
   static const Color danger = Color(0xFFFA4938);
   static const Color background_default = Color(0xFFF7F9FC);
+}
+
+class TuxColorUtils {
+  static Color colorByStatus ({TuxStatus tuxStatus, Color defaultColor}) {
+    switch (tuxStatus) {
+      case TuxStatus.primary:
+        return TuxColor.primary;
+      case TuxStatus.success:
+        return TuxColor.success;
+      case TuxStatus.info:
+        return TuxColor.info;
+      case TuxStatus.warning:
+        return TuxColor.warning;
+      case TuxStatus.danger:
+        return TuxColor.danger;
+      default:
+        return defaultColor;
+    }
+  }
 }

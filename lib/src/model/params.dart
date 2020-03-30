@@ -27,3 +27,9 @@ enum TuxShape {
   roundedLeft,
   roundedRight
 }
+
+enum TuxCardStatus {
+  none,
+  strip,
+  header,
+}

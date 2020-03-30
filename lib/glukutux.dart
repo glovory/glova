@@ -5,6 +5,7 @@ export 'package:glukutux/src/model/params.dart';
 // Components
 export 'package:glukutux/src/components/avatar/avatar.dart';
 export 'package:glukutux/src/components/button/button.dart';
+export 'package:glukutux/src/components/card/card.dart';
 export 'package:glukutux/src/components/check_box/check_box.dart';
 export 'package:glukutux/src/components/image/image.dart';
 export 'package:glukutux/src/components/radio_button/radio_button.dart';
