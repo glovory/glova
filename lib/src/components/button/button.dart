@@ -6,13 +6,14 @@ import '../../model/params.dart';
 class TuxButton extends StatelessWidget {
   final TuxAppearance tuxAppearance;
   final TuxStatus tuxStatus;
+  final TuxShape tuxShape;
   final String label;
   final Icon leftIcon;
   final Icon rightIcon;
   final VoidCallback onPressed;
   final EdgeInsetsGeometry padding;
-  final ShapeBorder shape;
   final double elevation;
+  final double radius;
 
   const TuxButton({
     @required this.onPressed,
@@ -20,31 +21,34 @@ class TuxButton extends StatelessWidget {
     this.leftIcon,
     this.rightIcon,
     this.tuxAppearance = TuxAppearance.filled,
+    this.tuxShape = TuxShape.square,
     this.tuxStatus,
     this.padding,
-    this.shape,
+    this.radius = 12,
     this.elevation = 0.0,
   });
 
   const TuxButton.filled({
     @required this.onPressed,
     @required this.label,
+    this.tuxShape = TuxShape.square,
     this.leftIcon,
     this.rightIcon,
     this.tuxStatus,
     this.padding,
-    this.shape,
+    this.radius = 12,
     this.elevation = 0.0,
   }) : this.tuxAppearance = TuxAppearance.filled;
 
   const TuxButton.outline({
     @required this.onPressed,
     @required this.label,
+    this.tuxShape = TuxShape.square,
     this.leftIcon,
     this.rightIcon,
     this.tuxStatus,
     this.padding,
-    this.shape,
+    this.radius = 12,
     this.elevation = 0.0,
   }) : this.tuxAppearance = TuxAppearance.outline;
 
@@ -55,9 +59,62 @@ class TuxButton extends StatelessWidget {
     this.rightIcon,
     this.tuxStatus,
     this.padding,
-    this.shape,
     this.elevation = 0.0,
-  }) : this.tuxAppearance = TuxAppearance.ghost;
+  })  : this.tuxAppearance = TuxAppearance.ghost,
+        this.tuxShape = TuxShape.square,
+        this.radius = 12;
+
+  BorderSide borderSideButton() {
+    return BorderSide(
+      color: TuxColorUtils.colorByStatus(
+          tuxStatus: tuxStatus, defaultColor: TuxColor.background_default),
+    );
+  }
+
+  ShapeBorder shapeButton({TuxShape tuxShape}) {
+    switch (tuxShape) {
+      case TuxShape.square:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+          side: borderSideButton(),
+        );
+      case TuxShape.circle:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+          side: borderSideButton(),
+        );
+      case TuxShape.rounded:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+          side: borderSideButton(),
+        );
+      case TuxShape.roundedTop:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(radius)),
+          side: borderSideButton(),
+        );
+      case TuxShape.roundedBottom:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(radius)),
+          side: borderSideButton(),
+        );
+      case TuxShape.roundedLeft:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.horizontal(left: Radius.circular(radius)),
+          side: borderSideButton(),
+        );
+      case TuxShape.roundedRight:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.horizontal(right: Radius.circular(radius)),
+          side: borderSideButton(),
+        );
+      default:
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+          side: borderSideButton(),
+        );
+    }
+  }
 
   Widget listChild() {
     return Row(
@@ -93,7 +150,7 @@ class TuxButton extends StatelessWidget {
       textColor: (tuxStatus != null) ? TuxColor.white : TuxColor.black,
       child: listChild(),
       padding: padding,
-      shape: shape,
+      shape: shapeButton(tuxShape: tuxShape),
       elevation: elevation,
     );
   }
@@ -115,7 +172,7 @@ class TuxButton extends StatelessWidget {
           : TuxColor.background_default,
       child: listChild(),
       padding: padding,
-      shape: shape,
+      shape: shapeButton(tuxShape: tuxShape),
       highlightElevation: elevation,
     );
   }
@@ -131,7 +188,6 @@ class TuxButton extends StatelessWidget {
           : TuxColor.background_default,
       child: listChild(),
       padding: padding,
-      shape: shape,
     );
   }
 
