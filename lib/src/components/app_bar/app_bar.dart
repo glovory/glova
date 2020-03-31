@@ -8,20 +8,46 @@ class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final Widget leading;
   final List<Widget> actions;
+  final PreferredSizeWidget bottom;
+  final bool onlyBottom;
 
-  TuxAppBar({
+  const TuxAppBar({
     @required this.title,
     this.subtitle,
     this.centerTitle = true,
     this.leading,
     this.actions = const [],
-  });
+    this.bottom,
+  }) : this.onlyBottom = false;
+
+  const TuxAppBar.onlyBottom({
+    @required this.bottom,
+  })  : this.title = null,
+        this.subtitle = null,
+        this.centerTitle = false,
+        this.leading = null,
+        this.actions = null,
+        this.onlyBottom = true;
 
   @override
   _TuxAppBarState createState() => _TuxAppBarState();
 
   @override
-  Size get preferredSize => Size(double.infinity, kToolbarHeight);
+  Size get preferredSize => Size(double.infinity, _calculateHeight());
+
+  double _calculateHeight() {
+    double height = 0;
+    // appbar with title
+    if (!onlyBottom) {
+      height += kToolbarHeight;
+    }
+
+    // appbar with bottom
+    if (bottom != null) {
+      height += bottom.preferredSize.height;
+    }
+    return height;
+  }
 }
 
 class _TuxAppBarState extends State<TuxAppBar> {
@@ -96,31 +122,54 @@ class _TuxAppBarState extends State<TuxAppBar> {
   }
 
   Widget centerTitleAppBar(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-          alignment: Alignment.centerLeft,
-          child: leadingAppBar(context),
-        ),
-        titleAppBar(),
-        Container(
-          alignment: Alignment.centerRight,
-          child: actionsAppBar(context),
-        )
-      ],
+    return Container(
+      height: kToolbarHeight,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            child: leadingAppBar(context),
+          ),
+          titleAppBar(),
+          Container(
+            alignment: Alignment.centerRight,
+            child: actionsAppBar(context),
+          )
+        ],
+      ),
     );
   }
 
   Widget noCenterTitleAppBar(BuildContext context) {
-    return Row(
+    return Container(
+      height: kToolbarHeight,
+      child: Row(
+        children: <Widget>[
+          leadingAppBar(context),
+          titleAppBar(),
+          Expanded(
+              child: Container(
+                  alignment: Alignment.centerRight,
+                  child: actionsAppBar(context))),
+        ],
+      ),
+    );
+  }
+
+  Widget bottomAppBar() {
+    return Stack(
+      fit: StackFit.passthrough,
+      alignment: Alignment.bottomCenter,
       children: <Widget>[
-        leadingAppBar(context),
-        titleAppBar(),
-        Expanded(
-            child: Container(
-                alignment: Alignment.centerRight,
-                child: actionsAppBar(context))),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: Colors.grey, width: 3),
+            ),
+          ),
+        ),
+        widget.bottom
       ],
     );
   }
@@ -131,13 +180,24 @@ class _TuxAppBarState extends State<TuxAppBar> {
     hasDrawer = scaffold?.hasDrawer ?? false;
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: widget.centerTitle
-            ? centerTitleAppBar(context)
-            : noCenterTitleAppBar(context),
+        child: Column(
+          children: <Widget>[
+            if (!widget.onlyBottom) ...[
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: widget.centerTitle
+                    ? centerTitleAppBar(context)
+                    : noCenterTitleAppBar(context),
+              ),
+            ],
+            if (widget.bottom != null) ...[
+              bottomAppBar(),
+            ],
+          ],
+        ),
       ),
     );
   }
