@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxCheckBox extends StatefulWidget {
+  /// Controls the status and the color of checkbox.
   final TuxStatus tuxStatus;
+
+  /// Value of checkbox. true is active and false is unchecked. it can be null (intermediate)
   final bool value;
-  final ValueChanged<bool> onChanged;
+
+  /// Call this method when the user click the widget and value is changed.
+  final Function(bool) onChanged;
+
+  /// Controls of checkbox is active or not
   final bool enable;
+
+  /// Label of checkbox. on the right of checkbox.
   final String label;
 
   const TuxCheckBox({
@@ -27,10 +36,12 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
   @override
   void initState() {
     super.initState();
+    // Animation init for change the color of checkbox
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
   }
 
+  /// Value of checkbox
   bool valueCheckBox() {
     if (widget.value == null) {
       return true;
@@ -39,6 +50,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
     }
   }
 
+  /// Icon of checkbox by value
   Icon iconCheckBox() {
     if (widget.value != null) {
       return Icon(
@@ -55,6 +67,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
     }
   }
 
+  /// Color of checkbox
   Color colorCheckBox() {
     if (widget.enable) {
       return TuxColorUtils.colorByStatus(
@@ -73,6 +86,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
+            // Break operation if value of enable is false or value of checkbox is null
             if (!widget.enable || widget.value == null) {
               return;
             }
@@ -81,6 +95,8 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
             } else {
               _animationController.forward();
             }
+
+            // Change value of checkbox
             valueCheckBox() == false
                 ? widget.onChanged(true)
                 : widget.onChanged(false);
