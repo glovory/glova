@@ -4,11 +4,57 @@ UI design library implementation of Eva Design System
 
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Depend on it
+
+Add this to your package's pubspec.yaml file:
+
+```yaml
+dependencies:
+  glukutux:
+      git:
+        url: https://github.com/glovory/glukutux.git
+```
+
+
+### Install it
+
+You can install packages from the command line:
+
+```bash
+$ flutter pub get
+```
+
+
+### Import it
+
+Now in your Dart code, you can use:
+
+```dart
+import 'package:glukutux/glukutux.dart';
+```
+
+
+### Use it
+
+Every widget in **Glukutux** is prefixed with `Tux`. For example, `TuxButton`, `TuxCard`, etc.
+
+```dart
+TuxButton(
+  onPressed: () {},
+  label: 'Hallo Glukutux',
+  tuxStatus: TuxStatus.primary,
+  tuxAppearance: TuxAppearance.filled,
+  tuxShape: TuxShape.circle,
+),
+```
+
+
+## Icons
+
+The [Eva Icons Flutter](https://github.com/piyushmaurya23/eva_icons_flutter) package is already integrated into Glukutux, so you can use it right away by using `EvaIcons`.
+
+
+## From Developers
+Made with :heart: by **Glovory**
+
