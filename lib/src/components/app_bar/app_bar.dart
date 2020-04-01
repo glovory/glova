@@ -2,13 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../../../glukutux.dart';
 
+/// Displayed on top of page. You can also use it with [TuxAppBar.onlyBottom] if you want no title.
 class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
+  /// Title of page.
   final String title;
+
+  /// Subtitle of page under the title. this is optional.
   final String subtitle;
+
+  /// If you want the title in the center, you can set true. default true.
   final bool centerTitle;
+
+  /// A widget on the left. usually a icon.
   final Widget leading;
+
+  /// Widgets on the right. usually a list of icon.
   final List<Widget> actions;
+
+  /// Widget on the botom. usually use [TuxTabBar].
   final PreferredSizeWidget bottom;
+
+  /// Value if you want no title, this is true,
   final bool onlyBottom;
 
   const TuxAppBar({
@@ -35,14 +49,14 @@ class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size(double.infinity, _calculateHeight());
 
+  /// Logic for height the appbar
   double _calculateHeight() {
     double height = 0;
-    // appbar with title
+    // Appbar with title
     if (!onlyBottom) {
       height += kToolbarHeight;
     }
-
-    // appbar with bottom
+    // Appbar with bottom
     if (bottom != null) {
       height += bottom.preferredSize.height;
     }
@@ -53,6 +67,10 @@ class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _TuxAppBarState extends State<TuxAppBar> {
   bool hasDrawer = false;
 
+  /// Widget leading, on the left of appbar.
+  /// Can be null. if user use drawer, it display menu icon.
+  /// If user on the next page, it display arrowback icon.
+  /// But if leading not null, it display the widget leading
   Widget leadingAppBar(BuildContext context) {
     if (widget.leading != null) {
       return Container(
@@ -82,6 +100,8 @@ class _TuxAppBarState extends State<TuxAppBar> {
     }
   }
 
+  /// Widget title, by default on the center of appbar, can also be on the right leading or on the left of appbar if leading null
+  /// Subtitle under ther title.it can be null.
   Widget titleAppBar() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -110,6 +130,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
     );
   }
 
+  /// Widget leading, on the right of appbar. can be null
   Widget actionsAppBar(BuildContext context) {
     if (widget.actions != null) {
       return Row(
@@ -121,6 +142,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
     }
   }
 
+  /// Display this widget if value of centerTitle is true
   Widget centerTitleAppBar(BuildContext context) {
     return Container(
       height: kToolbarHeight,
@@ -141,6 +163,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
     );
   }
 
+  /// Display this widget if value of centerTitlte is false
   Widget noCenterTitleAppBar(BuildContext context) {
     return Container(
       height: kToolbarHeight,
@@ -157,6 +180,8 @@ class _TuxAppBarState extends State<TuxAppBar> {
     );
   }
 
+  /// Display this widget if bottom not null
+  /// This widget under the appbar
   Widget bottomAppBar() {
     return Stack(
       fit: StackFit.passthrough,
@@ -185,6 +210,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
         ),
         child: Column(
           children: <Widget>[
+            // if onlyBottom is false, means appbar without title
             if (!widget.onlyBottom) ...[
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -193,6 +219,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
                     : noCenterTitleAppBar(context),
               ),
             ],
+            // if widget bottom not null, show bottomAppbar
             if (widget.bottom != null) ...[
               bottomAppBar(),
             ],
