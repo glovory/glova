@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxTextFormField extends StatelessWidget {
+  /// Using parameter from TextFormField, Material.
   final TextEditingController controller;
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
@@ -50,6 +51,7 @@ class TuxTextFormField extends StatelessWidget {
     this.description,
   });
 
+  /// Text with Icon on the left
   const TuxTextFormField.withPrefixIcon({
     this.controller,
     this.keyboardType,
@@ -74,6 +76,7 @@ class TuxTextFormField extends StatelessWidget {
     this.description,
   }) : this.isPrefix = true;
 
+  /// Text with Icon on the right
   const TuxTextFormField.withSuffixIcon({
     this.controller,
     this.keyboardType,
@@ -110,6 +113,7 @@ class TuxTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          // show label if not null
           if (label != null) ...[
             Text(
               label.toUpperCase(),
@@ -133,6 +137,7 @@ class TuxTextFormField extends StatelessWidget {
             onSaved: onSaved,
             validator: validator,
             enabled: enabled,
+            // decoration by status
             decoration: InputDecoration(
               prefixIcon: (isPrefix) ? icon : null,
               suffixIcon: (!isPrefix) ? icon : null,
@@ -180,6 +185,7 @@ class TuxTextFormField extends StatelessWidget {
               hintText: hint,
             ),
           ),
+          // show description if not null
           if (description != null) ...[
             SizedBox(height: 6.0),
             Text(
