@@ -4,15 +4,34 @@ import 'package:glukutux/src/model/colors.dart';
 import '../../model/params.dart';
 
 class TuxButton extends StatelessWidget {
+  /// Controls the appearance of button. It can be either filled, outline, or ghost.
   final TuxAppearance tuxAppearance;
+
+  /// Controls the status and the color of button.
   final TuxStatus tuxStatus;
+
+  /// Controls the shape of button
   final TuxShape tuxShape;
+
+  /// Label of button
   final String label;
+
+  /// Icon on the left of button
   final Icon leftIcon;
+
+  /// Icon on the right of button
   final Icon rightIcon;
+
+  /// Call this method when the button is pressed
   final VoidCallback onPressed;
+
+  /// Padding to use inside the button.
   final EdgeInsetsGeometry padding;
+
+  /// Elevation to use shadow of button.
   final double elevation;
+
+  /// Radius to use rounded of button.
   final double radius;
 
   const TuxButton({
@@ -64,13 +83,17 @@ class TuxButton extends StatelessWidget {
         this.tuxShape = TuxShape.square,
         this.radius = 12;
 
+  /// Color of border side by status
   BorderSide borderSideButton() {
     return BorderSide(
       color: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus, defaultColor: TuxColor.background_default),
+        tuxStatus: tuxStatus,
+        defaultColor: TuxColor.background_default,
+      ),
     );
   }
 
+  /// Shape of widget
   ShapeBorder shapeButton({TuxShape tuxShape}) {
     switch (tuxShape) {
       case TuxShape.square:
@@ -116,6 +139,7 @@ class TuxButton extends StatelessWidget {
     }
   }
 
+  /// Widget inside the button
   Widget listChild() {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -140,6 +164,7 @@ class TuxButton extends StatelessWidget {
     );
   }
 
+  /// Display this widget if appearance is filled
   Widget buttonFilled() {
     return RaisedButton(
       onPressed: onPressed,
@@ -155,6 +180,7 @@ class TuxButton extends StatelessWidget {
     );
   }
 
+  /// Display this widget if appearance is outline
   Widget buttonOutline() {
     return OutlineButton(
       onPressed: onPressed,
@@ -177,6 +203,7 @@ class TuxButton extends StatelessWidget {
     );
   }
 
+  /// Display this widget if appearance is ghost
   Widget buttonGhost() {
     return FlatButton(
       onPressed: onPressed,
@@ -191,6 +218,7 @@ class TuxButton extends StatelessWidget {
     );
   }
 
+  /// Button by appearance
   Widget tuxButton() {
     switch (tuxAppearance) {
       case TuxAppearance.filled:
