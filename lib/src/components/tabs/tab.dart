@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TuxTab extends StatelessWidget {
+  /// Icon of tab
   final IconData icon;
+
+  /// Label of tab
   final String text;
 
   const TuxTab({
@@ -13,8 +16,11 @@ class TuxTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Tab(
+        // set margin to 4
         iconMargin: EdgeInsets.all(4),
+        // display icon if icon not null
         icon: (icon != null) ? Icon(icon) : null,
+        // display lable if text is not null and text is not empty
         text: (text != null && text.isNotEmpty) ? text : null,
       ),
     );
