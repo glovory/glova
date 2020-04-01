@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxRadioButton extends StatefulWidget {
+  /// Controls the status and the color of radio button
   final TuxStatus tuxStatus;
+
+  /// List of value from radio button
   final List radioValues;
+
+  /// List of label from radio button
   final List<String> radioLables;
-  final ValueChanged<dynamic> onChanged;
+
+  /// Call this method when the value is changed
+  final Function(dynamic) onChanged;
+
+  /// Direction of radio button. direction is horizontal if the value is true, and vertical if the value false
   final bool horizontal;
+
+  /// Controls of radio button is active or not
   final bool enabled;
 
   const TuxRadioButton({
@@ -31,7 +42,9 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     currentSelectedLabel = widget.radioLables[0];
   }
 
+  /// Function for change the value
   void changeValue(dynamic value, int index) {
+    // Break operation if value of enable is false
     if (!widget.enabled) {
       return;
     }
@@ -41,6 +54,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     });
   }
 
+  /// Color of radio
   Color colorRadio() {
     if (widget.enabled) {
       return TuxColorUtils.colorByStatus(
@@ -52,7 +66,8 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     }
   }
 
-  List<Widget> buildRadioRow() {
+  /// Display widget radio with label
+  List<Widget> buildRadio() {
     List<Widget> radio = [];
     for (int index = 0; index < widget.radioLables.length; index++) {
       radio.add(
@@ -86,14 +101,18 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     return Theme(
       data: Theme.of(context).copyWith(unselectedWidgetColor: colorRadio()),
       child: (widget.horizontal)
-          ? Row(
+          ?
+          // horizontal direction
+          Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: buildRadioRow(),
+              children: buildRadio(),
             )
-          : IntrinsicWidth(
+          :
+          // vertical direction
+          IntrinsicWidth(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: buildRadioRow(),
+                children: buildRadio(),
               ),
             ),
     );
