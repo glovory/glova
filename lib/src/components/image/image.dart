@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxImage extends StatelessWidget {
+  /// Controls the shape of image. default is square(rectangle)
   final TuxShape tuxShape;
+
+  /// Image to display.
   final Widget image;
-  final double radius; // use radius if tuxshape is rounded
+
+  /// Radius to use rounded image. default is 20.
+  final double radius;
 
   const TuxImage({
     this.tuxShape = TuxShape.square,
@@ -47,6 +52,7 @@ class TuxImage extends StatelessWidget {
     this.radius = 20,
   }) : this.tuxShape = TuxShape.roundedRight;
 
+  /// Display image by shape
   Widget child({TuxShape shape}) {
     switch (shape) {
       case TuxShape.circle:
