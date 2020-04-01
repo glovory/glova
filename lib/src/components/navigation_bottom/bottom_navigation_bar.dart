@@ -4,10 +4,17 @@ import 'package:glukutux/src/components/navigation_bottom/bottom_navigation_bar_
 import '../../../glukutux.dart';
 
 class TuxBottomNavigationBar extends StatelessWidget {
+  /// Controls the status and the color of the selected icon and text from bottomnavigation.
   final TuxStatus tuxStatus;
+
+  /// To use selected index value. default is 0.
   final int selectedIndex;
+
+  /// List item of bottomnavigation.
   final List<TuxBottomNavigationBarItem> items;
-  final ValueChanged<int> onItemSelected;
+
+  /// Call this method when the selected index value is change.
+  final Function(int) onItemSelected;
 
   const TuxBottomNavigationBar({
     this.tuxStatus = TuxStatus.primary,
@@ -28,12 +35,15 @@ class TuxBottomNavigationBar extends StatelessWidget {
           children: items.map((item) {
             var index = items.indexOf(item);
             return GestureDetector(
+              // call method onItemSelected when user tap this widget
               onTap: () => onItemSelected(index),
               child: Container(
                 height: double.infinity,
+                // The width is the width of screen minus the number of items
                 width: MediaQuery.of(context).size.width / items.length,
                 child: Stack(
                   children: <Widget>[
+                    // Line of bottom navigation
                     Container(
                       color: (selectedIndex == index)
                           ? TuxColorUtils.colorByStatus(
@@ -42,11 +52,15 @@ class TuxBottomNavigationBar extends StatelessWidget {
                           : Colors.grey,
                       height: 3,
                     ),
+                    // Widget of bottom navigation
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(height: 3,),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          // Show Icon if icon not null
                           if (item.icon != null) ...[
                             Icon(
                               item.icon,
@@ -57,6 +71,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                                   : Colors.grey,
                             ),
                           ],
+                          // Show title if title not null and title is not empty
                           if (item.title != null && item.title.isNotEmpty) ...[
                             Text(
                               item.title,
