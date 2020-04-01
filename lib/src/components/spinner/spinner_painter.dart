@@ -5,7 +5,10 @@ import 'package:flutter/widgets.dart';
 class SpinnerPainter extends CustomPainter {
   SpinnerPainter({this.color, this.strokeWidth});
 
+  /// Color of spinner
   final Color color;
+
+  /// width of spinner
   final double strokeWidth;
 
   @override

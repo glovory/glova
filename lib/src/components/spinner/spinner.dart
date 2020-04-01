@@ -6,7 +6,10 @@ import 'package:glukutux/src/components/spinner/spinner_painter.dart';
 import '../../../glukutux.dart';
 
 class TuxSpinner extends StatefulWidget {
+  /// Controls the status and the color of spinner.
   final TuxStatus tuxStatus;
+
+  /// Size of spinner. default is 30.
   final double size;
 
   TuxSpinner({
@@ -25,9 +28,11 @@ class _TuxSpinnerState extends State<TuxSpinner>
 
   initState() {
     super.initState();
+    // init animation controller
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
 
+    // init animation
     animation = CurvedAnimation(
         curve: Cubic(0.275, 0.725, 0.725, 0.275), parent: animationController);
 
@@ -35,7 +40,9 @@ class _TuxSpinnerState extends State<TuxSpinner>
   }
 
   dispose() {
+    // stop animation controller
     animationController.stop();
+    // dispose animation controller
     animationController.dispose();
     super.dispose();
   }
@@ -56,6 +63,7 @@ class _TuxSpinnerState extends State<TuxSpinner>
                   tuxStatus: widget.tuxStatus,
                   defaultColor: TuxColor.primary,
                 ),
+                // Set strokeWidth by size divided 6
                 strokeWidth: widget.size / 6,
               ),
               isComplex: false,
