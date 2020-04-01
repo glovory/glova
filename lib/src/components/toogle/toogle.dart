@@ -4,9 +4,16 @@ import 'package:flutter/material.dart';
 import '../../../glukutux.dart';
 
 class TuxToogle extends StatefulWidget {
+  /// Controls the status and the color of toogle.
   final TuxStatus tuxStatus;
+
+  /// Value of toogle.
   final bool value;
-  final ValueChanged<bool> onChanged;
+
+  /// Call this methos when user click the widget and value is changed.
+  final Function(bool) onChanged;
+
+  /// Controls of toogle is active or not
   final bool enable;
 
   const TuxToogle({
@@ -28,8 +35,10 @@ class _TuxToogleState extends State<TuxToogle>
   @override
   void initState() {
     super.initState();
+    // init animation controller
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+    // init animation
     _circleAnimation = AlignmentTween(
             begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
             end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
@@ -37,22 +46,26 @@ class _TuxToogleState extends State<TuxToogle>
             parent: _animationController, curve: Curves.linear));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Color colorToogle;
+  /// Color of toogle
+  Color colorToogle() {
     if (widget.enable) {
-      colorToogle = TuxColorUtils.colorByStatus(
+      return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
         defaultColor: TuxColor.primary,
       );
     } else {
-      colorToogle = Colors.grey;
+      return Colors.grey;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
+            // break operation if enable is false
             if (!widget.enable) {
               return;
             }
@@ -61,6 +74,7 @@ class _TuxToogleState extends State<TuxToogle>
             } else {
               _animationController.forward();
             }
+            // change the value of toogle when user is tapped
             widget.value == false
                 ? widget.onChanged(true)
                 : widget.onChanged(false);
@@ -71,8 +85,8 @@ class _TuxToogleState extends State<TuxToogle>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: _circleAnimation.value == Alignment.centerLeft
-                    ? colorToogle.withOpacity(0.3)
-                    : colorToogle),
+                    ? colorToogle().withOpacity(0.3)
+                    : colorToogle()),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -94,7 +108,7 @@ class _TuxToogleState extends State<TuxToogle>
                         ? Icon(
                             EvaIcons.checkmark,
                             size: 25,
-                            color: colorToogle,
+                            color: colorToogle(),
                           )
                         : null,
                   ),
