@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxAvatar extends StatelessWidget {
+  /// Controls the type of the avatar. It can be either circle, square, or rounded.
   final TuxImageAvatar tuxImageAvatar;
+
+  /// Image to display avatar.
   final Widget image;
-  final double radius; // use radius if tuximageavatar is rounded
+
+  /// Radius to use rounded image. default is 20.
+  final double radius;
 
   const TuxAvatar({
     this.tuxImageAvatar = TuxImageAvatar.circle,
@@ -27,6 +32,7 @@ class TuxAvatar extends StatelessWidget {
     this.radius = 20,
   }) : this.tuxImageAvatar = TuxImageAvatar.rounded;
 
+  /// Display image by type from tuxImageAvatar
   Widget child({TuxImageAvatar avatar}) {
     switch (avatar) {
       case TuxImageAvatar.circle:
