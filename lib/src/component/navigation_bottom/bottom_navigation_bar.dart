@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/components/navigation_bottom/bottom_navigation_bar_item.dart';
 
 import '../../../glukutux.dart';
 

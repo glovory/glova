@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/components/spinner/spinner_painter.dart';
+import 'package:glukutux/src/component/spinner/spinner_painter.dart';
 
 import '../../../glukutux.dart';
 
