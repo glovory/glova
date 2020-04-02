@@ -160,7 +160,8 @@ class TuxTextFormField extends StatelessWidget {
                 borderSide: BorderSide(
                   color: TuxColorUtils.colorByStatus(
                     tuxStatus: tuxStatus,
-                    defaultColor: TuxColor.primary,
+                    defaultColor: Theme.of(context)
+                        .buttonColor, // change color from theme
                   ),
                   width: widthBorder,
                 ),

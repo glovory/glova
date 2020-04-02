@@ -25,6 +25,7 @@ class TuxTheme {
     /// disable checkbox
     /// disable radio button
     /// default select color
+    /// default text form field
     buttonColor: TuxColor.basic_300,
     textTheme: TuxTextStyle.tuxLight(),
   );
@@ -51,6 +52,7 @@ class TuxTheme {
     /// disable checkbox
     /// disable radio button
     /// default select color
+    /// default text form field
     buttonColor: TuxColor.basic_1000,
 
     textTheme: TuxTextStyle.tuxDark(),
