@@ -27,11 +27,11 @@ class TuxTabBar extends StatelessWidget implements PreferredSizeWidget {
       isScrollable: isScrollable,
       controller: controller,
       indicatorColor: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus, defaultColor: TuxColor.background_default),
+          tuxStatus: tuxStatus, defaultColor: TuxColor.primary),
       indicatorWeight: 2,
       labelColor: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus, defaultColor: TuxColor.background_default),
-      unselectedLabelColor: Colors.grey,
+          tuxStatus: tuxStatus, defaultColor: TuxColor.primary),
+      unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
       tabs: tabs,
     );
   }

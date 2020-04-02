@@ -108,21 +108,15 @@ class _TuxAppBarState extends State<TuxAppBar> {
       children: <Widget>[
         Text(
           widget.title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: Color(0xff1a2138),
-          ),
+          // use style title from theme
+          style: Theme.of(context).textTheme.title,
           textAlign: TextAlign.center,
         ),
         if (widget.subtitle != null) ...[
           Text(
             widget.subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Color(0xff8f9bb3),
-            ),
+            // use style caption from theme
+            style: Theme.of(context).textTheme.caption,
             textAlign: TextAlign.center,
           ),
         ],
@@ -190,7 +184,10 @@ class _TuxAppBarState extends State<TuxAppBar> {
         Container(
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: Colors.grey, width: 3),
+              bottom: BorderSide(
+                  // use unselectedWidgetColor from theme
+                  color: Theme.of(context).unselectedWidgetColor,
+                  width: 2),
             ),
           ),
         ),
@@ -206,7 +203,8 @@ class _TuxAppBarState extends State<TuxAppBar> {
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          // use backgroundColor from theme
+          color: Theme.of(context).backgroundColor,
         ),
         child: Column(
           children: <Widget>[
