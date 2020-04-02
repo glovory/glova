@@ -12,6 +12,18 @@ class TuxColor {
   static const Color warning = Color(0xFFf6a829);
   static const Color danger = Color(0xFFFA4938);
   static const Color background_default = Color(0xFFF7F9FC);
+
+  static const Color basic_100 = Color(0xFFffffff);
+  static const Color basic_200 = Color(0xFFf7f9fc);
+  static const Color basic_300 = Color(0xFFedf1f7);
+  static const Color basic_400 = Color(0xFFe4e9f2);
+  static const Color basic_500 = Color(0xFFc5cee0);
+  static const Color basic_600 = Color(0xFF8f9bb3);
+  static const Color basic_700 = Color(0xFF2e3a59);
+  static const Color basic_800 = Color(0xFF222b45);
+  static const Color basic_900 = Color(0xFF1a2138);
+  static const Color basic_1000 = Color(0xFF151a30);
+  static const Color basic_1100 = Color(0xFF101426);
 }
 
 class TuxColorUtils {
