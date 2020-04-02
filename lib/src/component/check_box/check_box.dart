@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
+import 'package:meta/meta.dart';
 
 class TuxCheckBox extends StatefulWidget {
   /// Controls the status and the color of checkbox.
@@ -19,7 +20,7 @@ class TuxCheckBox extends StatefulWidget {
 
   const TuxCheckBox({
     this.tuxStatus = TuxStatus.primary,
-    this.value,
+    @required this.value,
     this.onChanged,
     this.enable = true,
     this.label,
@@ -75,7 +76,8 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
         defaultColor: TuxColor.primary,
       );
     } else {
-      return Colors.grey;
+      // change color to button color from theme
+      return Theme.of(context).buttonColor;
     }
   }
 
@@ -110,7 +112,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: colorCheckBox().withOpacity(0.1),
+                    color: colorCheckBox(),
                   ),
                   color: valueCheckBox()
                       ? colorCheckBox()

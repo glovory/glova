@@ -19,6 +19,7 @@ class TuxTheme {
     /// This color use to
     /// default button color
     /// divider of card
+    /// disable checkbox
     buttonColor: TuxColor.basic_300,
     textTheme: TuxTextStyle.tuxLight(),
   );
@@ -39,6 +40,7 @@ class TuxTheme {
     /// This color use to
     /// default button color
     /// divider of card
+    /// disable checkbox
     buttonColor: TuxColor.basic_1000,
 
     textTheme: TuxTextStyle.tuxDark(),
