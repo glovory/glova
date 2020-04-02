@@ -27,7 +27,7 @@ class TuxCard extends StatelessWidget {
   });
 
   /// Display this widget if cardstatus is none
-  Widget noneCard() {
+  Widget noneCard(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -40,14 +40,15 @@ class TuxCard extends StatelessWidget {
         ),
         Container(
           height: 1,
-          color: Colors.grey[200],
+          // change color to button color from theme
+          color: Theme.of(context).buttonColor,
         ),
       ],
     );
   }
 
   /// Display this widget if cardstatus is strip
-  Widget stripCard() {
+  Widget stripCard(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -67,14 +68,15 @@ class TuxCard extends StatelessWidget {
         ),
         Container(
           height: 1,
-          color: Colors.grey[200],
+          // change color to button color from theme
+          color: Theme.of(context).buttonColor,
         ),
       ],
     );
   }
 
   /// Display this widget if cardstatus is header
-  Widget headerCard() {
+  Widget headerCard(BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -110,13 +112,14 @@ class TuxCard extends StatelessWidget {
   }
 
   /// Display this widget if footer not null
-  Widget showFooter() {
+  Widget showFooter(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
           height: 1,
-          color: Colors.grey[200],
+          // change color to button color from theme
+          color: Theme.of(context).buttonColor,
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -127,16 +130,16 @@ class TuxCard extends StatelessWidget {
   }
 
   /// Card header by cardstatus
-  Widget showHeader({TuxCardStatus cardStatus}) {
+  Widget showHeader(BuildContext context, {TuxCardStatus cardStatus}) {
     switch (cardStatus) {
       case TuxCardStatus.none:
-        return noneCard();
+        return noneCard(context);
       case TuxCardStatus.strip:
-        return stripCard();
+        return stripCard(context);
       case TuxCardStatus.header:
-        return headerCard();
+        return headerCard(context);
       default:
-        return noneCard();
+        return noneCard(context);
     }
   }
 
@@ -149,16 +152,17 @@ class TuxCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(4)),
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
+//              color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   if (header != null && header.isNotEmpty) ...[
-                    showHeader(cardStatus: tuxCardStatus),
+                    showHeader(context, cardStatus: tuxCardStatus),
                   ],
                   showBody(),
                   if (footer != null && footer.isNotEmpty) ...[
-                    showFooter(),
+                    showFooter(context),
                   ],
                 ],
               ),
