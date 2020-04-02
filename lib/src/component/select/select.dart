@@ -29,7 +29,7 @@ class TuxSelect extends StatefulWidget {
   TuxSelect({
     @required this.items,
     @required this.onSelect,
-    this.hint,
+    this.hint = '',
     this.radius = 0,
     this.width = 1,
     this.padding = const EdgeInsets.all(12),
@@ -85,7 +85,7 @@ class _TuxSelectState extends State<TuxSelect>
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(widget.radius),
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
             ),
             padding: EdgeInsets.all(20),
             alignment: Alignment.topLeft,
@@ -103,10 +103,7 @@ class _TuxSelectState extends State<TuxSelect>
                   },
                   child: Text(
                     item,
-                    style: TextStyle(
-                        color: TuxColor.black,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal),
+                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal),
                   ),
                 );
               }).toList(),
@@ -159,7 +156,8 @@ class _TuxSelectState extends State<TuxSelect>
                 width: widget.width,
                 color: TuxColorUtils.colorByStatus(
                   tuxStatus: widget.tuxStatus,
-                  defaultColor: TuxColor.primary,
+                  defaultColor:
+                      Theme.of(context).buttonColor, // button color from theme
                 ),
               ),
       ),
@@ -173,7 +171,10 @@ class _TuxSelectState extends State<TuxSelect>
               child: Text(
                 value != null ? value : widget.hint,
                 style: TextStyle(
-                    color: (value != null) ? TuxColor.black : Colors.grey),
+                  color: (value != null)
+                      ? null // default from theme
+                      : Theme.of(context).hintColor, // change to hint color
+                ),
               ),
             ),
             AnimatedBuilder(
@@ -182,7 +183,6 @@ class _TuxSelectState extends State<TuxSelect>
                 angle: _arrowAnimation.value,
                 child: Icon(
                   Icons.expand_more,
-                  color: Colors.black,
                 ),
               ),
             ),

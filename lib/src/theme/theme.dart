@@ -8,7 +8,10 @@ class TuxTheme {
     fontFamily: 'Roboto',
     primaryColor: TuxColor.primary,
 
-    /// This color use to appbar
+    /// This color use to
+    /// appbar
+    /// bottom navigation
+    /// overlay of select
     backgroundColor: TuxColor.basic_100,
 
     /// This color use to
@@ -21,6 +24,7 @@ class TuxTheme {
     /// divider of card
     /// disable checkbox
     /// disable radio button
+    /// default select color
     buttonColor: TuxColor.basic_300,
     textTheme: TuxTextStyle.tuxLight(),
   );
@@ -30,7 +34,10 @@ class TuxTheme {
     fontFamily: 'Roboto',
     primaryColor: TuxColor.primary,
 
-    /// This color use to appbar
+    /// This color use to
+    /// appbar
+    /// bottom navigation
+    /// overlay of select
     backgroundColor: TuxColor.basic_1000,
 
     /// This color use to
@@ -43,6 +50,7 @@ class TuxTheme {
     /// divider of card
     /// disable checkbox
     /// disable radio button
+    /// default select color
     buttonColor: TuxColor.basic_1000,
 
     textTheme: TuxTextStyle.tuxDark(),
