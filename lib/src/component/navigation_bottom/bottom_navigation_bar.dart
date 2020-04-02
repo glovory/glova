@@ -28,7 +28,8 @@ class TuxBottomNavigationBar extends StatelessWidget {
       child: Container(
         height: kBottomNavigationBarHeight,
         decoration: BoxDecoration(
-          color: Colors.white,
+          // change color to background color from theme
+          color: Theme.of(context).backgroundColor,
         ),
         child: Row(
           children: items.map((item) {
@@ -48,7 +49,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                           ? TuxColorUtils.colorByStatus(
                               tuxStatus: tuxStatus,
                               defaultColor: TuxColor.primary)
-                          : Colors.grey,
+                          : Theme.of(context).unselectedWidgetColor,
                       height: 3,
                     ),
                     // Widget of bottom navigation
@@ -67,7 +68,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                                   ? TuxColorUtils.colorByStatus(
                                       tuxStatus: tuxStatus,
                                       defaultColor: TuxColor.primary)
-                                  : Colors.grey,
+                                  : null, // default color from theme
                             ),
                           ],
                           // Show title if title not null and title is not empty
@@ -80,7 +81,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                                     ? TuxColorUtils.colorByStatus(
                                         tuxStatus: tuxStatus,
                                         defaultColor: TuxColor.primary)
-                                    : Colors.grey,
+                                    : null, // default color from theme
                               ),
                             ),
                           ]
