@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 import '../../../glukutux.dart';
 
@@ -18,8 +19,8 @@ class TuxToogle extends StatefulWidget {
 
   const TuxToogle({
     this.tuxStatus = TuxStatus.primary,
-    this.value,
-    this.onChanged,
+    @required this.value,
+    @required this.onChanged,
     this.enable = true,
   });
 
@@ -48,13 +49,14 @@ class _TuxToogleState extends State<TuxToogle>
 
   /// Color of toogle
   Color colorToogle() {
-    if (widget.enable) {
+    if (widget.enable && widget.onChanged != null) {
       return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
         defaultColor: TuxColor.primary,
       );
     } else {
-      return Colors.grey;
+      // change color from theme if disable
+      return Theme.of(context).buttonColor;
     }
   }
 
@@ -66,7 +68,7 @@ class _TuxToogleState extends State<TuxToogle>
         return GestureDetector(
           onTap: () {
             // break operation if enable is false
-            if (!widget.enable) {
+            if (!widget.enable || widget.onChanged == null) {
               return;
             }
             if (_animationController.isCompleted) {
