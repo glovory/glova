@@ -24,7 +24,7 @@ class TuxRadioButton extends StatefulWidget {
     this.tuxStatus = TuxStatus.primary,
     @required this.radioLables,
     @required this.radioValues,
-    this.onChanged,
+    @required this.onChanged,
     this.horizontal = false,
     this.enabled = true,
   });
@@ -44,8 +44,8 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
 
   /// Function for change the value
   void changeValue(dynamic value, int index) {
-    // Break operation if value of enable is false
-    if (!widget.enabled) {
+    // Break operation if value of enable is false or onchanged is null
+    if (!widget.enabled || widget.onChanged == null) {
       return;
     }
     widget.onChanged(widget.radioValues[index]);
@@ -56,13 +56,14 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
 
   /// Color of radio
   Color colorRadio() {
-    if (widget.enabled) {
+    if (widget.enabled && widget.onChanged != null) {
       return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
         defaultColor: TuxColor.primary,
       );
     } else {
-      return Colors.grey;
+      // change color to button color from theme
+      return Theme.of(context).buttonColor;
     }
   }
 

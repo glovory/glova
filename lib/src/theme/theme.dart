@@ -20,6 +20,7 @@ class TuxTheme {
     /// default button color
     /// divider of card
     /// disable checkbox
+    /// disable radio button
     buttonColor: TuxColor.basic_300,
     textTheme: TuxTextStyle.tuxLight(),
   );
@@ -41,6 +42,7 @@ class TuxTheme {
     /// default button color
     /// divider of card
     /// disable checkbox
+    /// disable radio button
     buttonColor: TuxColor.basic_1000,
 
     textTheme: TuxTextStyle.tuxDark(),
