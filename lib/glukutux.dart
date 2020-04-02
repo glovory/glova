@@ -2,12 +2,16 @@
 export 'package:glukutux/src/model/colors.dart';
 export 'package:glukutux/src/model/params.dart';
 
+// Theme
+export 'package:glukutux/src/theme/theme.dart';
+
 // Components
 export 'package:glukutux/src/component/app_bar/app_bar.dart';
 export 'package:glukutux/src/component/avatar/avatar.dart';
 export 'package:glukutux/src/component/button/button.dart';
 export 'package:glukutux/src/component/card/card.dart';
 export 'package:glukutux/src/component/check_box/check_box.dart';
+export 'package:glukutux/src/component/global/glukutux_app.dart';
 export 'package:glukutux/src/component/image/image.dart';
 export 'package:glukutux/src/component/navigation_bottom/bottom_navigation_bar.dart';
 export 'package:glukutux/src/component/navigation_bottom/bottom_navigation_bar_item.dart';
