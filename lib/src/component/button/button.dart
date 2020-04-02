@@ -84,57 +84,57 @@ class TuxButton extends StatelessWidget {
         this.radius = 12;
 
   /// Color of border side by status
-  BorderSide borderSideButton() {
+  BorderSide borderSideButton(BuildContext context) {
     return BorderSide(
       color: TuxColorUtils.colorByStatus(
         tuxStatus: tuxStatus,
-        defaultColor: TuxColor.background_default,
+        defaultColor: Theme.of(context).buttonColor,
       ),
     );
   }
 
   /// Shape of widget
-  ShapeBorder shapeButton({TuxShape tuxShape}) {
+  ShapeBorder shapeButton(BuildContext context, {TuxShape tuxShape}) {
     switch (tuxShape) {
       case TuxShape.square:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.circle:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.rounded:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.roundedTop:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(radius)),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.roundedBottom:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(radius)),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.roundedLeft:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.horizontal(left: Radius.circular(radius)),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       case TuxShape.roundedRight:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.horizontal(right: Radius.circular(radius)),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
       default:
         return RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
-          side: borderSideButton(),
+          side: borderSideButton(context),
         );
     }
   }
@@ -165,75 +165,82 @@ class TuxButton extends StatelessWidget {
   }
 
   /// Display this widget if appearance is filled
-  Widget buttonFilled() {
+  Widget buttonFilled(BuildContext context) {
     return RaisedButton(
       onPressed: onPressed,
+      // set default color to button color from theme
       color: TuxColorUtils.colorByStatus(
         tuxStatus: tuxStatus,
-        defaultColor: TuxColor.background_default,
+        defaultColor: Theme.of(context).buttonColor,
       ),
-      textColor: (tuxStatus != null) ? TuxColor.white : TuxColor.black,
+      // change text color to unselected color from theme if tuxstatus is null
+      textColor: (tuxStatus != null)
+          ? TuxColor.white
+          : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,
-      shape: shapeButton(tuxShape: tuxShape),
+      shape: shapeButton(context, tuxShape: tuxShape),
       elevation: elevation,
     );
   }
 
   /// Display this widget if appearance is outline
-  Widget buttonOutline() {
+  Widget buttonOutline(BuildContext context) {
     return OutlineButton(
       onPressed: onPressed,
       borderSide: BorderSide(
+        // set default color of border color to unselectedwidget color from theme
         color: TuxColorUtils.colorByStatus(
           tuxStatus: tuxStatus,
-          defaultColor: TuxColor.background_default,
+          defaultColor: Theme.of(context).unselectedWidgetColor,
         ),
       ),
+      // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
               tuxStatus: tuxStatus,
-              defaultColor: TuxColor.background_default,
+              defaultColor: Theme.of(context).buttonColor,
             )
-          : TuxColor.background_default,
+          : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,
-      shape: shapeButton(tuxShape: tuxShape),
+      shape: shapeButton(context, tuxShape: tuxShape),
       highlightElevation: elevation,
     );
   }
 
   /// Display this widget if appearance is ghost
-  Widget buttonGhost() {
+  Widget buttonGhost(BuildContext context) {
     return FlatButton(
       onPressed: onPressed,
+      // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
               tuxStatus: tuxStatus,
-              defaultColor: TuxColor.background_default,
+              defaultColor: Theme.of(context).buttonColor,
             )
-          : TuxColor.background_default,
+          : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,
     );
   }
 
   /// Button by appearance
-  Widget tuxButton() {
+  Widget tuxButton(BuildContext context) {
     switch (tuxAppearance) {
       case TuxAppearance.filled:
-        return buttonFilled();
+        return buttonFilled(context);
       case TuxAppearance.outline:
-        return buttonOutline();
+        return buttonOutline(context);
       case TuxAppearance.ghost:
-        return buttonGhost();
+        return buttonGhost(context);
       default:
-        return buttonFilled();
+        return buttonFilled(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return tuxButton();
+    return tuxButton(context);
   }
 }
