@@ -37,7 +37,7 @@ import 'package:glukutux/glukutux.dart';
 
 ### Setup
 
-You have to replace `MaterialApp` or `CupertinoApp` with `GlukutuxApp`. by default theme of Glukutux is lightTheme, but you can change with 'TuxTheme.darkTheme' if you want to dark mode or 'TuxTheme.customTheme' if you want to custom theme
+You have to replace `MaterialApp` or `CupertinoApp` with `GlukutuxApp`. by default theme of Glukutux is lightTheme, but you can change with `TuxTheme.darkTheme` if you want to dark mode or `TuxTheme.customTheme` if you want to custom theme
 
 ```dart
 class MyApp extends StatelessWidget {
