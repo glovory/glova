@@ -16,6 +16,9 @@ class TuxButton extends StatelessWidget {
   /// Label of button
   final String label;
 
+  /// Font size label of button
+  final double sizeLabel;
+
   /// Height label of button
   final double heightLabel;
 
@@ -43,6 +46,7 @@ class TuxButton extends StatelessWidget {
   const TuxButton({
     @required this.onPressed,
     @required this.label,
+    this.sizeLabel,
     this.heightLabel,
     this.fontWeightLabel,
     this.leftIcon,
@@ -58,6 +62,7 @@ class TuxButton extends StatelessWidget {
   const TuxButton.filled({
     @required this.onPressed,
     @required this.label,
+    this.sizeLabel,
     this.heightLabel,
     this.fontWeightLabel,
     this.tuxShape = TuxShape.square,
@@ -72,6 +77,7 @@ class TuxButton extends StatelessWidget {
   const TuxButton.outline({
     @required this.onPressed,
     @required this.label,
+    this.sizeLabel,
     this.heightLabel,
     this.fontWeightLabel,
     this.tuxShape = TuxShape.square,
@@ -86,6 +92,7 @@ class TuxButton extends StatelessWidget {
   const TuxButton.ghost({
     @required this.onPressed,
     @required this.label,
+    this.sizeLabel,
     this.heightLabel,
     this.fontWeightLabel,
     this.leftIcon,
@@ -168,6 +175,7 @@ class TuxButton extends StatelessWidget {
           label,
           style: TextStyle(
             height: (heightLabel != null) ? heightLabel : null,
+            fontSize: (sizeLabel != null) ? sizeLabel : null,
             fontWeight: (fontWeightLabel != null) ? fontWeightLabel : null,
           ),
           textAlign: TextAlign.center,
