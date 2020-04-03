@@ -95,6 +95,16 @@ class TuxTextStyle {
         fontWeight: FontWeight.w600,
         color: TuxColor.basic_600,
       ),
+
+      /// this style is commonly used
+      body1: TextStyle(
+        color: TuxColor.basic_800,
+      ),
+
+      /// red text color
+      body2: TextStyle(
+        color: TuxColor.danger,
+      ),
     );
   }
 
@@ -109,6 +119,12 @@ class TuxTextStyle {
         fontSize: 12,
         fontWeight: FontWeight.w600,
         color: TuxColor.basic_600,
+      ),
+      body1: TextStyle(
+        color: TuxColor.basic_800,
+      ),
+      body2: TextStyle(
+        color: TuxColor.danger,
       ),
     );
   }
