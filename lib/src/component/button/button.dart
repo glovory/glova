@@ -107,10 +107,12 @@ class TuxButton extends StatelessWidget {
   /// Color of border side by status
   BorderSide borderSideButton(BuildContext context) {
     return BorderSide(
-      color: TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme.of(context).buttonColor,
-      ),
+      // change color to transparent
+      color: Colors.transparent,
+//      color: TuxColorUtils.colorByStatus(
+//        tuxStatus: tuxStatus,
+//        defaultColor: Theme.of(context).buttonColor,
+//      ),
     );
   }
 
@@ -200,13 +202,18 @@ class TuxButton extends StatelessWidget {
         defaultColor: Theme.of(context).buttonColor,
       ),
       // change text color to unselected color from theme if tuxstatus is null
-      textColor: (tuxStatus != null)
-          ? TuxColor.white
-          : Theme.of(context).unselectedWidgetColor,
+      textColor: (tuxStatus != null) ? TuxColor.white : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,
       shape: shapeButton(context, tuxShape: tuxShape),
       elevation: elevation,
+      // handle disable
+      disabledColor: TuxColorUtils.colorByStatus(
+        tuxStatus: tuxStatus,
+        defaultColor: Theme.of(context).buttonColor,
+      ).withOpacity(0.5),
+      disabledTextColor: Colors.white,
+      disabledElevation: 0,
     );
   }
 
@@ -232,6 +239,17 @@ class TuxButton extends StatelessWidget {
       padding: padding,
       shape: shapeButton(context, tuxShape: tuxShape),
       highlightElevation: elevation,
+      // handle disable
+      disabledBorderColor: TuxColorUtils.colorByStatus(
+        tuxStatus: tuxStatus,
+        defaultColor: Theme.of(context).buttonColor,
+      ).withOpacity(0.5),
+      disabledTextColor: (tuxStatus != null)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
+          : Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
     );
   }
 
@@ -248,6 +266,13 @@ class TuxButton extends StatelessWidget {
           : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,
+      // handle disable
+      disabledTextColor: (tuxStatus != null)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
+          : Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
     );
   }
 
