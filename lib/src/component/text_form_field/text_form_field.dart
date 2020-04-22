@@ -25,6 +25,7 @@ class TuxTextFormField extends StatelessWidget {
   final bool isPrefix;
   final String label;
   final String description;
+  final int maxLines;
 
   const TuxTextFormField({
     this.controller,
@@ -49,6 +50,7 @@ class TuxTextFormField extends StatelessWidget {
     this.isPrefix = false,
     this.label,
     this.description,
+    this.maxLines = 1,
   });
 
   /// Text with Icon on the left
@@ -74,6 +76,7 @@ class TuxTextFormField extends StatelessWidget {
     this.filled = false,
     this.label,
     this.description,
+    this.maxLines = 1,
   }) : this.isPrefix = true;
 
   /// Text with Icon on the right
@@ -99,6 +102,7 @@ class TuxTextFormField extends StatelessWidget {
     this.filled = false,
     this.label,
     this.description,
+    this.maxLines = 1,
   }) : this.isPrefix = false;
 
   @override
@@ -137,6 +141,7 @@ class TuxTextFormField extends StatelessWidget {
             onSaved: onSaved,
             validator: validator,
             enabled: enabled,
+            maxLines: maxLines,
             // decoration by status
             decoration: InputDecoration(
               prefixIcon: (isPrefix) ? icon : null,
@@ -160,8 +165,7 @@ class TuxTextFormField extends StatelessWidget {
                 borderSide: BorderSide(
                   color: TuxColorUtils.colorByStatus(
                     tuxStatus: tuxStatus,
-                    defaultColor: Theme.of(context)
-                        .buttonColor, // change color from theme
+                    defaultColor: Theme.of(context).buttonColor, // change color from theme
                   ),
                   width: widthBorder,
                 ),
