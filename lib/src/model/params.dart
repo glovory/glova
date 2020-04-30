@@ -3,7 +3,20 @@ enum TuxAppearance {
   outline,
   ghost,
 }
-
+enum TuxWidgetState {
+  normal,
+  hover,
+  active,
+  focus,
+  disabled,
+}
+enum TuxWidgetSize {
+  giant,
+  large,
+  medium,
+  small,
+  tiny,
+}
 enum TuxStatus {
   primary,
   success,
@@ -12,11 +25,7 @@ enum TuxStatus {
   danger,
 }
 
-enum TuxImageAvatar {
-  circle,
-  square,
-  rounded
-}
+enum TuxImageAvatar { circle, square, rounded }
 
 enum TuxShape {
   circle,
@@ -32,4 +41,15 @@ enum TuxCardStatus {
   none,
   strip,
   header,
+}
+
+enum TuxHorizontalPositioning {
+  left,
+  right,
+  none,
+}
+
+enum TuxVerticalPositioning {
+  top,
+  bottom,
 }
