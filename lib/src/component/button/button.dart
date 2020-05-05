@@ -28,12 +28,6 @@ class TuxButton extends StatelessWidget {
   /// The size of border width
   final double borderWidth;
 
-  /// The size of button height
-  final double height;
-
-  /// The size of button width
-  final double width;
-
   /// The color of font
   final Color fontColor;
 
@@ -97,10 +91,8 @@ class TuxButton extends StatelessWidget {
     this.disableColor = TuxColor.disable_background,
     this.borderColor = TuxColor.primary,
     this.borderWidth = 1,
-    this.height,
-    this.width,
     this.fontColor = TuxColor.white,
-    this.borderDisableColor = TuxColor.transparent,
+    this.borderDisableColor = TuxColor.disable_background,
   });
 
   const TuxButton.filled({
@@ -121,12 +113,10 @@ class TuxButton extends StatelessWidget {
     this.focusColor = TuxColor.basic_500,
     this.hoverColor = TuxColor.basic_500,
     this.disableColor = TuxColor.disable_background,
-    this.borderColor = TuxColor.disable_font,
+    this.borderColor = TuxColor.primary,
     this.borderWidth = 1,
-    this.height,
-    this.width,
     this.fontColor = TuxColor.white,
-    this.borderDisableColor = TuxColor.transparent,
+    this.borderDisableColor = TuxColor.disable_background,
   }) : this.tuxAppearance = TuxAppearance.filled;
 
   const TuxButton.outline({
@@ -148,8 +138,6 @@ class TuxButton extends StatelessWidget {
     this.disableColor = TuxColor.disable_background,
     this.borderColor = TuxColor.primary,
     this.borderWidth = 1,
-    this.height,
-    this.width,
     this.fontColor = TuxColor.primary,
     this.borderDisableColor = TuxColor.disable_font,
   })
@@ -168,11 +156,9 @@ class TuxButton extends StatelessWidget {
     this.padding,
     this.elevation = 0.0,
     this.tuxWidgetSize,
-    this.focusColor,
-    this.hoverColor,
-    this.disableColor,
-    this.height,
-    this.width,
+    this.focusColor  = TuxColor.basic_500,
+    this.hoverColor  = TuxColor.basic_500,
+    this.disableColor = TuxColor.disable_background,
     this.fontColor = TuxColor.primary,
   })
       : this.tuxAppearance = TuxAppearance.ghost,
@@ -181,7 +167,7 @@ class TuxButton extends StatelessWidget {
         this.borderColor = TuxColor.transparent,
         this.borderDisableColor = TuxColor.transparent,
         this.borderWidth = 0,
-        this.radius = 12;
+        this.radius = 10;
 
   /// Color of border side by status
   BorderSide borderSideButton(BuildContext context) {

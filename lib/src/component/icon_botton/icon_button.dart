@@ -19,6 +19,7 @@ class TuxIconButton extends StatelessWidget {
   /// The color when button is disable
   final Color disableColor;
 
+  /// The color of border button when disable
   final Color borderDisableColor;
 
   /// The color of border button
@@ -27,10 +28,10 @@ class TuxIconButton extends StatelessWidget {
   /// The size of border width
   final double borderWidth;
 
-  /// The size of botton height
+  /// The size of button height
   final double height;
 
-  /// The size of botton width
+  /// The size of button width
   final double width;
 
   /// The size of  icon
@@ -83,7 +84,7 @@ class TuxIconButton extends StatelessWidget {
     this.borderWidth = 1.5,
     this.iconSize = 15,
     this.colorIcon = TuxColor.white,
-    this.borderDisableColor = TuxColor.disable_font,
+    this.borderDisableColor = TuxColor.disable_background,
   });
 
   const TuxIconButton.filled({
@@ -105,7 +106,7 @@ class TuxIconButton extends StatelessWidget {
     this.borderWidth = 1.5,
     this.iconSize = 13,
     this.colorIcon = TuxColor.white,
-    this.borderDisableColor = TuxColor.disable_font,
+    this.borderDisableColor = TuxColor.disable_background,
   }) : this.tuxAppearance = TuxAppearance.filled;
 
   const TuxIconButton.outline({
