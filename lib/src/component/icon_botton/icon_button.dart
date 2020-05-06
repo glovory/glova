@@ -22,6 +22,9 @@ class TuxIconButton extends StatelessWidget {
   /// The color of border button when disable
   final Color borderDisableColor;
 
+  /// The color of icon when disable
+  final Color disableIconColor;
+
   /// The color of border button
   final Color borderColor;
 
@@ -85,6 +88,7 @@ class TuxIconButton extends StatelessWidget {
     this.iconSize = 15,
     this.colorIcon = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
+    this.disableIconColor = TuxColor.disable_font,
   });
 
   const TuxIconButton.filled({
@@ -107,6 +111,7 @@ class TuxIconButton extends StatelessWidget {
     this.iconSize = 13,
     this.colorIcon = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
+    this.disableIconColor = TuxColor.disable_font,
   }) : this.tuxAppearance = TuxAppearance.filled;
 
   const TuxIconButton.outline({
@@ -129,6 +134,7 @@ class TuxIconButton extends StatelessWidget {
     this.iconSize = 13,
     this.colorIcon = TuxColor.primary,
     this.borderDisableColor = TuxColor.disable_font,
+    this.disableIconColor = TuxColor.disable_font,
   }) : this.tuxAppearance = TuxAppearance.outline;
 
   const TuxIconButton.ghost({
@@ -146,6 +152,7 @@ class TuxIconButton extends StatelessWidget {
     this.width,
     this.iconSize = 13,
     this.colorIcon = TuxColor.primary,
+    this.disableIconColor = TuxColor.disable_font,
   })  : this.tuxAppearance = TuxAppearance.ghost,
         this.borderDisableColor = TuxColor.disable_background,
         this.borderWidth = 0,
@@ -244,7 +251,7 @@ class TuxIconButton extends StatelessWidget {
                       ? getIconSize(size: tuxWidgetSize)
                       : iconSize,
                   color: onPressed == null
-                      ? TuxColor.disable_font
+                      ? disableIconColor
                       : colorIcon == null ? TuxColor.white : colorIcon,
                 ),
                 child: icon,
@@ -318,8 +325,8 @@ class TuxIconButton extends StatelessWidget {
                       ? getIconSize(size: tuxWidgetSize)
                       : iconSize,
                   color: onPressed == null
-                      ? TuxColor.disable_font
-                      : colorIcon == null
+                      ? disableIconColor
+                      : (tuxStatus != null)
                           ? TuxColorUtils.colorByStatus(
                               tuxStatus: tuxStatus,
                               defaultColor: TuxColor.primary)
@@ -391,8 +398,8 @@ class TuxIconButton extends StatelessWidget {
                       ? getIconSize(size: tuxWidgetSize)
                       : iconSize,
                   color: onPressed == null
-                      ? TuxColor.disable_font
-                      : colorIcon == null
+                      ? disableIconColor
+                      : (tuxStatus != null)
                           ? TuxColorUtils.colorByStatus(
                               tuxStatus: tuxStatus,
                               defaultColor: TuxColor.primary)
