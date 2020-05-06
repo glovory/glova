@@ -24,6 +24,10 @@ class TuxColor {
   static const Color basic_900 = Color(0xFF1a2138);
   static const Color basic_1000 = Color(0xFF151a30);
   static const Color basic_1100 = Color(0xFF101426);
+
+  static const Color pop_over_highlight_color = Color(0x55000000);
+  static const Color pop_over_color = Color(0xff232323);
+
 }
 
 class TuxColorUtils {
