@@ -27,6 +27,7 @@ class TuxColor {
 
   static const Color pop_over_highlight_color = Color(0x55000000);
   static const Color pop_over_color = Color(0xff232323);
+  static const Color pop_over_line = Color(0xff353535);
 
 }
 
