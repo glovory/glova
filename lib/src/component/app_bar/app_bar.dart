@@ -10,6 +10,15 @@ class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// Subtitle of page under the title. this is optional.
   final String subtitle;
 
+  /// Custom background color
+  final Color backgroundColor;
+
+  /// Custom Style of title
+  final TextStyle titleStyle;
+
+  /// Custom Style of caption
+  final TextStyle subtitleStyle;
+
   /// If you want the title in the center, you can set true. default true.
   final bool centerTitle;
 
@@ -32,11 +41,17 @@ class TuxAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.leading,
     this.actions = const [],
     this.bottom,
+    this.backgroundColor,
+    this.titleStyle,
+    this.subtitleStyle,
   }) : this.onlyBottom = false;
 
   const TuxAppBar.onlyBottom({
     @required this.bottom,
-  })  : this.title = null,
+    this.backgroundColor,
+  })  : this.titleStyle = null,
+        this.subtitleStyle = null,
+        this.title = null,
         this.subtitle = null,
         this.centerTitle = false,
         this.leading = null,
@@ -109,14 +124,20 @@ class _TuxAppBarState extends State<TuxAppBar> {
         Text(
           widget.title,
           // use style title from theme
-          style: Theme.of(context).textTheme.title,
+          style: widget.titleStyle == null
+              ? Theme.of(context).textTheme.title
+              : widget.titleStyle,
           textAlign: TextAlign.center,
         ),
+
         if (widget.subtitle != null) ...[
+          SizedBox(height: 5),
           Text(
             widget.subtitle,
             // use style caption from theme
-            style: Theme.of(context).textTheme.caption,
+            style: widget.subtitleStyle == null
+                ? Theme.of(context).textTheme.caption
+                :  widget.subtitleStyle,
             textAlign: TextAlign.center,
           ),
         ],
@@ -185,7 +206,7 @@ class _TuxAppBarState extends State<TuxAppBar> {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                  // use unselectedWidgetColor from theme
+                // use unselectedWidgetColor from theme
                   color: Theme.of(context).unselectedWidgetColor,
                   width: 2),
             ),
@@ -204,7 +225,9 @@ class _TuxAppBarState extends State<TuxAppBar> {
       child: Container(
         decoration: BoxDecoration(
           // use backgroundColor from theme
-          color: Theme.of(context).backgroundColor,
+          color: widget.backgroundColor == null
+              ? Theme.of(context).backgroundColor
+              : widget.backgroundColor,
         ),
         child: Column(
           children: <Widget>[
