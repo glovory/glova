@@ -23,6 +23,8 @@ export 'package:glukutux/src/component/tabs/tab.dart';
 export 'package:glukutux/src/component/text_form_field/text_form_field.dart';
 export 'package:glukutux/src/component/toogle/toogle.dart';
 export 'package:glukutux/src/component/icon_botton/icon_button.dart';
+export 'package:glukutux/src/component/drawer/drawer.dart';
+export 'package:glukutux/src/component/drawer/drawer_header.dart';
 export 'package:glukutux/src/component/tooltip/tooltip.dart';
 export 'package:glukutux/src/component/popover/popover.dart';
 
