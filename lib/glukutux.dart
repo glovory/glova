@@ -23,6 +23,8 @@ export 'package:glukutux/src/component/tabs/tab.dart';
 export 'package:glukutux/src/component/text_form_field/text_form_field.dart';
 export 'package:glukutux/src/component/toogle/toogle.dart';
 export 'package:glukutux/src/component/icon_botton/icon_button.dart';
+export 'package:glukutux/src/component/tooltip/tooltip.dart';
+export 'package:glukutux/src/component/popover/popover.dart';
 
 // Eva Icons
 export 'package:eva_icons_flutter/eva_icons_flutter.dart';

@@ -78,6 +78,11 @@ class TuxColor {
   static const Color danger_700 = Color(0xFFB7181C);
   static const Color danger_800 = Color(0xFF930F1D);
   static const Color danger_900 = Color(0xFF7A091E);
+
+  static const Color pop_over_highlight_color = Color(0x55000000);
+  static const Color pop_over_color = Color(0xff232323);
+  static const Color pop_over_line = Color(0xff353535);
+
 }
 
 class TuxColorUtils {
