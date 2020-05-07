@@ -71,6 +71,7 @@ class TuxButton extends StatelessWidget {
   final double radius;
 
   const TuxButton({
+    Key key,
     @required this.onPressed,
     @required this.label,
     this.sizeLabel = 20,
@@ -93,9 +94,10 @@ class TuxButton extends StatelessWidget {
     this.borderWidth = 1,
     this.fontColor = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
-  });
+  }) : super(key: key);
 
   const TuxButton.filled({
+    Key key,
     @required this.onPressed,
     @required this.label,
     this.sizeLabel = 20,
@@ -117,9 +119,11 @@ class TuxButton extends StatelessWidget {
     this.borderWidth = 1,
     this.fontColor = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
-  }) : this.tuxAppearance = TuxAppearance.filled;
+  })  : this.tuxAppearance = TuxAppearance.filled,
+        super(key: key);
 
   const TuxButton.outline({
+    Key key,
     @required this.onPressed,
     @required this.label,
     this.sizeLabel = 20,
@@ -140,11 +144,12 @@ class TuxButton extends StatelessWidget {
     this.borderWidth = 1,
     this.fontColor = TuxColor.primary,
     this.borderDisableColor = TuxColor.disable_font,
-  })
-      : this.tuxAppearance = TuxAppearance.outline,
-        this.color = TuxColor.transparent;
+  })  : this.tuxAppearance = TuxAppearance.outline,
+        this.color = TuxColor.transparent,
+        super(key: key);
 
   const TuxButton.ghost({
+    Key key,
     @required this.onPressed,
     @required this.label,
     this.sizeLabel = 20,
@@ -156,18 +161,18 @@ class TuxButton extends StatelessWidget {
     this.padding,
     this.elevation = 0.0,
     this.tuxWidgetSize,
-    this.focusColor  = TuxColor.basic_500,
-    this.hoverColor  = TuxColor.basic_500,
+    this.focusColor = TuxColor.basic_500,
+    this.hoverColor = TuxColor.basic_500,
     this.disableColor = TuxColor.disable_background,
     this.fontColor = TuxColor.primary,
-  })
-      : this.tuxAppearance = TuxAppearance.ghost,
+  })  : this.tuxAppearance = TuxAppearance.ghost,
         this.tuxShape = TuxShape.rounded,
         this.color = TuxColor.transparent,
         this.borderColor = TuxColor.transparent,
         this.borderDisableColor = TuxColor.transparent,
         this.borderWidth = 0,
-        this.radius = 10;
+        this.radius = 10,
+        super(key: key);
 
   /// Color of border side by status
   BorderSide borderSideButton(BuildContext context) {
@@ -240,8 +245,8 @@ class TuxButton extends StatelessWidget {
                   : sizeLabel,
               color: onPressed == null
                   ? (tuxAppearance == TuxAppearance.filled)
-                  ? TuxColor.white
-                  : TuxColor.disable_font
+                      ? TuxColor.white
+                      : TuxColor.disable_font
                   : fontColor == null ? TuxColor.white : fontColor,
             ),
             child: leftIcon,
@@ -260,8 +265,8 @@ class TuxButton extends StatelessWidget {
             fontWeight: (fontWeightLabel != null) ? fontWeightLabel : null,
             color: onPressed == null
                 ? (tuxAppearance == TuxAppearance.filled)
-                ? TuxColor.white
-                : TuxColor.disable_font
+                    ? TuxColor.white
+                    : TuxColor.disable_font
                 : fontColor == null ? TuxColor.white : fontColor,
           ),
           textAlign: TextAlign.center,
@@ -294,11 +299,9 @@ class TuxButton extends StatelessWidget {
       color: tuxStatus == null
           ? color
           : TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme
-            .of(context)
-            .buttonColor,
-      ),
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ),
       // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null) ? TuxColor.white : fontColor,
       child: listChild(),
@@ -310,11 +313,9 @@ class TuxButton extends StatelessWidget {
       // handle disable
       disabledColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme
-            .of(context)
-            .buttonColor,
-      ).withOpacity(0.5)
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
           : disableColor,
       disabledTextColor: disableColor == null ? Colors.white : disableColor,
       disabledElevation: 0,
@@ -329,26 +330,22 @@ class TuxButton extends StatelessWidget {
           : TuxColor.transparent,
       onPressed: onPressed,
       borderSide: BorderSide(
-        // set default color of border color to unselectedwidget color from theme
+          // set default color of border color to unselectedwidget color from theme
           color: onPressed == null
               ? borderDisableColor
               : (tuxStatus != null)
-              ? TuxColorUtils.colorByStatus(
-            tuxStatus: tuxStatus,
-            defaultColor: Theme
-                .of(context)
-                .buttonColor,
-          )
-              : borderColor,
+                  ? TuxColorUtils.colorByStatus(
+                      tuxStatus: tuxStatus,
+                      defaultColor: Theme.of(context).buttonColor,
+                    )
+                  : borderColor,
           width: borderWidth),
       // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme
-            .of(context)
-            .buttonColor,
-      )
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            )
           : fontColor,
       child: listChild(),
       padding: tuxWidgetSize != null
@@ -359,54 +356,44 @@ class TuxButton extends StatelessWidget {
       // handle disable
       disabledBorderColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme
-            .of(context)
-            .buttonColor,
-      ).withOpacity(0.5)
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
           : disableColor,
       disabledTextColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
-        tuxStatus: tuxStatus,
-        defaultColor: Theme
-            .of(context)
-            .buttonColor,
-      ).withOpacity(0.5)
-          : Theme
-          .of(context)
-          .unselectedWidgetColor
-          .withOpacity(0.5),
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
+          : Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
     );
   }
 
   /// Display this widget if appearance is ghost
   Widget buttonGhost(BuildContext context) {
     return FlatButton(
-        onPressed: onPressed,
-        color: onPressed == null
-            ? disableColor == null ? TuxColor.disable_background : disableColor
-            : TuxColor.transparent,
-        // change text color to unselected color from theme if tuxstatus is null
-        textColor: (tuxStatus != null)
-        ? TuxColorUtils.colorByStatus(
-      tuxStatus: tuxStatus,
-      defaultColor: Theme
-          .of(context)
-          .buttonColor,
-    )
-        : fontColor,
-    child: listChild(),
-    padding: tuxWidgetSize != null
-    ? getPadding(size: tuxWidgetSize)
-        : padding == null ? getPadding(size: TuxWidgetSize.medium) : padding,
-    // handle disable
-    disabledTextColor: (tuxStatus != null)
-    ? TuxColorUtils.colorByStatus(
-    tuxStatus: tuxStatus,
-    defaultColor: Theme.of(context).buttonColor,
-    ).withOpacity(0.5)
-        : Theme.of(context).unselectedWidgetColor.withOpacity(0.5)
-    ,
+      onPressed: onPressed,
+      color: onPressed == null
+          ? disableColor == null ? TuxColor.disable_background : disableColor
+          : TuxColor.transparent,
+      // change text color to unselected color from theme if tuxstatus is null
+      textColor: (tuxStatus != null)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            )
+          : fontColor,
+      child: listChild(),
+      padding: tuxWidgetSize != null
+          ? getPadding(size: tuxWidgetSize)
+          : padding == null ? getPadding(size: TuxWidgetSize.medium) : padding,
+      // handle disable
+      disabledTextColor: (tuxStatus != null)
+          ? TuxColorUtils.colorByStatus(
+              tuxStatus: tuxStatus,
+              defaultColor: Theme.of(context).buttonColor,
+            ).withOpacity(0.5)
+          : Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
     );
   }
 

@@ -68,6 +68,7 @@ class TuxIconButton extends StatelessWidget {
   final double radius;
 
   const TuxIconButton({
+    Key key,
     @required this.onPressed,
     @required this.icon,
     this.tuxAppearance = TuxAppearance.filled,
@@ -89,9 +90,10 @@ class TuxIconButton extends StatelessWidget {
     this.colorIcon = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
     this.disableIconColor = TuxColor.disable_font,
-  });
+  }): super(key: key);
 
   const TuxIconButton.filled({
+    Key key,
     @required this.onPressed,
     @required this.icon,
     this.tuxShape = TuxShape.rounded,
@@ -112,9 +114,11 @@ class TuxIconButton extends StatelessWidget {
     this.colorIcon = TuxColor.white,
     this.borderDisableColor = TuxColor.disable_background,
     this.disableIconColor = TuxColor.disable_font,
-  }) : this.tuxAppearance = TuxAppearance.filled;
+  }) : this.tuxAppearance = TuxAppearance.filled,
+        super(key: key);
 
   const TuxIconButton.outline({
+    Key key,
     @required this.onPressed,
     @required this.icon,
     this.tuxShape = TuxShape.rounded,
@@ -135,9 +139,11 @@ class TuxIconButton extends StatelessWidget {
     this.colorIcon = TuxColor.primary,
     this.borderDisableColor = TuxColor.disable_font,
     this.disableIconColor = TuxColor.disable_font,
-  }) : this.tuxAppearance = TuxAppearance.outline;
+  }) : this.tuxAppearance = TuxAppearance.outline,
+        super(key: key);
 
   const TuxIconButton.ghost({
+    Key key,
     @required this.onPressed,
     @required this.icon,
     this.tuxShape = TuxShape.rounded,
@@ -158,7 +164,8 @@ class TuxIconButton extends StatelessWidget {
         this.borderWidth = 0,
         this.color = TuxColor.transparent,
         this.borderColor = TuxColor.transparent,
-        this.radius = 10;
+        this.radius = 10,
+        super(key: key);
 
   /// Shape of widget
   BorderRadius borderRadiusButton({TuxShape tuxShape}) {
