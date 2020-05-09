@@ -67,6 +67,31 @@ TuxButton(
 ),
 ```
 
+### Eva Design Color Converter
+1. Create a "json_data" directory in the root of your project.
+2. Make file  "data.json" that contains eva design color themes under "json_data" directory.
+3. Run `flutter pub run glukutux:generate_color`.
+4. By default file that have been successfully created will be placed in `lib/color/tux_color.dart`. 
+
+####  Command arguments Color Converter
+
+The default json input file directory is ` json_data/data.json`,
+you can custom input file directory by `-i` argument, for example:
+
+```shell
+flutter pub run glukutux:generate_color -i json_files 
+```
+
+You can also custom the output directory by `-o` argument:
+
+```shell
+flutter pub run glukutux:generate_color -o dart_file 
+```
+or custom both of them
+
+```shell
+flutter pub run glukutux:generate_color -i json_files -o dart_file 
+```
 
 ## Icons
 
