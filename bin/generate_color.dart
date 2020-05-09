@@ -17,7 +17,7 @@ void main(List<String> args) {
   }, help: "Specify the json directory.");
   parser.addOption('dist',
       abbr: 'o',
-      defaultsTo: 'lib/models/haha/hihi/TuxColor.dart', callback: (value) {
+      defaultsTo: 'lib/color/tux_color.dart', callback: (value) {
     return dist = value;
   }, help: "Specify the dist directory.");
   parser.parse(args);
