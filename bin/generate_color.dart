@@ -11,25 +11,31 @@ void main(List<String> args) {
   String dist;
 
   ArgParser parser = new ArgParser();
-  parser.addOption('src', abbr: 'i', defaultsTo: './json_data/data.json',
+  parser.addOption('input', abbr: 'i', defaultsTo: './json_data/data.json',
       callback: (value) {
     return src = value;
   }, help: "Specify the json directory.");
-  parser.addOption('dist',
-      abbr: 'o',
-      defaultsTo: 'lib/color/tux_color.dart', callback: (value) {
+  parser.addOption('output', abbr: 'o', defaultsTo: 'lib/color/tux_color.dart',
+      callback: (value) {
     return dist = value;
-  }, help: "Specify the dist directory.");
-  parser.parse(args);
+  }, help: "Specify the output directory.");
+  parser.addFlag('help', abbr: 'h', help: 'Usage help', negatable: false);
+  final arg = parser.parse(args);
+
+  if (arg['help']) {
+    stdout.writeln('Eva Design Color Converter');
+    stdout.writeln(parser.usage);
+    exit(0);
+  }
 
   File inputFile = new File(src);
 
   if (inputFile.existsSync()) {
     if (checkingFileJson(src)) {
       if (checkingFileDart(dist)) {
-        if(generateFile(inputFile, dist)){
+        if (generateFile(inputFile, dist)) {
           print('successfully generate file');
-        }else{
+        } else {
           print('generate file falied');
         }
       } else {
@@ -65,18 +71,16 @@ bool checkingFileDart(String path) {
   }
 }
 
-bool generateFile(File file, String outputPath)  {
+bool generateFile(File file, String outputPath) {
   File files = file;
   String output = outputPath;
   Map<String, dynamic> map;
-  try{
+  try {
     map = json.decode(files.readAsStringSync());
-  }
-  catch(error){
+  } catch (error) {
     print('invalid format json!');
     return false;
   }
-
 
   /// initialization of variable StringBuffer for write files
   StringBuffer sinkColorPrimary = new StringBuffer();
@@ -100,7 +104,7 @@ bool generateFile(File file, String outputPath)  {
   StringBuffer colorWarningTransparent = new StringBuffer();
   StringBuffer colorDangerTransparent = new StringBuffer();
 
-  (map as Map<String, dynamic>).forEach((key, val) {
+  map.forEach((key, val) {
     List<String> indexColor = key.split("-");
     if (indexColor.length == 3) {
       //generate for non transparent color
