@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/model/tux_color.dart';
+import 'package:glukutux/tux_color.dart';
 import '../../../glukutux.dart';
 import '../../model/params.dart';
 
@@ -203,7 +203,7 @@ class TuxButton extends StatelessWidget {
       ),
       // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null)
-          ? TuxColorScheme.primary[100]
+          ? TuxColorScheme.primary.shade100
           : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
       padding: padding,

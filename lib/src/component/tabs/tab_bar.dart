@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/model/tux_color.dart';
+import 'package:glukutux/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxTabBar extends StatelessWidget implements PreferredSizeWidget {

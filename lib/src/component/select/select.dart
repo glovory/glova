@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/model/tux_color.dart';
+import 'package:glukutux/tux_color.dart';
 
 import '../../../glukutux.dart';
 
@@ -82,7 +82,7 @@ class _TuxSelectState extends State<TuxSelect>
         // Set height with eight of render box multiplied by the number of items
         height: (widget.items.length * height),
         child: Material(
-          color: TuxColorScheme.primaryTransparent[100],
+          color: TuxColorScheme.primaryTransparent.shade100,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(widget.radius),

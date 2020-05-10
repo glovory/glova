@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/model/tux_color.dart';
+import 'package:glukutux/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 import 'package:meta/meta.dart';
 
@@ -57,13 +57,13 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
     if (widget.value != null) {
       return Icon(
         EvaIcons.checkmark,
-        color: TuxColorScheme.primary[100],
+        color: TuxColorScheme.primary.shade100,
         size: 15,
       );
     } else {
       return Icon(
         EvaIcons.minus,
-        color: TuxColorScheme.primary[100],
+        color: TuxColorScheme.primary.shade100,
         size: 15,
       );
     }

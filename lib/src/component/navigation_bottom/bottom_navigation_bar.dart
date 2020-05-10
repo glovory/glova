@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/src/model/tux_color.dart';
+import 'package:glukutux/tux_color.dart';
 
 import '../../../glukutux.dart';
 
@@ -96,6 +96,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
           }).toList(),
         ),
       ),
+
     );
   }
 }
