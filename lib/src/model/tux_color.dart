@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:glukutux/glukutux.dart';
 
 
-//@autogenerate do not edit
+//@auto generate do not edit
 class TuxColorScheme {
    static const TuxColor primary = TuxColor(0xFF3366FF, {
       100 :  Color(0xFFD6E4FF),
