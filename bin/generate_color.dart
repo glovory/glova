@@ -94,7 +94,6 @@ bool permissionAccess(String path) {
   }
   //if exist continue to validate
   else {
-    print(outputFile.statSync().mode.toRadixString(8));
     if (outputFile.statSync().mode.toRadixString(8) == '100666'||
         outputFile.statSync().mode.toRadixString(8) == '100660'||
         outputFile.statSync().mode.toRadixString(8) == '100600') {
