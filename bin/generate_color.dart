@@ -10,7 +10,7 @@ void main(List<String> args) {
   String src;
   String dist;
 
-  var parser = new ArgParser();
+  ArgParser parser = new ArgParser();
   parser.addOption('src', abbr: 'i', defaultsTo: './json_data/data.json',
       callback: (value) {
     return src = value;
@@ -22,12 +22,16 @@ void main(List<String> args) {
   }, help: "Specify the dist directory.");
   parser.parse(args);
 
-  var inputFile = new File(src);
+  File inputFile = new File(src);
 
   if (inputFile.existsSync()) {
     if (checkingFileJson(src)) {
       if (checkingFileDart(dist)) {
-        generateFile(inputFile, dist);
+        if(generateFile(inputFile, dist)){
+          print('successfully generate file');
+        }else{
+          print('generate file falied');
+        }
       } else {
         print('output file type must be dart!');
       }
@@ -35,14 +39,14 @@ void main(List<String> args) {
       print('input file type must be json!');
     }
   } else {
-    print('File is not exist!' + inputFile.existsSync().toString());
+    print('File is not exist!');
   }
 }
 
 ///validate input is json file
 bool checkingFileJson(String path) {
   String mimeStr = lookupMimeType(path);
-  var fileType = mimeStr.split('/');
+  List<String> fileType = mimeStr.split('/');
   if (fileType.last == 'json') {
     return true;
   } else {
@@ -53,7 +57,7 @@ bool checkingFileJson(String path) {
 ///validate output is dart file
 bool checkingFileDart(String path) {
   String mimeStr = lookupMimeType(path);
-  var fileType = mimeStr.split('/');
+  List<String> fileType = mimeStr.split('/');
   if (fileType.last == 'x-dart') {
     return true;
   } else {
@@ -61,10 +65,18 @@ bool checkingFileDart(String path) {
   }
 }
 
-void generateFile(File file, String outputPath) async {
+bool generateFile(File file, String outputPath)  {
   File files = file;
   String output = outputPath;
-  var map = json.decode(files.readAsStringSync());
+  Map<String, dynamic> map;
+  try{
+    map = json.decode(files.readAsStringSync());
+  }
+  catch(error){
+    print('invalid format json!');
+    return false;
+  }
+
 
   /// initialization of variable StringBuffer for write files
   StringBuffer sinkColorPrimary = new StringBuffer();
@@ -246,7 +258,7 @@ void generateFile(File file, String outputPath) async {
     }
   });
 
-  var dist = format(
+  String dist = format(
       tpl,
       sinkColorPrimary,
       sinkColorSuccess,
@@ -273,7 +285,7 @@ void generateFile(File file, String outputPath) async {
   new File(output)
     ..createSync(recursive: true)
     ..writeAsStringSync(dist);
-  print('generate file complete');
+  return true;
 }
 
 ///make format text for write to file
