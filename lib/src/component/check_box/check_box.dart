@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 import 'package:meta/meta.dart';
 
@@ -56,13 +57,13 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
     if (widget.value != null) {
       return Icon(
         EvaIcons.checkmark,
-        color: TuxColor.white,
+        color: TuxColorScheme.primary[100],
         size: 15,
       );
     } else {
       return Icon(
         EvaIcons.minus,
-        color: TuxColor.white,
+        color: TuxColorScheme.primary[100],
         size: 15,
       );
     }
@@ -73,7 +74,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
     if (widget.enable) {
       return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
-        defaultColor: TuxColor.primary,
+        defaultColor: TuxColorScheme.primary,
       );
     } else {
       // change color to button color from theme

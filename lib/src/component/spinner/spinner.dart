@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/src/component/spinner/spinner_painter.dart';
 
 import '../../../glukutux.dart';
@@ -61,7 +62,7 @@ class _TuxSpinnerState extends State<TuxSpinner>
               painter: SpinnerPainter(
                 color: TuxColorUtils.colorByStatus(
                   tuxStatus: widget.tuxStatus,
-                  defaultColor: TuxColor.primary,
+                  defaultColor: TuxColorScheme.primary,
                 ),
                 // Set strokeWidth by size divided 6
                 strokeWidth: widget.size / 6,

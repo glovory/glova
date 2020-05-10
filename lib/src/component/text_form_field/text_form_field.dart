@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxTextFormField extends StatelessWidget {
@@ -111,7 +112,7 @@ class TuxTextFormField extends StatelessWidget {
       data: Theme.of(context).copyWith(
         primaryColor: TuxColorUtils.colorByStatus(
           tuxStatus: tuxStatus,
-          defaultColor: TuxColor.primary,
+          defaultColor: TuxColorScheme.primary,
         ),
       ),
       child: Column(
@@ -173,19 +174,19 @@ class TuxTextFormField extends StatelessWidget {
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(radius),
                 borderSide: BorderSide(
-                  color: TuxColor.danger,
+                  color: TuxColorScheme.danger,
                   width: widthBorder,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(radius),
                 borderSide: BorderSide(
-                  color: TuxColor.danger,
+                  color: TuxColorScheme.danger,
                   width: widthBorder,
                 ),
               ),
               errorStyle: TextStyle(
-                color: TuxColor.danger,
+                color: TuxColorScheme.danger,
               ),
               hintText: hint,
             ),

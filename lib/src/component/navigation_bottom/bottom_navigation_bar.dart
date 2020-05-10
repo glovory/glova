@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 
 import '../../../glukutux.dart';
 
@@ -48,7 +49,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                       color: (selectedIndex == index)
                           ? TuxColorUtils.colorByStatus(
                               tuxStatus: tuxStatus,
-                              defaultColor: TuxColor.primary)
+                              defaultColor:TuxColorScheme.primary,)
                           : Theme.of(context).unselectedWidgetColor,
                       height: 3,
                     ),
@@ -67,7 +68,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                               color: (selectedIndex == index)
                                   ? TuxColorUtils.colorByStatus(
                                       tuxStatus: tuxStatus,
-                                      defaultColor: TuxColor.primary)
+                                      defaultColor: TuxColorScheme.primary,)
                                   : null, // default color from theme
                             ),
                           ],
@@ -80,7 +81,7 @@ class TuxBottomNavigationBar extends StatelessWidget {
                                 color: (selectedIndex == index)
                                     ? TuxColorUtils.colorByStatus(
                                         tuxStatus: tuxStatus,
-                                        defaultColor: TuxColor.primary)
+                                        defaultColor: TuxColorScheme.primary,)
                                     : null, // default color from theme
                               ),
                             ),

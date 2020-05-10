@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 import 'package:meta/meta.dart';
 
@@ -6,18 +7,18 @@ class TuxTheme {
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: 'Roboto',
-    primaryColor: TuxColor.primary,
+    primaryColor: TuxColorScheme.primary,
 
     /// This color use to
     /// appbar
     /// bottom navigation
     /// overlay of select
-    backgroundColor: TuxColor.basic_100,
+    backgroundColor: TuxColorScheme.primary[100],
 
     /// This color use to
     /// line of unselect tab
     /// text default button
-    unselectedWidgetColor: TuxColor.basic_700,
+    unselectedWidgetColor: TuxColorScheme.primary[200],
 
     /// This color use to
     /// default button color
@@ -27,25 +28,25 @@ class TuxTheme {
     /// default select color
     /// default text form field
     /// disable of toogle
-    buttonColor: TuxColor.basic_300,
+    buttonColor: TuxColorScheme.primary[300],
     textTheme: TuxTextStyle.tuxLight(),
   );
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     fontFamily: 'Roboto',
-    primaryColor: TuxColor.primary,
+    primaryColor: TuxColorScheme.primary[100],
 
     /// This color use to
     /// appbar
     /// bottom navigation
     /// overlay of select
-    backgroundColor: TuxColor.basic_1000,
+    backgroundColor: TuxColorScheme.primary[900],
 
     /// This color use to
     /// line of unselect tab
     /// text default button
-    unselectedWidgetColor: TuxColor.basic_200,
+    unselectedWidgetColor: TuxColorScheme.primary[300],
 
     /// This color use to
     /// default button color
@@ -55,7 +56,7 @@ class TuxTheme {
     /// default select color
     /// default text form field
     /// disable of toogle
-    buttonColor: TuxColor.basic_1000,
+    buttonColor: TuxColorScheme.primary[800],
 
     textTheme: TuxTextStyle.tuxDark(),
   );
@@ -84,7 +85,7 @@ class TuxTextStyle {
     return TextTheme(
       /// This syle use to title of appbar
       title: TextStyle(
-        color: TuxColor.basic_900,
+        color: TuxColorScheme.primary[600],
         fontSize: 20,
         fontWeight: FontWeight.w700,
       ),
@@ -93,17 +94,17 @@ class TuxTextStyle {
       caption: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w600,
-        color: TuxColor.basic_600,
+        color: TuxColorScheme.primary[600],
       ),
 
       /// this style is commonly used
       body1: TextStyle(
-        color: TuxColor.basic_800,
+        color: TuxColorScheme.primary[600],
       ),
 
       /// red text color
       body2: TextStyle(
-        color: TuxColor.danger,
+        color: TuxColorScheme.danger,
       ),
     );
   }
@@ -111,20 +112,20 @@ class TuxTextStyle {
   static TextTheme tuxDark() {
     return TextTheme(
       headline: TextStyle(
-        color: TuxColor.basic_100,
+        color: TuxColorScheme.primary[100],
         fontSize: 20,
         fontWeight: FontWeight.w700,
       ),
       caption: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w600,
-        color: TuxColor.basic_600,
+        color: TuxColorScheme.primary[300],
       ),
       body1: TextStyle(
-        color: TuxColor.basic_800,
+        color: TuxColorScheme.primary[800],
       ),
       body2: TextStyle(
-        color: TuxColor.danger,
+        color: TuxColorScheme.danger,
       ),
     );
   }

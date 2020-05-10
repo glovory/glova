@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 
 import '../../../glukutux.dart';
 
@@ -56,7 +57,7 @@ class TuxCard extends StatelessWidget {
           height: 8,
           color: TuxColorUtils.colorByStatus(
             tuxStatus: tuxStatus,
-            defaultColor: TuxColor.primary,
+            defaultColor: TuxColorScheme.primary,
           ),
         ),
         Container(
@@ -86,7 +87,7 @@ class TuxCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(4)),
               color: TuxColorUtils.colorByStatus(
                 tuxStatus: tuxStatus,
-                defaultColor: TuxColor.primary,
+                defaultColor: TuxColorScheme.primary,
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

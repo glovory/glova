@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxTabBar extends StatelessWidget implements PreferredSizeWidget {
@@ -27,10 +28,10 @@ class TuxTabBar extends StatelessWidget implements PreferredSizeWidget {
       isScrollable: isScrollable,
       controller: controller,
       indicatorColor: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus, defaultColor: TuxColor.primary),
+          tuxStatus: tuxStatus, defaultColor: TuxColorScheme.primary),
       indicatorWeight: 2,
       labelColor: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus, defaultColor: TuxColor.primary),
+          tuxStatus: tuxStatus, defaultColor: TuxColorScheme.primary),
       unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
       tabs: tabs,
     );

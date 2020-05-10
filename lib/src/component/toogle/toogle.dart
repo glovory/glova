@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:meta/meta.dart';
 
 import '../../../glukutux.dart';
@@ -52,7 +53,7 @@ class _TuxToogleState extends State<TuxToogle>
     if (widget.enable && widget.onChanged != null) {
       return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
-        defaultColor: TuxColor.primary,
+        defaultColor: TuxColorScheme.primary,
       );
     } else {
       // change color from theme if disable

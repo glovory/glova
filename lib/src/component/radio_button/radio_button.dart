@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glukutux/color/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxRadioButton extends StatefulWidget {
@@ -59,7 +60,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     if (widget.enabled && widget.onChanged != null) {
       return TuxColorUtils.colorByStatus(
         tuxStatus: widget.tuxStatus,
-        defaultColor: TuxColor.primary,
+        defaultColor: TuxColorScheme.primary,
       );
     } else {
       // change color to button color from theme
