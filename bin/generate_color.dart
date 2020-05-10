@@ -31,18 +31,20 @@ void main(List<String> args) {
   File inputFile = new File(src);
 
   if (inputFile.existsSync()) {
-    if (checkingFileJson(src)) {
-      if (checkingFileDart(dist)) {
-        if (generateFile(inputFile, dist)) {
-          print('successfully generate file');
+    if (isOutputPathValid(dist)) {
+      if (checkingFileJson(src)) {
+        if (checkingFileDart(dist)) {
+          if (generateFile(inputFile, dist)) {
+            print('successfully generate file');
+          } else {
+            print('generate file failed');
+          }
         } else {
-          print('generate file falied');
+          print('output file type must be dart!');
         }
       } else {
-        print('output file type must be dart!');
+        print('input file type must be json!');
       }
-    } else {
-      print('input file type must be json!');
     }
   } else {
     print('File is not exist!');
@@ -56,6 +58,36 @@ bool checkingFileJson(String path) {
   if (fileType.last == 'json') {
     return true;
   } else {
+    return false;
+  }
+}
+
+///validate output directory is under lib
+bool isOutputPathValid(String path) {
+  Directory myDir = new Directory(path);
+  try {
+    List<String> fileType = myDir.uri.toString().split('/');
+    if ((fileType[0] == 'lib' || fileType[1] == 'lib') &&
+        !path.contains('../')) {
+      return permissionAccess(path);
+    } else {
+      print('Output directory is not valid. Output directory must be under /lib');
+      return false;
+    }
+  } catch (error) {
+    print('Output directory is not valid. Output directory must be under /lib');
+    return false;
+  }
+}
+
+///validate permission access
+bool permissionAccess(String path) {
+  File outputFile = new File(path);
+
+  if (outputFile.statSync().mode.toString() == '33206') {
+    return true;
+  } else {
+    print('You have no permission in file output');
     return false;
   }
 }
