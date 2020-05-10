@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glukutux/color/tux_color.dart';
+import 'package:glukutux/src/model/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 import 'package:meta/meta.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:glukutux/color/tux_color.dart';
+import 'package:glukutux/src/model/tux_color.dart';
 import 'package:glukutux/glukutux.dart';
 
 class TuxColor extends ColorSwatch<int> {
