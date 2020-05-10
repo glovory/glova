@@ -28,17 +28,40 @@ void main(List<String> args) {
     exit(0);
   }
 
-  File inputFile = new File(src);
+  File inputFile = new File(src) ;
+  Directory srcPath = new Directory(src);
+  Directory distPath = new Directory(dist);
+  String outputPath;
+  String inputPath;
+
+  //validate input path is absolute or not
+  if (srcPath.isAbsolute) {
+    inputPath= inputFile.uri.toString().replaceAll('//', '/');
+    inputPath = inputPath.replaceFirst('file:/', '');
+    inputFile = new File(inputPath);
+  }
+  else{
+    inputPath=src;
+  }
+  //validate output path is absolute or not
+  if (distPath.isAbsolute) {
+    outputPath= distPath.uri.toString().replaceAll('//', '/');
+    outputPath = outputPath.substring(0, outputPath.length - 1);
+    outputPath = outputPath.replaceFirst('file:', '');
+  }
+  else{
+    outputPath=dist;
+  }
 //validate input file exist
   if (inputFile.existsSync()) {
     // validate output path is valid.
-    if (isOutputPathValid(dist)) {
+    if (isOutputPathValid(outputPath)) {
       // validate file input is json
-      if (checkingFileJson(src)) {
+      if (checkingFileJson(inputPath)) {
         // validate output file is dart
-        if (checkingFileDart(dist)) {
+        if (checkingFileDart(outputPath)) {
           //generate file
-          if (generateFile(inputFile, dist)) {
+          if (generateFile(inputFile, outputPath)) {
             print('successfully generate file');
           } else {
             print('generate file failed');
@@ -68,19 +91,25 @@ bool checkingFileJson(String path) {
 
 ///validate output directory is under lib
 bool isOutputPathValid(String path) {
-  Directory myDir = new Directory(path);
+
+  Directory dir = new Directory(path);
+  String outputPath = dir.uri.toString();
+  //convert path
+  outputPath = outputPath.replaceFirst('file:///', '');
+  outputPath = outputPath.substring(0, outputPath.length - 1);
   try {
-    List<String> fileType = myDir.uri.toString().split('/');
-    if ((fileType[0] == 'lib' || fileType[1] == 'lib') &&
-        !path.contains('../')) {
-      return permissionAccess(path);
+    List<String> splitPath = outputPath.split('/');
+    if ((splitPath[0] == 'lib' ) &&
+        !splitPath.contains('../')) {
+      return permissionAccess(outputPath);
     } else {
       print(
-          'Output directory is not valid. Output directory must be under /lib');
+          'Output directory is not valid. Output directory must be under ./lib');
       return false;
     }
   } catch (error) {
-    print('Output directory is not valid. Output directory must be under /lib');
+    print(
+        'Output directory is not valid. Output directory must be under ./lib');
     return false;
   }
 }
@@ -94,8 +123,8 @@ bool permissionAccess(String path) {
   }
   //if exist continue to validate
   else {
-    if (outputFile.statSync().mode.toRadixString(8) == '100666'||
-        outputFile.statSync().mode.toRadixString(8) == '100660'||
+    if (outputFile.statSync().mode.toRadixString(8) == '100666' ||
+        outputFile.statSync().mode.toRadixString(8) == '100660' ||
         outputFile.statSync().mode.toRadixString(8) == '100600') {
       return true;
     } else {
@@ -107,9 +136,8 @@ bool permissionAccess(String path) {
 
 ///validate output is dart file
 bool checkingFileDart(String path) {
-  String mimeStr = lookupMimeType(path);
-  List<String> fileType = mimeStr.split('/');
-  if (fileType.last == 'x-dart') {
+  List<String> fileType = path.split('.');
+  if (fileType.last == 'dart') {
     return true;
   } else {
     return false;
