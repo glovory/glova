@@ -4,7 +4,7 @@ import 'package:args/args.dart';
 import 'package:mime/mime.dart';
 
 const tpl =
-    "import 'dart:ui';\nimport 'package:glukutux/glukutux.dart';\n\n\n//@autogenerate do not edit\nclass TuxColorScheme {";
+    "import 'dart:ui';\nimport 'package:glukutux/glukutux.dart';\n\n\n//@auto generate do not edit\nclass TuxColorScheme {";
 
 void main(List<String> args) {
   String src;
@@ -29,11 +29,15 @@ void main(List<String> args) {
   }
 
   File inputFile = new File(src);
-
+//validate input file exist
   if (inputFile.existsSync()) {
+    // validate output path is valid.
     if (isOutputPathValid(dist)) {
+      // validate file input is json
       if (checkingFileJson(src)) {
+        // validate output file is dart
         if (checkingFileDart(dist)) {
+          //generate file
           if (generateFile(inputFile, dist)) {
             print('successfully generate file');
           } else {
@@ -71,7 +75,8 @@ bool isOutputPathValid(String path) {
         !path.contains('../')) {
       return permissionAccess(path);
     } else {
-      print('Output directory is not valid. Output directory must be under /lib');
+      print(
+          'Output directory is not valid. Output directory must be under /lib');
       return false;
     }
   } catch (error) {
@@ -83,12 +88,21 @@ bool isOutputPathValid(String path) {
 ///validate permission access
 bool permissionAccess(String path) {
   File outputFile = new File(path);
-
-  if (outputFile.statSync().mode.toString() == '33206') {
+  // check file exists or not
+  if (!outputFile.existsSync()) {
     return true;
-  } else {
-    print('You have no permission in file output');
-    return false;
+  }
+  //if exist continue to validate
+  else {
+    print(outputFile.statSync().mode.toRadixString(8));
+    if (outputFile.statSync().mode.toRadixString(8) == '100666'||
+        outputFile.statSync().mode.toRadixString(8) == '100660'||
+        outputFile.statSync().mode.toRadixString(8) == '100600') {
+      return true;
+    } else {
+      print('You have no permission in file output');
+      return false;
+    }
   }
 }
 
