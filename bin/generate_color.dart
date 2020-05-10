@@ -11,11 +11,11 @@ void main(List<String> args) {
   String dist;
 
   ArgParser parser = new ArgParser();
-  parser.addOption('input', abbr: 'i', defaultsTo: './json_data/data.json',
+  parser.addOption('input', abbr: 'i', defaultsTo: './eva_theme.json',
       callback: (value) {
     return src = value;
   }, help: "Specify the json directory.");
-  parser.addOption('output', abbr: 'o', defaultsTo: 'lib/src/model/tux_color.dart',
+  parser.addOption('output', abbr: 'o', defaultsTo: 'lib/tux_color.dart',
       callback: (value) {
     return dist = value;
   }, help: "Specify the output directory.");
