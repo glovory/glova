@@ -28,7 +28,7 @@ void main(List<String> args) {
     exit(0);
   }
 
-  File inputFile = new File(src) ;
+  File inputFile = new File(src);
   Directory srcPath = new Directory(src);
   Directory distPath = new Directory(dist);
   String outputPath;
@@ -36,32 +36,30 @@ void main(List<String> args) {
 
   //validate input path is absolute or not
   if (srcPath.isAbsolute) {
-    inputPath= inputFile.uri.toString().replaceAll('//', '/');
+    inputPath = inputFile.uri.toString().replaceAll('//', '/');
     inputPath = inputPath.replaceFirst('file:/', '');
     inputFile = new File(inputPath);
-  }
-  else{
-    inputPath=src;
+  } else {
+    inputPath = src;
   }
   //validate output path is absolute or not
   if (distPath.isAbsolute) {
-    outputPath= distPath.uri.toString().replaceAll('//', '/');
+    outputPath = distPath.uri.toString().replaceAll('//', '/');
     outputPath = outputPath.substring(0, outputPath.length - 1);
     outputPath = outputPath.replaceFirst('file:', '');
-  }
-  else{
-    outputPath=dist;
+  } else {
+    outputPath = dist;
   }
 //validate input file exist
   if (inputFile.existsSync()) {
     // validate output path is valid.
     if (isOutputPathValid(outputPath)) {
       // validate file input is json
-      if (checkingFileJson(inputPath)) {
+      if (isFileJson(inputPath)) {
         // validate output file is dart
-        if (checkingFileDart(outputPath)) {
+        if (isFileDart(outputPath)) {
           //generate file
-          if (generateFile(inputFile, outputPath)) {
+          if (isGenerateFile(inputFile, outputPath)) {
             print('successfully generate file');
           } else {
             print('generate file failed');
@@ -79,7 +77,7 @@ void main(List<String> args) {
 }
 
 ///validate input is json file
-bool checkingFileJson(String path) {
+bool isFileJson(String path) {
   String mimeStr = lookupMimeType(path);
   List<String> fileType = mimeStr.split('/');
   if (fileType.last == 'json') {
@@ -91,7 +89,6 @@ bool checkingFileJson(String path) {
 
 ///validate output directory is under lib
 bool isOutputPathValid(String path) {
-
   Directory dir = new Directory(path);
   String outputPath = dir.uri.toString();
   //convert path
@@ -99,9 +96,8 @@ bool isOutputPathValid(String path) {
   outputPath = outputPath.substring(0, outputPath.length - 1);
   try {
     List<String> splitPath = outputPath.split('/');
-    if ((splitPath[0] == 'lib' ) &&
-        !splitPath.contains('../')) {
-      return permissionAccess(outputPath);
+    if ((splitPath[0] == 'lib') && !splitPath.contains('../')) {
+      return isPermissionAccess(outputPath);
     } else {
       print(
           'Output directory is not valid. Output directory must be under ./lib');
@@ -114,8 +110,8 @@ bool isOutputPathValid(String path) {
   }
 }
 
-///validate permission access
-bool permissionAccess(String path) {
+///validate file output permission access
+bool isPermissionAccess(String path) {
   File outputFile = new File(path);
   // check file exists or not
   if (!outputFile.existsSync()) {
@@ -133,9 +129,36 @@ bool permissionAccess(String path) {
     }
   }
 }
+// write color value for generate file format
+void writeColorToBuffer(StringBuffer sinkColor, StringBuffer color500,
+    String numberColor, String hexColor) {
+  sinkColor
+      .write(numberColor + ' :  Color(' + hexColorWithOpacity(hexColor) + '),');
+  sinkColor.write('\n      ');
+  if (numberColor == '500') {
+    color500.write(hexColorWithOpacity(hexColor));
+  }
+}
+// write transparent color value for generate file format
+void writeTransparentColorToBuffer(StringBuffer sinkColor,
+    StringBuffer color500, String numberColor, List<String> rgbaVal) {
+  sinkColor.write(numberColor +
+      ' :  Color(' +
+      convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
+          int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
+      '),');
+  sinkColor.write('\n      ');
+  if (numberColor == '500') {
+    color500.write(convertRgbaToHex(
+        int.parse(rgbaVal[0]),
+        int.parse(rgbaVal[1]),
+        int.parse(rgbaVal[2]),
+        double.parse(rgbaVal[3])));
+  }
+}
 
 ///validate output is dart file
-bool checkingFileDart(String path) {
+bool isFileDart(String path) {
   List<String> fileType = path.split('.');
   if (fileType.last == 'dart') {
     return true;
@@ -144,7 +167,7 @@ bool checkingFileDart(String path) {
   }
 }
 
-bool generateFile(File file, String outputPath) {
+bool isGenerateFile(File file, String outputPath) {
   File files = file;
   String output = outputPath;
   Map<String, dynamic> map;
@@ -184,55 +207,35 @@ bool generateFile(File file, String outputPath) {
       switch (indexColor[1]) {
         case 'primary':
           {
-            sinkColorPrimary.write(
-                indexColor[2] + ' :  Color(' + hexColorWithOpacity(val) + '),');
-            sinkColorPrimary.write('\n      ');
-            if (indexColor[2] == '500') {
-              colorPrimary.write(hexColorWithOpacity(val));
-            }
+            writeColorToBuffer(sinkColorPrimary, colorPrimary ,
+                indexColor[2], val);
           }
           break;
 
         case 'success':
           {
-            sinkColorSuccess.write(
-                indexColor[2] + ' :  Color(' + hexColorWithOpacity(val) + '),');
-            sinkColorSuccess.write('\n      ');
-            if (indexColor[2] == '500') {
-              colorSuccess.write(hexColorWithOpacity(val));
-            }
+            writeColorToBuffer(sinkColorSuccess, colorSuccess ,
+                indexColor[2], val);
           }
           break;
 
         case 'info':
           {
-            sinkColorInfo.write(
-                indexColor[2] + ' :  Color(' + hexColorWithOpacity(val) + '),');
-            sinkColorInfo.write('\n      ');
-            if (indexColor[2] == '500') {
-              colorInfo.write(hexColorWithOpacity(val));
-            }
+            writeColorToBuffer(sinkColorInfo, colorInfo ,
+                indexColor[2], val);
           }
           break;
         case 'warning':
           {
-            sinkColorWarning.write(
-                indexColor[2] + ' :  Color(' + hexColorWithOpacity(val) + '),');
-            sinkColorWarning.write('\n      ');
-            if (indexColor[2] == '500') {
-              colorWarning.write(hexColorWithOpacity(val));
-            }
+            writeColorToBuffer(sinkColorWarning, colorWarning ,
+                indexColor[2], val);
           }
           break;
 
         case 'danger':
           {
-            sinkColorDanger.write(
-                indexColor[2] + ' :  Color(' + hexColorWithOpacity(val) + '),');
-            sinkColorDanger.write('\n      ');
-            if (indexColor[2] == '500') {
-              colorDanger.write(hexColorWithOpacity(val));
-            }
+            writeColorToBuffer(sinkColorDanger, colorDanger ,
+                indexColor[2], val);
           }
 
           break;
@@ -245,90 +248,35 @@ bool generateFile(File file, String outputPath) {
       switch (indexColor[1]) {
         case 'primary':
           {
-            sinkColorPrimaryTransparent.write(indexColor[3] +
-                ' :  Color(' +
-                convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
-                    int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
-                '),');
-            sinkColorPrimaryTransparent.write('\n      ');
-            if (indexColor[3] == '500') {
-              colorPrimaryTransparent.write(convertRgbaToHex(
-                  int.parse(rgbaVal[0]),
-                  int.parse(rgbaVal[1]),
-                  int.parse(rgbaVal[2]),
-                  double.parse(rgbaVal[3])));
-            }
+            writeTransparentColorToBuffer(sinkColorPrimaryTransparent,
+                colorPrimaryTransparent, indexColor[3] , rgbaVal);
           }
           break;
 
         case 'success':
           {
-            sinkColorSuccessTransparent.write(indexColor[3] +
-                ' :  Color(' +
-                convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
-                    int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
-                '),');
-            sinkColorSuccessTransparent.write('\n      ');
-            if (indexColor[3] == '500') {
-              colorSuccessTransparent.write(convertRgbaToHex(
-                  int.parse(rgbaVal[0]),
-                  int.parse(rgbaVal[1]),
-                  int.parse(rgbaVal[2]),
-                  double.parse(rgbaVal[3])));
-            }
+            writeTransparentColorToBuffer(sinkColorSuccessTransparent,
+                colorSuccessTransparent, indexColor[3] , rgbaVal);
           }
           break;
 
         case 'info':
           {
-            sinkColorInfoTransparent.write(indexColor[3] +
-                ' :  Color(' +
-                convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
-                    int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
-                '),');
-            sinkColorInfoTransparent.write('\n      ');
-            if (indexColor[3] == '500') {
-              colorInfoTransparent.write(convertRgbaToHex(
-                  int.parse(rgbaVal[0]),
-                  int.parse(rgbaVal[1]),
-                  int.parse(rgbaVal[2]),
-                  double.parse(rgbaVal[3])));
-            }
+            writeTransparentColorToBuffer(sinkColorInfoTransparent,
+                colorInfoTransparent, indexColor[3] , rgbaVal);
           }
           break;
         case 'warning':
           {
-            sinkColorWarningTransparent.write(indexColor[3] +
-                ' :  Color(' +
-                convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
-                    int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
-                '),');
-            sinkColorWarningTransparent.write('\n      ');
-            if (indexColor[3] == '500') {
-              colorWarningTransparent.write(convertRgbaToHex(
-                  int.parse(rgbaVal[0]),
-                  int.parse(rgbaVal[1]),
-                  int.parse(rgbaVal[2]),
-                  double.parse(rgbaVal[3])));
-            }
+            writeTransparentColorToBuffer(sinkColorWarningTransparent,
+                colorWarningTransparent, indexColor[3] , rgbaVal);
           }
           break;
 
         case 'danger':
           {
-            sinkColorDangerTransparent.write(indexColor[3] +
-                ' :  Color(' +
-                convertRgbaToHex(int.parse(rgbaVal[0]), int.parse(rgbaVal[1]),
-                    int.parse(rgbaVal[2]), double.parse(rgbaVal[3])) +
-                '),');
-            sinkColorDangerTransparent.write('\n      ');
-            if (indexColor[3] == '500') {
-              colorDangerTransparent.write(convertRgbaToHex(
-                  int.parse(rgbaVal[0]),
-                  int.parse(rgbaVal[1]),
-                  int.parse(rgbaVal[2]),
-                  double.parse(rgbaVal[3])));
-            }
+            writeTransparentColorToBuffer(sinkColorDangerTransparent,
+                colorDangerTransparent, indexColor[3] , rgbaVal);
           }
           break;
       }
