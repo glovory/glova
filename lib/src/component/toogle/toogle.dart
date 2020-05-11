@@ -9,7 +9,7 @@ class TuxToogle extends StatefulWidget {
   final TuxStatus tuxStatus;
 
   /// Value of toogle.
-  final bool value;
+  final bool initialValue;
 
   /// Call this methos when user click the widget and value is changed.
   final Function(bool) onChanged;
@@ -19,7 +19,7 @@ class TuxToogle extends StatefulWidget {
 
   const TuxToogle({
     this.tuxStatus = TuxStatus.primary,
-    @required this.value,
+    @required this.initialValue,
     @required this.onChanged,
     this.enable = true,
   });
@@ -28,8 +28,7 @@ class TuxToogle extends StatefulWidget {
   _TuxToogleState createState() => _TuxToogleState();
 }
 
-class _TuxToogleState extends State<TuxToogle>
-    with SingleTickerProviderStateMixin {
+class _TuxToogleState extends State<TuxToogle> with SingleTickerProviderStateMixin {
   Animation _circleAnimation;
   AnimationController _animationController;
 
@@ -37,14 +36,12 @@ class _TuxToogleState extends State<TuxToogle>
   void initState() {
     super.initState();
     // init animation controller
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 60));
     // init animation
     _circleAnimation = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
-        .animate(CurvedAnimation(
-            parent: _animationController, curve: Curves.linear));
+            begin: widget.initialValue ? Alignment.centerRight : Alignment.centerLeft,
+            end: widget.initialValue ? Alignment.centerLeft : Alignment.centerRight)
+        .animate(CurvedAnimation(parent: _animationController, curve: Curves.linear));
   }
 
   /// Color of toogle
@@ -73,13 +70,13 @@ class _TuxToogleState extends State<TuxToogle>
             }
             if (_animationController.isCompleted) {
               _animationController.reverse();
+              // set value with the initial value
+              widget.onChanged(widget.initialValue);
             } else {
               _animationController.forward();
+              // set value with not the initial value
+              widget.onChanged(!widget.initialValue);
             }
-            // change the value of toogle when user is tapped
-            widget.value == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
           },
           child: Container(
             width: 65.0,
