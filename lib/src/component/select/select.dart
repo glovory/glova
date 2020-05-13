@@ -26,6 +26,9 @@ class TuxSelect extends StatefulWidget {
   /// Padding to use inside the button.
   final EdgeInsets padding;
 
+  /// appearance of select
+  final TuxAppearance tuxAppearance;
+
   TuxSelect({
     @required this.items,
     @required this.onSelect,
@@ -34,14 +37,14 @@ class TuxSelect extends StatefulWidget {
     this.thickness = 1,
     this.padding = const EdgeInsets.all(12),
     this.tuxStatus,
+    this.tuxAppearance = TuxAppearance.outline,
   });
 
   @override
   _TuxSelectState createState() => _TuxSelectState();
 }
 
-class _TuxSelectState extends State<TuxSelect>
-    with SingleTickerProviderStateMixin {
+class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMixin {
   Animation _arrowAnimation;
   AnimationController _arrowAnimationController;
   String value;
@@ -54,8 +57,7 @@ class _TuxSelectState extends State<TuxSelect>
     _arrowAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 100));
     // Init animation arrow icon with tween animation
-    _arrowAnimation =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController);
+    _arrowAnimation = Tween(begin: 0.0, end: pi).animate(_arrowAnimationController);
   }
 
   @override
@@ -143,24 +145,68 @@ class _TuxSelectState extends State<TuxSelect>
     }
   }
 
+  BoxDecoration boxDecoration({TuxAppearance appearance}) {
+    switch (appearance) {
+      case TuxAppearance.filled:
+        return BoxDecoration(
+          color: TuxColorUtils.colorByStatus(
+            tuxStatus: widget.tuxStatus,
+            defaultColor: Theme.of(context).buttonColor, // button color from theme
+          ),
+          borderRadius: BorderRadius.circular(widget.radius),
+          border: (widget.thickness == 0)
+              ? null
+              : Border.all(
+                  width: widget.thickness,
+                  color: TuxColorUtils.colorByStatus(
+                    tuxStatus: widget.tuxStatus,
+                    defaultColor: Theme.of(context).buttonColor, // button color from theme
+                  ),
+                ),
+        );
+        break;
+      case TuxAppearance.outline:
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.radius),
+          border: (widget.thickness == 0)
+              ? null
+              : Border.all(
+                  width: widget.thickness,
+                  color: TuxColorUtils.colorByStatus(
+                    tuxStatus: widget.tuxStatus,
+                    defaultColor: Theme.of(context).buttonColor, // button color from theme
+                  ),
+                ),
+        );
+        break;
+      case TuxAppearance.ghost:
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.radius),
+        );
+        break;
+      default:
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.radius),
+          border: (widget.thickness == 0)
+              ? null
+              : Border.all(
+                  width: widget.thickness,
+                  color: TuxColorUtils.colorByStatus(
+                    tuxStatus: widget.tuxStatus,
+                    defaultColor: Theme.of(context).buttonColor, // button color from theme
+                  ),
+                ),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
       padding: widget.padding,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(widget.radius),
-        border: (widget.thickness == 0)
-            ? null
-            : Border.all(
-                width: widget.thickness,
-                color: TuxColorUtils.colorByStatus(
-                  tuxStatus: widget.tuxStatus,
-                  defaultColor:
-                      Theme.of(context).buttonColor, // button color from theme
-                ),
-              ),
-      ),
+      decoration: boxDecoration(appearance: widget.tuxAppearance),
       child: GestureDetector(
         onTap: () {
           if (widget.onSelect != null) toogleOverlay();
@@ -172,8 +218,12 @@ class _TuxSelectState extends State<TuxSelect>
                 value != null ? value : widget.hint,
                 style: TextStyle(
                   color: (value != null)
-                      ? null // default from theme
-                      : Theme.of(context).hintColor, // change to hint color
+                      ? (widget.tuxAppearance == TuxAppearance.filled)
+                          ? Colors.white
+                          : null // default from theme
+                      : (widget.tuxAppearance == TuxAppearance.filled)
+                          ? Colors.white.withOpacity(0.5)
+                          : Theme.of(context).hintColor, // change to hint color
                 ),
               ),
             ),
@@ -183,6 +233,7 @@ class _TuxSelectState extends State<TuxSelect>
                 angle: _arrowAnimation.value,
                 child: Icon(
                   Icons.expand_more,
+                  color: (widget.tuxAppearance == TuxAppearance.filled) ? Colors.white : null,
                 ),
               ),
             ),
