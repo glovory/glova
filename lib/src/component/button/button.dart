@@ -13,6 +13,9 @@ class TuxButton extends StatelessWidget {
   /// Controls the shape of button
   final TuxShape tuxShape;
 
+  /// Size of button
+  final TuxWidgetSize tuxWidgetSize;
+
   /// Label of button
   final String label;
 
@@ -56,6 +59,7 @@ class TuxButton extends StatelessWidget {
     this.tuxStatus,
     this.padding,
     this.radius = 12,
+    this.tuxWidgetSize = TuxWidgetSize.medium,
     this.elevation = 0.0,
   });
 
@@ -72,6 +76,7 @@ class TuxButton extends StatelessWidget {
     this.padding,
     this.radius = 12,
     this.elevation = 0.0,
+    this.tuxWidgetSize = TuxWidgetSize.medium,
   }) : this.tuxAppearance = TuxAppearance.filled;
 
   const TuxButton.outline({
@@ -87,6 +92,7 @@ class TuxButton extends StatelessWidget {
     this.padding,
     this.radius = 12,
     this.elevation = 0.0,
+    this.tuxWidgetSize = TuxWidgetSize.medium,
   }) : this.tuxAppearance = TuxAppearance.outline;
 
   const TuxButton.ghost({
@@ -100,6 +106,7 @@ class TuxButton extends StatelessWidget {
     this.tuxStatus,
     this.padding,
     this.elevation = 0.0,
+    this.tuxWidgetSize = TuxWidgetSize.medium,
   })  : this.tuxAppearance = TuxAppearance.ghost,
         this.tuxShape = TuxShape.square,
         this.radius = 12;
@@ -177,7 +184,7 @@ class TuxButton extends StatelessWidget {
           label,
           style: TextStyle(
             height: (heightLabel != null) ? heightLabel : null,
-            fontSize: (sizeLabel != null) ? sizeLabel : null,
+            fontSize: sizeLabel ?? WidgetSizeUtils.getFontSize(size: tuxWidgetSize),
             fontWeight: (fontWeightLabel != null) ? fontWeightLabel : null,
           ),
           textAlign: TextAlign.center,
@@ -204,7 +211,7 @@ class TuxButton extends StatelessWidget {
       // change text color to unselected color from theme if tuxstatus is null
       textColor: (tuxStatus != null) ? TuxColor.white : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
-      padding: padding,
+      padding: padding ?? WidgetSizeUtils.getPadding(size: tuxWidgetSize),
       shape: shapeButton(context, tuxShape: tuxShape),
       elevation: elevation,
       // handle disable
@@ -236,7 +243,7 @@ class TuxButton extends StatelessWidget {
             )
           : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
-      padding: padding,
+      padding: padding ?? WidgetSizeUtils.getPadding(size: tuxWidgetSize),
       shape: shapeButton(context, tuxShape: tuxShape),
       highlightElevation: elevation,
       // handle disable
@@ -265,7 +272,7 @@ class TuxButton extends StatelessWidget {
             )
           : Theme.of(context).unselectedWidgetColor,
       child: listChild(),
-      padding: padding,
+      padding: padding ?? WidgetSizeUtils.getPadding(size: tuxWidgetSize),
       // handle disable
       disabledTextColor: (tuxStatus != null)
           ? TuxColorUtils.colorByStatus(
@@ -292,6 +299,10 @@ class TuxButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return tuxButton(context);
+    return ButtonTheme(
+      child: tuxButton(context),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      minWidth: 0,
+    );
   }
 }
