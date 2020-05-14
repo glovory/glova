@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum TuxAppearance {
   filled,
   outline,
@@ -25,7 +27,11 @@ enum TuxStatus {
   danger,
 }
 
-enum TuxImageAvatar { circle, square, rounded }
+enum TuxImageAvatar {
+  circle,
+  square,
+  rounded,
+}
 
 enum TuxShape {
   circle,
@@ -34,7 +40,7 @@ enum TuxShape {
   roundedTop,
   roundedBottom,
   roundedLeft,
-  roundedRight
+  roundedRight,
 }
 
 enum TuxCardStatus {
@@ -52,4 +58,52 @@ enum TuxHorizontalPositioning {
 enum TuxVerticalPositioning {
   top,
   bottom,
+}
+
+class WidgetSizeUtils {
+  static double getFontSize({TuxWidgetSize size}) {
+    switch (size) {
+      case TuxWidgetSize.giant:
+        return 18;
+        break;
+      case TuxWidgetSize.large:
+        return 16;
+        break;
+      case TuxWidgetSize.medium:
+        return 14;
+        break;
+      case TuxWidgetSize.small:
+        return 12;
+        break;
+      case TuxWidgetSize.tiny:
+        return 10;
+        break;
+      default:
+        return 14;
+        break;
+    }
+  }
+
+  static EdgeInsets getPadding({TuxWidgetSize size}) {
+    switch (size) {
+      case TuxWidgetSize.giant:
+        return EdgeInsets.symmetric(vertical: 14, horizontal: 22);
+        break;
+      case TuxWidgetSize.large:
+        return EdgeInsets.symmetric(vertical: 12, horizontal: 18);
+        break;
+      case TuxWidgetSize.medium:
+        return EdgeInsets.symmetric(vertical: 10, horizontal: 18);
+        break;
+      case TuxWidgetSize.small:
+        return EdgeInsets.symmetric(vertical: 6, horizontal: 14);
+        break;
+      case TuxWidgetSize.tiny:
+        return EdgeInsets.symmetric(vertical: 4, horizontal: 10);
+        break;
+      default:
+        return EdgeInsets.symmetric(vertical: 10, horizontal: 18);
+        break;
+    }
+  }
 }
