@@ -21,7 +21,7 @@ class TuxSelect extends StatefulWidget {
   final double radius;
 
   /// Width to use border width of select
-  final double width;
+  final double thickness;
 
   /// Padding to use inside the button.
   final EdgeInsets padding;
@@ -31,7 +31,7 @@ class TuxSelect extends StatefulWidget {
     @required this.onSelect,
     this.hint = '',
     this.radius = 0,
-    this.width = 1,
+    this.thickness = 1,
     this.padding = const EdgeInsets.all(12),
     this.tuxStatus,
   });
@@ -150,10 +150,10 @@ class _TuxSelectState extends State<TuxSelect>
       padding: widget.padding,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.radius),
-        border: (widget.width == 0)
+        border: (widget.thickness == 0)
             ? null
             : Border.all(
-                width: widget.width,
+                width: widget.thickness,
                 color: TuxColorUtils.colorByStatus(
                   tuxStatus: widget.tuxStatus,
                   defaultColor:

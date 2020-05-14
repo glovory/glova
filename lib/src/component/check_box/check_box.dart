@@ -7,7 +7,7 @@ class TuxCheckBox extends StatefulWidget {
   final TuxStatus tuxStatus;
 
   /// Value of checkbox. true is active and false is unchecked. it can be null (intermediate)
-  final bool value;
+  final bool initialValue;
 
   /// Call this method when the user click the widget and value is changed.
   final Function(bool) onChanged;
@@ -18,42 +18,36 @@ class TuxCheckBox extends StatefulWidget {
   /// Label of checkbox. on the right of checkbox.
   final String label;
 
+  final EdgeInsetsGeometry labelPadding;
+
   const TuxCheckBox({
     this.tuxStatus = TuxStatus.primary,
-    @required this.value,
+    @required this.initialValue,
     this.onChanged,
     this.enable = true,
     this.label,
+    this.labelPadding = const EdgeInsets.only(left: 6),
   });
 
   @override
   _TuxCheckBoxState createState() => _TuxCheckBoxState();
 }
 
-class _TuxCheckBoxState extends State<TuxCheckBox>
-    with SingleTickerProviderStateMixin {
+class _TuxCheckBoxState extends State<TuxCheckBox> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
+  bool value;
 
   @override
   void initState() {
     super.initState();
     // Animation init for change the color of checkbox
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 60));
-  }
-
-  /// Value of checkbox
-  bool valueCheckBox() {
-    if (widget.value == null) {
-      return true;
-    } else {
-      return widget.value;
-    }
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+    value = (widget.initialValue != null) ? widget.initialValue : true;
   }
 
   /// Icon of checkbox by value
   Icon iconCheckBox() {
-    if (widget.value != null) {
+    if (widget.initialValue != null) {
       return Icon(
         EvaIcons.checkmark,
         color: TuxColor.white,
@@ -89,7 +83,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
         return GestureDetector(
           onTap: () {
             // Break operation if value of enable is false or value of checkbox is null
-            if (!widget.enable || widget.value == null) {
+            if (!widget.enable || widget.initialValue == null) {
               return;
             }
             if (_animationController.isCompleted) {
@@ -99,9 +93,10 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
             }
 
             // Change value of checkbox
-            valueCheckBox() == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
+            setState(() {
+              value = !value;
+              widget.onChanged(value);
+            });
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -114,21 +109,21 @@ class _TuxCheckBoxState extends State<TuxCheckBox>
                     width: 2,
                     color: colorCheckBox(),
                   ),
-                  color: valueCheckBox()
-                      ? colorCheckBox()
-                      : colorCheckBox().withOpacity(0),
+                  color: value ? colorCheckBox() : colorCheckBox().withOpacity(0),
                 ),
-                child: (valueCheckBox())
-                    ? Center(
-                        child: iconCheckBox(),
-                      )
-                    : null,
+                child: Center(
+                  child: iconCheckBox(),
+                ),
               ),
               if (widget.label != null) ...[
                 SizedBox(
                   width: 8,
                 ),
-                Text(widget.label),
+                Flexible(
+                    child: Padding(
+                  padding: widget.labelPadding,
+                  child: Text(widget.label),
+                )),
               ],
             ],
           ),
