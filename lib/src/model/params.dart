@@ -106,4 +106,27 @@ class WidgetSizeUtils {
         break;
     }
   }
+
+  static double getToggleSize({TuxWidgetSize size}) {
+    switch (size) {
+      case TuxWidgetSize.giant:
+        return 0.75;
+        break;
+      case TuxWidgetSize.large:
+        return 0.875;
+        break;
+      case TuxWidgetSize.medium:
+        return 1;
+        break;
+      case TuxWidgetSize.small:
+        return 1.125;
+        break;
+      case TuxWidgetSize.tiny:
+        return 1.25;
+        break;
+      default:
+        return 1;
+        break;
+    }
+  }
 }
