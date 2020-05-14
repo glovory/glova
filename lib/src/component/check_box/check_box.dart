@@ -18,7 +18,14 @@ class TuxCheckBox extends StatefulWidget {
   /// Label of checkbox. on the right of checkbox.
   final String label;
 
+  /// Label padding
   final EdgeInsetsGeometry labelPadding;
+
+  /// Common padding
+  final EdgeInsets padding;
+
+  /// Label position
+  final String position;
 
   const TuxCheckBox({
     this.tuxStatus = TuxStatus.primary,
@@ -27,6 +34,8 @@ class TuxCheckBox extends StatefulWidget {
     this.enable = true,
     this.label,
     this.labelPadding = const EdgeInsets.only(left: 6),
+    this.position = 'none',
+    this.padding = const EdgeInsets.all(0)
   });
 
   @override
@@ -75,60 +84,120 @@ class _TuxCheckBoxState extends State<TuxCheckBox> with SingleTickerProviderStat
     }
   }
 
+  /// Setting position of checkbox component
+  Widget setPosition(String position) {
+    /// checkbox + sizedbox + lable component
+    Widget wholeComponent = null;
+
+    /// Separator between checkbox and lable
+    Widget sizedBox = SizedBox(
+      width: 8,
+    );
+
+    /// Checkbox component
+    Widget checkbox = Container(
+      width: 20.0,
+      height: 20.0,
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: colorCheckBox(),
+        ),
+        color: value ? colorCheckBox() : colorCheckBox().withOpacity(0),
+      ),
+      child: Center(
+        child: iconCheckBox(),
+      ),
+    );
+
+    /// Lable component
+    Widget label =  Flexible(
+        child: Padding(
+          padding: widget.labelPadding,
+          child: Text(widget.label),
+        )
+    );
+
+    if (widget.label == null) {
+      label = SizedBox(
+        width: 1,
+      );
+    }
+
+    switch(position) {
+      case 'none':
+        wholeComponent = Row(
+          children: <Widget>[
+            checkbox,
+            sizedBox,
+            label
+          ],
+        );
+        break;
+
+      case 'right':
+        wholeComponent = Row(
+          children: <Widget>[
+            label,
+            sizedBox,
+            checkbox
+          ],
+        );
+        break;
+
+      case 'left':
+        wholeComponent = Row(
+          children: <Widget>[
+            checkbox,
+            sizedBox,
+            label
+          ],
+        );
+        break;
+
+      default:
+        wholeComponent = Row(
+          children: <Widget>[
+            checkbox,
+            sizedBox,
+            label
+          ],
+        );
+        break;
+    }
+
+    return wholeComponent;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return GestureDetector(
-          onTap: () {
-            // Break operation if value of enable is false or value of checkbox is null
-            if (!widget.enable || widget.initialValue == null) {
-              return;
-            }
-            if (_animationController.isCompleted) {
-              _animationController.reverse();
-            } else {
-              _animationController.forward();
-            }
+    return Padding(
+      padding: widget.padding,
+      child: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return GestureDetector(
+            onTap: () {
+              // Break operation if value of enable is false or value of checkbox is null
+              if (!widget.enable || widget.initialValue == null) {
+                return;
+              }
+              if (_animationController.isCompleted) {
+                _animationController.reverse();
+              } else {
+                _animationController.forward();
+              }
 
-            // Change value of checkbox
-            setState(() {
-              value = !value;
-              widget.onChanged(value);
-            });
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                width: 20.0,
-                height: 20.0,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 2,
-                    color: colorCheckBox(),
-                  ),
-                  color: value ? colorCheckBox() : colorCheckBox().withOpacity(0),
-                ),
-                child: Center(
-                  child: iconCheckBox(),
-                ),
-              ),
-              if (widget.label != null) ...[
-                SizedBox(
-                  width: 8,
-                ),
-                Flexible(
-                    child: Padding(
-                  padding: widget.labelPadding,
-                  child: Text(widget.label),
-                )),
-              ],
-            ],
-          ),
-        );
-      },
+              // Change value of checkbox
+              setState(() {
+                value = !value;
+                widget.onChanged(value);
+              });
+            },
+            child: setPosition(widget.position),
+          );
+        },
+      ),
     );
   }
 }
