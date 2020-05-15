@@ -101,21 +101,24 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(unselectedWidgetColor: colorRadio()),
-      child: (widget.horizontal)
-          ?
-          // horizontal direction
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: buildRadio(),
-            )
-          :
-          // vertical direction
-          IntrinsicWidth(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Container(
+        alignment: Alignment.topLeft,
+        child: (widget.horizontal)
+            ?
+            // horizontal direction
+            Wrap(
+                direction: Axis.horizontal,
                 children: buildRadio(),
+              )
+            :
+            // vertical direction
+            IntrinsicWidth(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: buildRadio(),
+                ),
               ),
-            ),
+      ),
     );
   }
 }

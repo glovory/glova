@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../glukutux.dart';
 
 class TuxCard extends StatelessWidget {
@@ -18,12 +17,16 @@ class TuxCard extends StatelessWidget {
   /// Footer of card.
   final String footer;
 
+  /// Card padding
+  final EdgeInsets padding;
+
   const TuxCard({
     this.tuxCardStatus = TuxCardStatus.none,
     this.tuxStatus = TuxStatus.primary,
     this.header,
     @required this.body,
     this.footer,
+    this.padding = const EdgeInsets.all(0) // Default padding set to be 0
   });
 
   /// Display this widget if cardstatus is none
@@ -154,17 +157,20 @@ class TuxCard extends StatelessWidget {
             child: Container(
               color: Theme.of(context).cardColor,
 //              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  if (header != null && header.isNotEmpty) ...[
-                    showHeader(context, cardStatus: tuxCardStatus),
+              child: Padding(
+                padding: padding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    if (header != null && header.isNotEmpty) ...[
+                      showHeader(context, cardStatus: tuxCardStatus),
+                    ],
+                    showBody(),
+                    if (footer != null && footer.isNotEmpty) ...[
+                      showFooter(context),
+                    ],
                   ],
-                  showBody(),
-                  if (footer != null && footer.isNotEmpty) ...[
-                    showFooter(context),
-                  ],
-                ],
+                ),
               ),
             ),
           ),

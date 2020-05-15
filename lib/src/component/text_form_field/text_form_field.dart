@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
-class TuxTextFormField extends StatelessWidget {
+class TuxTextFormField extends StatefulWidget {
   /// Using parameter from TextFormField, Material.
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -13,7 +13,7 @@ class TuxTextFormField extends StatelessWidget {
   final VoidCallback onEditingComplete;
   final ValueChanged<String> onFieldSubmitted;
   final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
+  final Function(String) validator;
   final bool enabled;
   final EdgeInsetsGeometry contentPadding;
   final TuxStatus tuxStatus;
@@ -40,7 +40,7 @@ class TuxTextFormField extends StatelessWidget {
     this.onSaved,
     this.validator,
     this.enabled,
-    this.contentPadding,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12),
     this.tuxStatus,
     this.widthBorder = 1,
     this.radius = 4,
@@ -67,7 +67,7 @@ class TuxTextFormField extends StatelessWidget {
     this.onSaved,
     this.validator,
     this.enabled,
-    this.contentPadding,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12),
     this.tuxStatus,
     this.widthBorder = 1,
     this.radius = 4,
@@ -93,7 +93,7 @@ class TuxTextFormField extends StatelessWidget {
     this.onSaved,
     this.validator,
     this.enabled,
-    this.contentPadding,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12),
     this.tuxStatus,
     this.widthBorder = 1,
     this.radius = 4,
@@ -106,11 +106,18 @@ class TuxTextFormField extends StatelessWidget {
   }) : this.isPrefix = false;
 
   @override
+  _TuxTextFormFieldState createState() => _TuxTextFormFieldState();
+}
+
+class _TuxTextFormFieldState extends State<TuxTextFormField> {
+  String errorText;
+
+  @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
         primaryColor: TuxColorUtils.colorByStatus(
-          tuxStatus: tuxStatus,
+          tuxStatus: widget.tuxStatus,
           defaultColor: TuxColor.primary,
         ),
       ),
@@ -118,84 +125,92 @@ class TuxTextFormField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           // show label if not null
-          if (label != null) ...[
+          if (widget.label != null) ...[
             Text(
-              label.toUpperCase(),
+              widget.label.toUpperCase(),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
             SizedBox(height: 6.0),
           ],
           TextFormField(
-            controller: controller,
-            keyboardType: keyboardType,
-            textCapitalization: textCapitalization,
-            style: style,
-            obscureText: obscureText,
-            onChanged: onChanged,
-            onTap: onTap,
-            onEditingComplete: onEditingComplete,
-            onFieldSubmitted: onFieldSubmitted,
-            onSaved: onSaved,
-            validator: validator,
-            enabled: enabled,
-            maxLines: maxLines,
+            controller: widget.controller,
+            keyboardType: widget.keyboardType,
+            textCapitalization: widget.textCapitalization,
+            style: widget.style,
+            obscureText: widget.obscureText,
+            onChanged: widget.onChanged,
+            onTap: widget.onTap,
+            onEditingComplete: widget.onEditingComplete,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            onSaved: widget.onSaved,
+            validator: (val) {
+              setState(() {
+                errorText = widget.validator.call(val);
+              });
+
+              return widget.validator.call(val);
+            },
+            enabled: widget.enabled,
+            maxLines: widget.maxLines,
             // decoration by status
             decoration: InputDecoration(
-              prefixIcon: (isPrefix) ? icon : null,
-              suffixIcon: (!isPrefix) ? icon : null,
-              filled: filled,
-              contentPadding: contentPadding,
+              prefixIcon: (widget.isPrefix) ? widget.icon : null,
+              suffixIcon: (!widget.isPrefix) ? widget.icon : null,
+              filled: widget.filled,
+              contentPadding: widget.contentPadding,
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 borderSide: BorderSide(
                   width: 0.2,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 borderSide: BorderSide(
                   width: 0.2,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 borderSide: BorderSide(
                   color: TuxColorUtils.colorByStatus(
-                    tuxStatus: tuxStatus,
+                    tuxStatus: widget.tuxStatus,
                     defaultColor: Theme.of(context).buttonColor, // change color from theme
                   ),
-                  width: widthBorder,
+                  width: widget.widthBorder,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 borderSide: BorderSide(
                   color: TuxColor.danger,
-                  width: widthBorder,
+                  width: widget.widthBorder,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 borderSide: BorderSide(
                   color: TuxColor.danger,
-                  width: widthBorder,
+                  width: widget.widthBorder,
                 ),
               ),
               errorStyle: TextStyle(
                 color: TuxColor.danger,
+                fontSize: 0,
+                height: 0,
               ),
-              hintText: hint,
+              hintText: widget.hint,
             ),
           ),
           // show description if not null
-          if (description != null) ...[
-            SizedBox(height: 6.0),
+          if (widget.description != null || errorText != null) ...[
+            SizedBox(height: 4.0),
             Text(
-              description,
-              style: TextStyle(),
+              (errorText != null) ? errorText : widget.description,
+              style: (errorText != null) ? TextStyle(color: TuxColor.danger) : TextStyle(),
             ),
           ],
         ],
