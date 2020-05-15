@@ -21,7 +21,7 @@ export 'package:glukutux/src/component/spinner/spinner.dart';
 export 'package:glukutux/src/component/tabs/tab_bar.dart';
 export 'package:glukutux/src/component/tabs/tab.dart';
 export 'package:glukutux/src/component/text_form_field/text_form_field.dart';
-export 'package:glukutux/src/component/toogle/toogle.dart';
+export 'package:glukutux/src/component/toggle/toggle.dart';
 export 'package:glukutux/src/component/drawer/drawer.dart';
 export 'package:glukutux/src/component/drawer/drawer_header.dart';
 
