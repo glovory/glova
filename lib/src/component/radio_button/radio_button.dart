@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glukutux/glukutux.dart';
 
@@ -22,7 +21,7 @@ class TuxRadioButton extends StatefulWidget {
   final bool enabled;
 
   /// Positon of radio button
-  final String position;
+  final TuxHorizontalPositioning position;
 
   /// Padding of container
   final EdgeInsets padding;
@@ -37,7 +36,7 @@ class TuxRadioButton extends StatefulWidget {
     @required this.onChanged,
     this.horizontal = false,
     this.enabled = true,
-    this.position = 'none',
+    this.position = TuxHorizontalPositioning.none,
     this.padding = const EdgeInsets.all(0),
     this.labelPadding = const EdgeInsets.all(0)
   });
@@ -81,7 +80,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
   }
 
   /// Set position of radio button
-  Widget setPosition(String position, int index) {
+  Widget setPosition(TuxHorizontalPositioning position, int index) {
     /// radio + label component
     Widget wholeComponent = null;
 
@@ -108,7 +107,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     );
 
     switch(position) {
-      case 'none':
+      case TuxHorizontalPositioning.none:
         wholeComponent = Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -118,7 +117,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
         );
         break;
 
-      case 'left':
+      case TuxHorizontalPositioning.left:
         wholeComponent = Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -128,7 +127,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
         );
         break;
 
-      case 'right':
+      case TuxHorizontalPositioning.right:
         wholeComponent = Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
