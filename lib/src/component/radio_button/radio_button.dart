@@ -20,6 +20,15 @@ class TuxRadioButton extends StatefulWidget {
   /// Controls of radio button is active or not
   final bool enabled;
 
+  /// Positon of radio button
+  final TuxHorizontalPositioning position;
+
+  /// Padding of container
+  final EdgeInsets padding;
+
+  /// Padding of label
+  final EdgeInsets labelPadding;
+
   const TuxRadioButton({
     this.tuxStatus = TuxStatus.primary,
     @required this.radioLables,
@@ -27,6 +36,9 @@ class TuxRadioButton extends StatefulWidget {
     @required this.onChanged,
     this.horizontal = false,
     this.enabled = true,
+    this.position = TuxHorizontalPositioning.none,
+    this.padding = const EdgeInsets.all(0),
+    this.labelPadding = const EdgeInsets.all(0)
   });
 
   _TuxRadioButtonState createState() => _TuxRadioButtonState();
@@ -67,31 +79,88 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
     }
   }
 
+  /// Set position of radio button
+  Widget setPosition(TuxHorizontalPositioning position, int index) {
+    /// radio + label component
+    Widget wholeComponent = null;
+
+    /// Radio component
+    Widget radio =  Radio(
+      value: widget.radioValues[index],
+      groupValue: currentSelectedValue,
+      activeColor: colorRadio(),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      onChanged: (value) {
+        changeValue(value, index);
+      },
+    );
+
+    /// Label component
+    Widget label = GestureDetector(
+      onTap: () {
+        changeValue(widget.radioValues[index], index);
+      },
+      child: Padding(
+        padding: widget.labelPadding,
+        child: Text(widget.radioLables[index]),
+      ),
+    );
+
+    switch(position) {
+      case TuxHorizontalPositioning.none:
+        wholeComponent = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            radio,
+            label
+          ],
+        );
+        break;
+
+      case TuxHorizontalPositioning.left:
+        wholeComponent = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            radio,
+            label
+          ],
+        );
+        break;
+
+      case TuxHorizontalPositioning.right:
+        wholeComponent = Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            label,
+            radio
+          ],
+        );
+        break;
+
+      default:
+        wholeComponent = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            radio,
+            label
+          ],
+        );
+        break;
+    }
+
+    return Padding(
+      padding: widget.padding,
+      child: wholeComponent,
+    );
+  }
+
   /// Display widget radio with label
   List<Widget> buildRadio() {
     List<Widget> radio = [];
     for (int index = 0; index < widget.radioLables.length; index++) {
       radio.add(
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Radio(
-              value: widget.radioValues[index],
-              groupValue: currentSelectedValue,
-              activeColor: colorRadio(),
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              onChanged: (value) {
-                changeValue(value, index);
-              },
-            ),
-            GestureDetector(
-              onTap: () {
-                changeValue(widget.radioValues[index], index);
-              },
-              child: Text(widget.radioLables[index]),
-            )
-          ],
-        ),
+        setPosition(widget.position, index)
       );
     }
     return radio;
