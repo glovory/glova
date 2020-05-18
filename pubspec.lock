@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+  eva_color:
+    dependency: "direct main"
+    description:
+      name: eva_color
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1+1"
   eva_icons_flutter:
     dependency: "direct main"
     description:
@@ -185,4 +192,5 @@ packages:
     source: hosted
     version: "3.6.1"
 sdks:
-  dart: ">=2.6.0 <3.0.0"
+  dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.12.0"

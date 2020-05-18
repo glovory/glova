@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   eva_icons_flutter: 2.0.0
+  eva_color: ^1.0.1+1
 
 dev_dependencies:
   flutter_test:
