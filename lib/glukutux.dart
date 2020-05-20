@@ -24,6 +24,7 @@ export 'package:glukutux/src/component/text_form_field/text_form_field.dart';
 export 'package:glukutux/src/component/toggle/toggle.dart';
 export 'package:glukutux/src/component/drawer/drawer.dart';
 export 'package:glukutux/src/component/drawer/drawer_header.dart';
+export 'package:glukutux/src/component/icon_button/icon_button.dart';
 
 // Eva Icons
 export 'package:eva_icons_flutter/eva_icons_flutter.dart';
