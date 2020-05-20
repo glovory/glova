@@ -85,13 +85,15 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
             children: <Widget>[
               if (widget.label != null &&
                   widget.tuxHorizontalPositioning == TuxHorizontalPositioning.left) ...[
-                Container(
-                  margin: EdgeInsets.only(right: widget.labelPadding),
-                  child: Text(
-                    widget.label,
-                    style: TextStyle(
-                        fontSize: WidgetSizeUtils.getFontSize(size: widget.tuxWidgetSize) + 4,
-                        fontWeight: FontWeight.w500),
+                Flexible(
+                  child: Container(
+                    margin: EdgeInsets.only(right: widget.labelPadding),
+                    child: Text(
+                      widget.label,
+                      style: TextStyle(
+                          fontSize: WidgetSizeUtils.getFontSize(size: widget.tuxWidgetSize),
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ),
               ],
@@ -112,11 +114,12 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
                   }
                 },
                 child: Container(
-                  width: 65.0 / WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize),
-                  height: 40.0 / WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize),
+                  width: 52.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
+                  height: 32.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          20.0 / WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize)),
+                        100.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
+                      ),
                       color: _circleAnimation.value == Alignment.centerLeft
                           ? colorToggle().withOpacity(0.3)
                           : colorToggle()),
@@ -126,15 +129,15 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
                       _circleAnimation.value == Alignment.centerRight
                           ? Padding(
                               padding: EdgeInsets.only(
-                                  right: 25.0 /
-                                      WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize)),
+                                right: 20.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
+                              ),
                             )
                           : Container(),
                       Align(
                         alignment: _circleAnimation.value,
                         child: Container(
-                          width: 30.0 / WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize),
-                          height: 30.0 / WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize),
+                          width: 28.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
+                          height: 28.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
@@ -142,8 +145,7 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
                           child: (_circleAnimation.value == Alignment.centerRight)
                               ? Icon(
                                   EvaIcons.checkmark,
-                                  size: 25 /
-                                      WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize),
+                                  size: 12 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
                                   color: colorToggle(),
                                 )
                               : null,
@@ -152,8 +154,8 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
                       _circleAnimation.value == Alignment.centerLeft
                           ? Padding(
                               padding: EdgeInsets.only(
-                                  left: 25.0 /
-                                      WidgetSizeUtils.getToggleSize(size: widget.tuxWidgetSize)),
+                                left: 20.0 * WidgetSizeUtils.getScale(size: widget.tuxWidgetSize),
+                              ),
                             )
                           : Container(),
                     ],
@@ -162,13 +164,15 @@ class _TuxToggleState extends State<TuxToggle> with SingleTickerProviderStateMix
               ),
               if (widget.label != null &&
                   widget.tuxHorizontalPositioning == TuxHorizontalPositioning.right) ...[
-                Container(
-                  margin: EdgeInsets.only(left: widget.labelPadding),
-                  child: Text(
-                    widget.label,
-                    style: TextStyle(
-                        fontSize: WidgetSizeUtils.getFontSize(size: widget.tuxWidgetSize) + 4,
-                        fontWeight: FontWeight.w500),
+                Flexible(
+                  child: Container(
+                    margin: EdgeInsets.only(left: widget.labelPadding),
+                    child: Text(
+                      widget.label,
+                      style: TextStyle(
+                          fontSize: WidgetSizeUtils.getFontSize(size: widget.tuxWidgetSize),
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ),
               ],
