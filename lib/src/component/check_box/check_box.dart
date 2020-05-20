@@ -33,8 +33,8 @@ class TuxCheckBox extends StatefulWidget {
     this.onChanged,
     this.enable = true,
     this.label,
-    this.labelPadding = const EdgeInsets.only(left: 6),
-    this.position = TuxHorizontalPositioning.none,
+    this.labelPadding = const EdgeInsets.all(0),
+    this.position = TuxHorizontalPositioning.left,
     this.padding = const EdgeInsets.all(0)
   });
 
@@ -131,12 +131,11 @@ class _TuxCheckBoxState extends State<TuxCheckBox> with SingleTickerProviderStat
           children: <Widget>[
             checkbox,
             sizedBox,
-            label
           ],
         );
         break;
 
-      case TuxHorizontalPositioning.right:
+      case TuxHorizontalPositioning.left:
         wholeComponent = Row(
           children: <Widget>[
             label,
@@ -146,7 +145,7 @@ class _TuxCheckBoxState extends State<TuxCheckBox> with SingleTickerProviderStat
         );
         break;
 
-      case TuxHorizontalPositioning.left:
+      case TuxHorizontalPositioning.right:
         wholeComponent = Row(
           children: <Widget>[
             checkbox,
@@ -161,7 +160,6 @@ class _TuxCheckBoxState extends State<TuxCheckBox> with SingleTickerProviderStat
           children: <Widget>[
             checkbox,
             sizedBox,
-            label
           ],
         );
         break;
