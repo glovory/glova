@@ -121,7 +121,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             radio,
-            label
+            Flexible(child: label)
           ],
         );
         break;
@@ -131,7 +131,7 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            label,
+            Flexible(child: label),
             radio
           ],
         );
