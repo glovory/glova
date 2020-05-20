@@ -13,11 +13,11 @@ enum TuxWidgetState {
   disabled,
 }
 enum TuxWidgetSize {
-  giant,
-  large,
-  medium,
-  small,
   tiny,
+  small,
+  medium,
+  large,
+  giant,
 }
 enum TuxStatus {
   primary,
@@ -107,21 +107,21 @@ class WidgetSizeUtils {
     }
   }
 
-  static double getToggleSize({TuxWidgetSize size}) {
+  static double getScale({TuxWidgetSize size}) {
     switch (size) {
-      case TuxWidgetSize.giant:
+      case TuxWidgetSize.tiny:
         return 0.75;
         break;
-      case TuxWidgetSize.large:
+      case TuxWidgetSize.small:
         return 0.875;
         break;
       case TuxWidgetSize.medium:
         return 1;
         break;
-      case TuxWidgetSize.small:
+      case TuxWidgetSize.large:
         return 1.125;
         break;
-      case TuxWidgetSize.tiny:
+      case TuxWidgetSize.giant:
         return 1.25;
         break;
       default:
