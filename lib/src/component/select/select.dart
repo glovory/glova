@@ -14,6 +14,9 @@ class TuxSelect extends StatefulWidget {
   /// Call this method when user selects a label in a list.
   final void Function(String) onSelect;
 
+  /// Init value of select
+  final String initialValue;
+
   /// Hint displayed inside the widget.
   final String hint;
 
@@ -32,6 +35,7 @@ class TuxSelect extends StatefulWidget {
   TuxSelect({
     @required this.items,
     @required this.onSelect,
+    this.initialValue,
     this.hint = '',
     this.radius = 0,
     this.thickness = 1,
@@ -58,6 +62,7 @@ class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMix
         AnimationController(vsync: this, duration: Duration(milliseconds: 100));
     // Init animation arrow icon with tween animation
     _arrowAnimation = Tween(begin: 0.0, end: pi).animate(_arrowAnimationController);
+    value = widget.initialValue;
   }
 
   @override
