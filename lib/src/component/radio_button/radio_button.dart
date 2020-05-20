@@ -36,7 +36,7 @@ class TuxRadioButton extends StatefulWidget {
     @required this.onChanged,
     this.horizontal = false,
     this.enabled = true,
-    this.position = TuxHorizontalPositioning.none,
+    this.position = TuxHorizontalPositioning.left,
     this.padding = const EdgeInsets.all(0),
     this.labelPadding = const EdgeInsets.all(0)
   });
@@ -112,27 +112,26 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             radio,
-            label
-          ],
-        );
-        break;
-
-      case TuxHorizontalPositioning.left:
-        wholeComponent = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            radio,
-            label
           ],
         );
         break;
 
       case TuxHorizontalPositioning.right:
         wholeComponent = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            radio,
+            Flexible(child: label)
+          ],
+        );
+        break;
+
+      case TuxHorizontalPositioning.left:
+        wholeComponent = Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            label,
+            Flexible(child: label),
             radio
           ],
         );
@@ -143,7 +142,6 @@ class _TuxRadioButtonState extends State<TuxRadioButton> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             radio,
-            label
           ],
         );
         break;
