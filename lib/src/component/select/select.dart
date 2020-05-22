@@ -53,6 +53,8 @@ class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMix
   AnimationController _arrowAnimationController;
   String value;
   OverlayEntry _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  bool openingFromBottom;
 
   @override
   void initState() {
@@ -70,55 +72,89 @@ class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMix
     super.dispose();
     // Dispose animation controller
     _arrowAnimationController.dispose();
+    hideOverlay();
   }
 
-  /// Make overlay widget
+  // Make overlay widget
   OverlayEntry createOverlay() {
     RenderBox renderBox = context.findRenderObject();
+
     double height = renderBox.size.height;
     double width = renderBox.size.width;
+
     Offset offset = renderBox.localToGlobal(Offset.zero);
-    double xPosition = offset.dx;
+
     double yPosition = offset.dy;
-    return OverlayEntry(builder: (context) {
-      return Positioned(
-        left: xPosition,
-        width: width,
-        top: yPosition + height,
-        // Set height with eight of render box multiplied by the number of items
-        height: (widget.items.length * height),
-        child: Material(
-          color: TuxColor.transparent,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.radius),
-              color: Theme.of(context).backgroundColor,
-            ),
-            padding: EdgeInsets.all(20),
-            alignment: Alignment.topLeft,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: widget.items.map((item) {
-                return GestureDetector(
-                  onTap: () {
-                    widget.onSelect(item);
-                    hideOverlay();
-                    setState(() {
-                      value = item;
-                    });
-                  },
-                  child: Text(
-                    item,
-                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal),
+
+    Size screen = MediaQuery.of(context).size;
+    double navBar = MediaQuery.of(context).padding.bottom;
+
+    final bottom = screen.height - yPosition - height - navBar;
+    final heightAll = height * widget.items.length;
+
+    double dx = -widget.padding.left;
+    double dy;
+    if (heightAll >= bottom) {
+      openingFromBottom = false;
+      dy = -(height * widget.items.length) - (1.5 * widget.padding.vertical);
+    } else {
+      openingFromBottom = true;
+      dy = height - (0.5 * widget.padding.vertical);
+    }
+
+    return OverlayEntry(
+        builder: (context) => Positioned(
+              width: width,
+              child: CompositedTransformFollower(
+                link: this._layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(dx, dy),
+                child: Material(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 5,
+                          offset: Offset(0, 0), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.only(top: widget.padding.vertical),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: [
+                          ...(widget.items)
+                              .map(
+                                (item) => GestureDetector(
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                        left: widget.padding.left, right: widget.padding.right),
+                                    height: height,
+                                    width: width,
+                                    child: Text('$item'),
+                                  ),
+                                  onTap: () {
+                                    print('$item Tapped');
+                                    widget.onSelect(item);
+                                    hideOverlay();
+                                    setState(() {
+                                      value = item;
+                                    });
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        ],
+                      ),
+                    ),
                   ),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      );
-    });
+                ),
+              ),
+            ));
   }
 
   /// toogle overlay widget
@@ -144,9 +180,12 @@ class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMix
   hideOverlay() {
     if (this._overlayEntry != null) {
       _arrowAnimationController.reverse();
-      this._overlayEntry.remove();
-      this._overlayEntry = null;
-      setState(() {});
+
+      Future.delayed(Duration(milliseconds: 100), () {
+        this._overlayEntry.remove();
+        this._overlayEntry = null;
+        setState(() {});
+      });
     }
   }
 
@@ -212,37 +251,40 @@ class _TuxSelectState extends State<TuxSelect> with SingleTickerProviderStateMix
       alignment: Alignment.topLeft,
       padding: widget.padding,
       decoration: boxDecoration(appearance: widget.tuxAppearance),
-      child: GestureDetector(
-        onTap: () {
-          if (widget.onSelect != null) toogleOverlay();
-        },
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                value != null ? value : widget.hint,
-                style: TextStyle(
-                  color: (value != null)
-                      ? (widget.tuxAppearance == TuxAppearance.filled)
-                          ? Colors.white
-                          : null // default from theme
-                      : (widget.tuxAppearance == TuxAppearance.filled)
-                          ? Colors.white.withOpacity(0.5)
-                          : Theme.of(context).hintColor, // change to hint color
+      child: CompositedTransformTarget(
+        link: _layerLink,
+        child: GestureDetector(
+          onTap: () {
+            if (widget.onSelect != null) toogleOverlay();
+          },
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  value != null ? value : widget.hint,
+                  style: TextStyle(
+                    color: (value != null)
+                        ? (widget.tuxAppearance == TuxAppearance.filled)
+                            ? Colors.white
+                            : null // default from theme
+                        : (widget.tuxAppearance == TuxAppearance.filled)
+                            ? Colors.white.withOpacity(0.5)
+                            : Theme.of(context).hintColor, // change to hint color
+                  ),
                 ),
               ),
-            ),
-            AnimatedBuilder(
-              animation: _arrowAnimationController,
-              builder: (context, child) => Transform.rotate(
-                angle: _arrowAnimation.value,
-                child: Icon(
-                  Icons.expand_more,
-                  color: (widget.tuxAppearance == TuxAppearance.filled) ? Colors.white : null,
+              AnimatedBuilder(
+                animation: _arrowAnimationController,
+                builder: (context, child) => Transform.rotate(
+                  angle: _arrowAnimation.value,
+                  child: Icon(
+                    Icons.expand_more,
+                    color: (widget.tuxAppearance == TuxAppearance.filled) ? Colors.white : null,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
