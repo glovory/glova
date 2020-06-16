@@ -1,41 +1,29 @@
 # glukutux
 
-UI design library implementation of Eva Design System
+Flutter UI component based on [Eva Design System](https://eva.design)
 
-## Getting Started
+> Eva Design is a trademark of Akveo LLC
 
+## Installation
 
-### Depend on it
-
-Add this to your package's pubspec.yaml file:
+This project is still under heavy development. You can try this library by defining git dependency like this:
 
 ```yaml
 dependencies:
   glukutux:
-      git:
-        url: https://github.com/glovory/glukutux.git
+    git:
+      url: https://github.com/glovory/glukutux.git
 ```
 
-
-### Install it
-
-You can install packages from the command line:
-
-```bash
-$ flutter pub get
-```
-
-
-### Import it
-
-Now in your Dart code, you can use:
+All the components can be accessible by importing
 
 ```dart
 import 'package:glukutux/glukutux.dart';
 ```
 
+## Initial Configuration
 
-### Setup
+-- old documentation --
 
 You have to replace `MaterialApp` or `CupertinoApp` with `GlukutuxApp`. by default theme of Glukutux is lightTheme, but you can change with `TuxTheme.darkTheme` if you want to dark mode or `TuxTheme.customTheme` if you want to custom theme
 
@@ -52,27 +40,52 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+-- end of old documentation --
 
-### Use it
+## Functionality & Components
 
-Every widget in **Glukutux** is prefixed with `Tux`. For example, `TuxButton`, `TuxCard`, etc.
+### Functionality
 
-```dart
-TuxButton(
-  onPressed: () {},
-  label: 'Hallo Glukutux',
-  tuxStatus: TuxStatus.primary,
-  tuxAppearance: TuxAppearance.filled,
-  tuxShape: TuxShape.circle,
-),
-```
+[ ] Theming
+[x] Color generator, provided by [Eva Color](https://pub.dev/packages/eva_color)
+[ ] Example project and apk
 
+### Components
 
-## Icons
+[ ] AppBar
+[ ] Avatar
+[ ] Buttons
+  [ ] Regular
+  [ ] Icon
+  [ ] Outline
+  [ ] Flat
+[ ] Card
+[ ] Checkbox
+[ ] Image
+[ ] Bottom Navigation
+[ ] Radio Button
+[ ] Select
+[ ] Tab
+[ ] Text form field
+[ ] Toggle
+[ ] Tooltip
+[ ] Popover
+[ ] Drawer
+[ ] Spinner
 
-The [Eva Icons Flutter](https://github.com/piyushmaurya23/eva_icons_flutter) package is already integrated into Glukutux, so you can use it right away by using `EvaIcons`.
+## For Contributors / Developers
 
+We encourage you to develop using Android Studio, as we also push the changes of `.idea` directory, which owned by Intellij platform.
+
+The step to start development:
+
+1. Checkout the latest master source.
+2. Open the project using Android Studio.
+3. Go to menu `File -> Settings -> Appearance & Behavior -> Path Variables`.
+4. Set the `FLUTTER_SDK` path variable to your Flutter SDK directory.
+
+These ensure the project contributions to be on the same table. Happy code!
 
 ## From Developers
-Made with :heart: by **Glovory**
 
+Made with :heart: by **Glovory** Mobile Tech Team 
