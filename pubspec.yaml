@@ -1,16 +1,17 @@
 name: glukutux
-description: UI design library implementation of Eva Design System
+description: UI design library based on Eva Design System
 version: 0.1.0
-author: Haqqi <haqqi@glovory.com>
-homepage: http://glovory.com
+homepage: https://glovory.com
+repository: https://github.com/glovory/glukutux
+issue_tracker: https://github.com/glovory/glukutux/issues
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  eva_icons_flutter: 2.0.0
   eva_color: ^1.0.1+1
 
 dev_dependencies:
