@@ -1,6 +1,6 @@
-# glukutux
+# glova
 
-Flutter UI component based on [Eva Design System](https://eva.design)
+Flutter UI component based on [Eva Design System](https://eva.design) by [Glovory](https://glovory.com)
 
 > Eva Design is a trademark of Akveo LLC
 
@@ -10,30 +10,30 @@ This project is still under heavy development. You can try this library by defin
 
 ```yaml
 dependencies:
-  glukutux:
+  glova:
     git:
-      url: https://github.com/glovory/glukutux.git
+      url: https://github.com/glovory/glova.git
 ```
 
 All the components can be accessible by importing
 
 ```dart
-import 'package:glukutux/glukutux.dart';
+import 'package:glova/glova.dart';
 ```
 
 ## Initial Configuration
 
 -- old documentation --
 
-You have to replace `MaterialApp` or `CupertinoApp` with `GlukutuxApp`. by default theme of Glukutux is lightTheme, but you can change with `TuxTheme.darkTheme` if you want to dark mode or `TuxTheme.customTheme` if you want to custom theme
+You have to replace `MaterialApp` or `CupertinoApp` with `GlovaApp`. by default theme of Glova is lightTheme, but you can change with `OvaTheme.darkTheme` if you want to dark mode or `OvaTheme.customTheme` if you want to custom theme
 
 ```dart
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GlukutuxApp(
-      theme: TuxTheme.lightTheme,
-      title: 'Glukutux',
+    return OvaApp(
+      theme: OvaTheme.lightTheme,
+      title: 'Glova',
       home: HomePage(),
     );
   }
