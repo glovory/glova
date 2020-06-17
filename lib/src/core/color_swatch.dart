@@ -1,6 +1,8 @@
 import 'package:eva_color/eva_color.dart';
 import 'package:flutter/foundation.dart';
 
+import 'default_color.dart';
+
 @immutable
 class OvaColorSwatch with Diagnosticable {
   /// Primary color from Eva color generator
@@ -58,21 +60,26 @@ class OvaColorSwatch with Diagnosticable {
     EvaColor dangerColor,
     EvaTransparentColor dangerTransparentColor,
   }) {
-    // TODO setup default for primary, success, info, warning, and danger
     return OvaColorSwatch.raw(
-      primaryColor: primaryColor,
-      primaryTransparentColor: primaryTransparentColor,
-      basicColor: basicColor,
-      basicLightTransparentColor: basicLightTransparentColor,
-      basicDarkTransparentColor: basicDarkTransparentColor,
-      successColor: successColor,
-      successTransparentColor: successTransparentColor,
-      infoColor: infoColor,
-      infoTransparentColor: infoTransparentColor,
-      warningColor: warningColor,
-      warningTransparentColor: warningTransparentColor,
-      dangerColor: dangerColor,
-      dangerTransparentColor: dangerTransparentColor,
+      primaryColor: primaryColor ?? OvaColor.primary,
+      primaryTransparentColor:
+          primaryTransparentColor ?? OvaColor.primaryTransparent,
+      basicColor: basicColor ?? OvaColor.basic,
+      basicLightTransparentColor:
+          basicLightTransparentColor ?? OvaColor.basicLightTransparent,
+      basicDarkTransparentColor:
+          basicDarkTransparentColor ?? OvaColor.basicDarkTransparent,
+      successColor: successColor ?? OvaColor.success,
+      successTransparentColor:
+          successTransparentColor ?? OvaColor.successTransparent,
+      infoColor: infoColor ?? OvaColor.info,
+      infoTransparentColor: infoTransparentColor ?? OvaColor.infoTransparent,
+      warningColor: warningColor ?? OvaColor.warning,
+      warningTransparentColor:
+          warningTransparentColor ?? OvaColor.warningTransparent,
+      dangerColor: dangerColor ?? OvaColor.danger,
+      dangerTransparentColor:
+          dangerTransparentColor ?? OvaColor.dangerTransparent,
     );
   }
 
