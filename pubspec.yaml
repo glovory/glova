@@ -1,16 +1,17 @@
-name: glukutux
-description: UI design library implementation of Eva Design System
+name: glova
+description: Flutter UI component based on Eva Design System by Glovory
 version: 0.1.0
-author: Haqqi <haqqi@glovory.com>
-homepage: http://glovory.com
+homepage: https://glovory.com
+repository: https://github.com/glovory/glova
+issue_tracker: https://github.com/glovory/glova/issues
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  eva_icons_flutter: 2.0.0
   eva_color: ^1.0.1+1
 
 dev_dependencies:
