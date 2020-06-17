@@ -61,7 +61,7 @@
         <entry key="eva_color">
           <value>
             <list>
-              <option value="$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/eva_color-1.0.1+1/lib" />
+              <option value="$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/eva_color-1.1.1/lib" />
             </list>
           </value>
         </entry>
@@ -202,7 +202,7 @@
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/collection-1.14.12/lib" />
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/convert-2.1.1/lib" />
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/crypto-2.1.4/lib" />
-      <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/eva_color-1.0.1+1/lib" />
+      <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/eva_color-1.1.1/lib" />
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/image-2.1.12/lib" />
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.6/lib" />
       <root url="file://$FLUTTER_SDK$/.pub-cache/hosted/pub.dartlang.org/meta-1.1.8/lib" />

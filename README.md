@@ -91,7 +91,7 @@ These ensure the project contributions to be on the same table. Happy code!
 Change the file in `assets/default-color.json`, then call the command
 
 ```shell script
-flutter pub run eva_color:generate -i assets/default-color.json -o lib/src/core/default-color.dart -c OvaColor`
+flutter pub run eva_color:generate -i assets/default-color.json -o lib/src/core/default_color.dart -c OvaColor
 ```
 
 ## From Developers
