@@ -83,7 +83,7 @@ class OvaColorSwatch with Diagnosticable {
     );
   }
 
-  OvaColorSwatch.raw({
+  const OvaColorSwatch.raw({
     @required this.primaryColor,
     @required this.primaryTransparentColor,
     @required this.basicColor,

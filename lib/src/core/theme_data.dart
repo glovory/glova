@@ -12,7 +12,8 @@ class OvaThemeData with Diagnosticable {
   factory OvaThemeData({
     OvaColorSwatch colorSwatch,
   }) {
-    // TODO setup default for primary, success, info, warning, and danger
+    colorSwatch ??= OvaColorSwatch(); // set default color swatch
+
     return OvaThemeData.raw(
       colorSwatch: colorSwatch,
     );
