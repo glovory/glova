@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../component/button_theme.dart';
 import 'color_swatch.dart';
 
 /// Theme data for OvaApp.
@@ -8,18 +9,26 @@ class OvaThemeData with Diagnosticable {
   /// Standard color swatches for Eva Design system
   final OvaColorSwatch colorSwatch;
 
+  final OvaButtonThemeData buttonTheme;
+
   /// Factory constructor that has fallback for the undefined parameters.
   factory OvaThemeData({
     OvaColorSwatch colorSwatch,
+    OvaButtonThemeData buttonTheme,
   }) {
     colorSwatch ??= OvaColorSwatch(); // set default color swatch
+    buttonTheme ??= OvaButtonThemeData();
 
     return OvaThemeData.raw(
       colorSwatch: colorSwatch,
+      buttonTheme: buttonTheme,
     );
   }
 
+  /// Raw constructor
   OvaThemeData.raw({
     @required this.colorSwatch,
-  }) : assert(colorSwatch != null);
+    @required this.buttonTheme,
+  })  : assert(colorSwatch != null),
+        assert(buttonTheme != null);
 }

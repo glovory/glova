@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:glova/glova.dart';
+import 'package:glova/src/core/theme.dart';
 
 /// Wrap the [MaterialApp] inside this widget, to use the Eva Design System.
 ///
@@ -40,6 +42,8 @@ class OvaApp extends StatelessWidget {
   final Map<LogicalKeySet, Intent> shortcuts;
   final Map<LocalKey, ActionFactory> actions;
 
+  final OvaThemeData theme;
+
   OvaApp({
     Key key,
     this.navigatorKey,
@@ -69,38 +73,44 @@ class OvaApp extends StatelessWidget {
     this.debugShowCheckedModeBanner = true,
     this.shortcuts,
     this.actions,
+    this.theme,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      home: home,
-      routes: routes,
-      initialRoute: initialRoute,
-      onGenerateRoute: onGenerateRoute,
-      onGenerateInitialRoutes: onGenerateInitialRoutes,
-      onUnknownRoute: onUnknownRoute,
-      navigatorObservers: navigatorObservers,
-      builder: builder,
-      title: title,
-      onGenerateTitle: onGenerateTitle,
-      color: color,
-      theme: materialTheme,
-      darkTheme: materialDarkTheme,
-      locale: locale,
-      localizationsDelegates: localizationsDelegates,
-      localeListResolutionCallback: localeListResolutionCallback,
-      localeResolutionCallback: localeResolutionCallback,
-      supportedLocales: supportedLocales,
-      debugShowMaterialGrid: debugShowMaterialGrid,
-      showPerformanceOverlay: showPerformanceOverlay,
-      checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-      showSemanticsDebugger: showSemanticsDebugger,
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      actions: actions,
+    OvaThemeData theme = this.theme == null ? OvaThemeData() : this.theme;
+
+    return OvaTheme(
+      data: theme,
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        home: home,
+        routes: routes,
+        initialRoute: initialRoute,
+        onGenerateRoute: onGenerateRoute,
+        onGenerateInitialRoutes: onGenerateInitialRoutes,
+        onUnknownRoute: onUnknownRoute,
+        navigatorObservers: navigatorObservers,
+        builder: builder,
+        title: title,
+        onGenerateTitle: onGenerateTitle,
+        color: color,
+        theme: materialTheme,
+        darkTheme: materialDarkTheme,
+        locale: locale,
+        localizationsDelegates: localizationsDelegates,
+        localeListResolutionCallback: localeListResolutionCallback,
+        localeResolutionCallback: localeResolutionCallback,
+        supportedLocales: supportedLocales,
+        debugShowMaterialGrid: debugShowMaterialGrid,
+        showPerformanceOverlay: showPerformanceOverlay,
+        checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        showSemanticsDebugger: showSemanticsDebugger,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        shortcuts: shortcuts,
+        actions: actions,
+      ),
     );
   }
 }
