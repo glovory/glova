@@ -9,6 +9,7 @@ class OvaThemeData with Diagnosticable {
   /// Standard color swatches for Eva Design system
   final OvaColorSwatch colorSwatch;
 
+  /// Button theme data, with fallback to default
   final OvaButtonThemeData buttonTheme;
 
   /// Factory constructor that has fallback for the undefined parameters.
@@ -17,7 +18,9 @@ class OvaThemeData with Diagnosticable {
     OvaButtonThemeData buttonTheme,
   }) {
     colorSwatch ??= OvaColorSwatch(); // set default color swatch
-    buttonTheme ??= OvaButtonThemeData();
+    buttonTheme == null
+        ? OvaButtonThemeData.fallback(colorSwatch)
+        : OvaButtonThemeData.merge(theme: buttonTheme, swatch: colorSwatch);
 
     return OvaThemeData.raw(
       colorSwatch: colorSwatch,
