@@ -268,11 +268,35 @@ class OvaButtonThemeData with Diagnosticable {
   }
 
   Color getColor(OvaButton button) {
+    if (!button.enabled) {
+      if (button.disabledColor != null) {
+        return button.disabledColor;
+      }
+      return OvaColor.basic.withOpacity(0.24);
+    }
     if (button.backgroundColor != null) {
       return button.backgroundColor;
     }
 
     return statusColor[button.status];
+  }
+
+  Color getTextColor(OvaButton button) {
+    if (!button.enabled) {
+      if (button.disabledTextColor != null) {
+        return button.disabledTextColor;
+      }
+      return OvaColor.basic;
+    }
+    if (button.appearance == OvaButtonAppearance.filled) {
+      if (button.status == OvaButtonStatus.basic || button.status == OvaButtonStatus.control) {
+        return OvaColor.basic.shade800;
+      } else {
+        return Colors.white;
+      }
+    } else {
+      return getColor(button);
+    }
   }
 
   EdgeInsetsGeometry getPadding(OvaButton button) {
