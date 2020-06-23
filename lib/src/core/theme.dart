@@ -26,7 +26,7 @@ class OvaTheme extends InheritedTheme {
   /// Typical usage is as follows:
   ///
   /// ```dart
-  /// TuxThemeData theme = TuxTheme.of(context);
+  /// OvaThemeData theme = OvaTheme.of(context);
   /// ```
   static OvaThemeData of(BuildContext context) {
     final OvaTheme theme =
