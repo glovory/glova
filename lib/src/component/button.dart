@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/theme.dart';
-import '../core/theme_data.dart';
 import 'button_theme.dart';
 
 /// Available status for [OvaButton] component
@@ -59,28 +57,132 @@ class OvaButton extends StatefulWidget {
   /// background color
   final Color backgroundColor;
 
+  /// Widget child
+  final Widget child;
+
+  /// Icon
+  final Icon icon;
+
+  /// position of icon
+  final isLeading;
+
+  /// padding
+  final EdgeInsetsGeometry padding;
+
+  final Color focusColor;
+  final Color hoverColor;
+  final Color highlightColor;
+  final Color splashColor;
+  final Color disabledColor;
+  final Color disabledTextColor;
+
   OvaButton({
     this.size = OvaButtonSize.medium,
     this.appearance = OvaButtonAppearance.filled,
     this.status = OvaButtonStatus.primary,
     this.onPress,
     this.backgroundColor,
+    this.child,
+    this.icon,
+    this.isLeading = true,
+    this.padding,
+    this.focusColor,
+    this.hoverColor,
+    this.highlightColor,
+    this.splashColor,
+    this.disabledColor,
+    this.disabledTextColor,
   })  : assert(size != null),
         assert(appearance != null),
-        assert(status != null);
+        assert(status != null),
+        assert(child != null || icon != null);
+
+  bool get enabled => onPress != null;
 
   @override
   _OvaButtonState createState() => _OvaButtonState();
 }
 
 class _OvaButtonState extends State<OvaButton> {
+  Widget ovaButton({OvaButtonThemeData buttonTheme}) {
+    switch (widget.appearance) {
+      case OvaButtonAppearance.filled:
+        return RaisedButton(
+          onPressed: () {},
+          child: childOvaButton(buttonTheme: buttonTheme),
+          color: buttonTheme.getColor(widget),
+          elevation: 0,
+        );
+        break;
+      case OvaButtonAppearance.outline:
+        return OutlineButton(
+          onPressed: () {},
+          child: childOvaButton(buttonTheme: buttonTheme),
+          borderSide: BorderSide(
+            color: buttonTheme.getColor(widget),
+          ),
+          textColor: buttonTheme.getColor(widget),
+        );
+        break;
+      case OvaButtonAppearance.ghost:
+        return FlatButton(
+          onPressed: () {},
+          child: childOvaButton(buttonTheme: buttonTheme),
+          textColor: buttonTheme.getColor(widget),
+        );
+        break;
+      default:
+        return RaisedButton(
+          onPressed: () {},
+          child: childOvaButton(buttonTheme: buttonTheme),
+          color: buttonTheme.getColor(widget),
+          elevation: 0,
+        );
+        break;
+    }
+  }
+
+  Widget childOvaButton({OvaButtonThemeData buttonTheme}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (widget.icon != null && widget.isLeading) ...[
+          Icon(
+            widget.icon.icon,
+            size: widget.icon.size ?? buttonTheme.getSizeIcon(widget),
+          ),
+        ],
+        if (widget.child != null) ...[
+          if (widget.icon != null && widget.isLeading) ...[
+            SizedBox(width: 8),
+          ],
+          widget.child,
+          if (widget.icon != null && !widget.isLeading) ...[
+            SizedBox(width: 8),
+          ],
+        ],
+        if (widget.icon != null && !widget.isLeading) ...[
+          Icon(
+            widget.icon.icon,
+            size: widget.icon.size ?? buttonTheme.getSizeIcon(widget),
+          ),
+        ],
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    OvaThemeData theme = OvaTheme.of(context);
-    OvaButtonThemeData buttonTheme = theme.buttonTheme;
+    OvaButtonThemeData buttonTheme = OvaButtonTheme.of(context);
 
-    return Container(
-      color: buttonTheme.getColor(widget),
+    return ButtonTheme(
+      minWidth: 0,
+      height: 0,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      buttonColor: buttonTheme.getColor(widget),
+      padding: buttonTheme.getPadding(widget),
+      child: ovaButton(buttonTheme: buttonTheme),
     );
   }
 }

@@ -47,6 +47,14 @@ const Map<OvaButtonSize, double> _paddingDefaultValue = {
   OvaButtonSize.giant: 16,
 };
 
+const Map<OvaButtonSize, double> _sizeDefaultIcon = {
+  OvaButtonSize.tiny: 12,
+  OvaButtonSize.small: 16,
+  OvaButtonSize.medium: 20,
+  OvaButtonSize.large: 24,
+  OvaButtonSize.giant: 24,
+};
+
 Map<OvaButtonSize, OvaPadding> _paddingFallback({
   Map<OvaButtonSize, OvaPadding> padding,
 }) {
@@ -289,6 +297,10 @@ class OvaButtonThemeData with Diagnosticable {
       padding: padding[button.size],
       buttonPadding: buttonPadding,
     );
+  }
+
+  double getSizeIcon(OvaButton button) {
+    return _sizeDefaultIcon[button.size];
   }
 }
 
