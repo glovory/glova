@@ -18,7 +18,7 @@ class OvaThemeData with Diagnosticable {
     OvaButtonThemeData buttonTheme,
   }) {
     colorSwatch ??= OvaColorSwatch(); // set default color swatch
-    buttonTheme ??= OvaButtonThemeData.merge(
+    buttonTheme = OvaButtonThemeData.merge(
       theme: buttonTheme ??= OvaButtonThemeData.fallback(colorSwatch),
       swatch: colorSwatch,
     );
@@ -32,7 +32,6 @@ class OvaThemeData with Diagnosticable {
   /// Raw constructor
   OvaThemeData.raw({
     @required this.colorSwatch,
-    @required this.buttonTheme,
-  })  : assert(colorSwatch != null),
-        assert(buttonTheme != null);
+    this.buttonTheme,
+  }) : assert(colorSwatch != null);
 }
