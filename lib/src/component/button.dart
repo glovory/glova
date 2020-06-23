@@ -69,11 +69,10 @@ class OvaButton extends StatefulWidget {
   /// padding
   final EdgeInsetsGeometry padding;
 
-  final Color focusColor;
-  final Color hoverColor;
-  final Color highlightColor;
-  final Color splashColor;
+  /// disabled color
   final Color disabledColor;
+
+  /// text disabled color
   final Color disabledTextColor;
 
   OvaButton({
@@ -86,10 +85,6 @@ class OvaButton extends StatefulWidget {
     this.icon,
     this.isLeading = true,
     this.padding,
-    this.focusColor,
-    this.hoverColor,
-    this.highlightColor,
-    this.splashColor,
     this.disabledColor,
     this.disabledTextColor,
   })  : assert(size != null),
@@ -112,6 +107,7 @@ class _OvaButtonState extends State<OvaButton> {
           child: childOvaButton(buttonTheme: buttonTheme),
           color: buttonTheme.getColor(widget),
           elevation: 0,
+          textColor: buttonTheme.getTextColor(widget),
         );
         break;
       case OvaButtonAppearance.outline:
@@ -121,14 +117,14 @@ class _OvaButtonState extends State<OvaButton> {
           borderSide: BorderSide(
             color: buttonTheme.getColor(widget),
           ),
-          textColor: buttonTheme.getColor(widget),
+          textColor: buttonTheme.getTextColor(widget),
         );
         break;
       case OvaButtonAppearance.ghost:
         return FlatButton(
           onPressed: () {},
           child: childOvaButton(buttonTheme: buttonTheme),
-          textColor: buttonTheme.getColor(widget),
+          textColor: buttonTheme.getTextColor(widget),
         );
         break;
       default:
