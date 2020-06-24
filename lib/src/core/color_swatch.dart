@@ -62,24 +62,50 @@ class OvaColorSwatch with Diagnosticable {
   }) {
     return OvaColorSwatch.raw(
       primaryColor: primaryColor ?? OvaColor.primary,
-      primaryTransparentColor:
-          primaryTransparentColor ?? OvaColor.primaryTransparent,
+      primaryTransparentColor: primaryTransparentColor ?? OvaColor.primaryTransparent,
       basicColor: basicColor ?? OvaColor.basic,
-      basicLightTransparentColor:
-          basicLightTransparentColor ?? OvaColor.basicLightTransparent,
-      basicDarkTransparentColor:
-          basicDarkTransparentColor ?? OvaColor.basicDarkTransparent,
+      basicLightTransparentColor: basicLightTransparentColor ?? OvaColor.basicLightTransparent,
+      basicDarkTransparentColor: basicDarkTransparentColor ?? OvaColor.basicDarkTransparent,
       successColor: successColor ?? OvaColor.success,
-      successTransparentColor:
-          successTransparentColor ?? OvaColor.successTransparent,
+      successTransparentColor: successTransparentColor ?? OvaColor.successTransparent,
       infoColor: infoColor ?? OvaColor.info,
       infoTransparentColor: infoTransparentColor ?? OvaColor.infoTransparent,
       warningColor: warningColor ?? OvaColor.warning,
-      warningTransparentColor:
-          warningTransparentColor ?? OvaColor.warningTransparent,
+      warningTransparentColor: warningTransparentColor ?? OvaColor.warningTransparent,
       dangerColor: dangerColor ?? OvaColor.danger,
-      dangerTransparentColor:
-          dangerTransparentColor ?? OvaColor.dangerTransparent,
+      dangerTransparentColor: dangerTransparentColor ?? OvaColor.dangerTransparent,
+    );
+  }
+
+  OvaColorSwatch copyWith({
+    EvaColor primaryColor,
+    EvaTransparentColor primaryTransparentColor,
+    EvaBasicColor basicColor,
+    EvaTransparentColor basicLightTransparentColor,
+    EvaTransparentColor basicDarkTransparentColor,
+    EvaColor successColor,
+    EvaTransparentColor successTransparentColor,
+    EvaColor infoColor,
+    EvaTransparentColor infoTransparentColor,
+    EvaColor warningColor,
+    EvaTransparentColor warningTransparentColor,
+    EvaColor dangerColor,
+    EvaTransparentColor dangerTransparentColor,
+  }) {
+    return OvaColorSwatch.raw(
+      primaryColor: primaryColor ?? this.primaryColor,
+      primaryTransparentColor: primaryTransparentColor ?? this.primaryTransparentColor,
+      basicColor: basicColor ?? this.basicColor,
+      basicLightTransparentColor: basicLightTransparentColor ?? this.basicLightTransparentColor,
+      basicDarkTransparentColor: basicDarkTransparentColor ?? this.basicDarkTransparentColor,
+      successColor: successColor ?? this.successColor,
+      successTransparentColor: successTransparentColor ?? this.successTransparentColor,
+      infoColor: infoColor ?? this.infoColor,
+      infoTransparentColor: infoTransparentColor ?? this.infoTransparentColor,
+      warningColor: warningColor ?? this.warningColor,
+      warningTransparentColor: warningTransparentColor ?? this.warningTransparentColor,
+      dangerColor: dangerColor ?? this.dangerColor,
+      dangerTransparentColor: dangerTransparentColor ?? this.dangerTransparentColor,
     );
   }
 
