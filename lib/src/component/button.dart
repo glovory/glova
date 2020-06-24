@@ -66,14 +66,17 @@ class OvaButton extends StatefulWidget {
   /// icon position of the button.
   final isLeading;
 
-  /// padding of the button
+  /// padding of the button.
   final EdgeInsetsGeometry padding;
 
-  /// disabled color
+  /// disabled color.
   final Color disabledColor;
 
-  /// text disabled color
+  /// text disabled color.
   final Color disabledTextColor;
+
+  /// require the button fill the width. Default to false.
+  final bool stretch;
 
   OvaButton({
     this.size = OvaButtonSize.medium,
@@ -87,6 +90,7 @@ class OvaButton extends StatefulWidget {
     this.padding,
     this.disabledColor,
     this.disabledTextColor,
+    this.stretch = false,
   })  : assert(size != null),
         assert(appearance != null),
         assert(status != null),
@@ -141,8 +145,8 @@ class _OvaButtonState extends State<OvaButton> {
 
   Widget childOvaButton({OvaButtonThemeData buttonTheme}) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: (widget.stretch) ? MainAxisSize.max : MainAxisSize.min,
       children: <Widget>[
         if (widget.icon != null && widget.isLeading) ...[
           Icon(
