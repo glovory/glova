@@ -63,10 +63,10 @@ class OvaButton extends StatefulWidget {
   /// Icon
   final Icon icon;
 
-  /// position of icon
+  /// icon position of the button.
   final isLeading;
 
-  /// padding
+  /// padding of the button
   final EdgeInsetsGeometry padding;
 
   /// disabled color
@@ -118,6 +118,7 @@ class _OvaButtonState extends State<OvaButton> {
             color: buttonTheme.getColor(widget),
           ),
           textColor: buttonTheme.getTextColor(widget),
+          highlightedBorderColor: buttonTheme.getTextColor(widget),
         );
         break;
       case OvaButtonAppearance.ghost:
