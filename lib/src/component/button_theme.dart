@@ -193,7 +193,7 @@ class OvaButtonThemeData with Diagnosticable {
 
   /// App color swatch can be obtained from [OvaTheme.of(context).colorSwatch]
   factory OvaButtonThemeData({
-    Map<OvaButtonStatus, Color> statusColor,
+    Map<OvaButtonStatus, EvaColor> statusColor,
     @required OvaColorSwatch swatch,
     Map<OvaButtonSize, OvaPadding> padding,
   }) {
@@ -229,7 +229,7 @@ class OvaButtonThemeData with Diagnosticable {
     OvaButtonThemeData theme,
     OvaColorSwatch swatch,
   }) {
-    Map<OvaButtonStatus, Color> definedColor = theme.statusColor;
+    Map<OvaButtonStatus, EvaColor> definedColor = theme.statusColor;
     Map<OvaButtonSize, OvaPadding> definedPadding = theme.padding;
 
     return OvaButtonThemeData.raw(
