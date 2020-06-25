@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../glova.dart';
 import 'button_theme.dart';
 
 /// Available status for [OvaButton] component
@@ -78,6 +79,9 @@ class OvaButton extends StatefulWidget {
   /// require the button fill the width. Default to false.
   final bool stretch;
 
+  /// text style for button
+  final TextStyle textStyle;
+
   OvaButton({
     this.size = OvaButtonSize.medium,
     this.appearance = OvaButtonAppearance.filled,
@@ -91,6 +95,7 @@ class OvaButton extends StatefulWidget {
     this.disabledColor,
     this.disabledTextColor,
     this.stretch = false,
+    this.textStyle,
   })  : assert(size != null),
         assert(appearance != null),
         assert(status != null),
@@ -103,12 +108,12 @@ class OvaButton extends StatefulWidget {
 }
 
 class _OvaButtonState extends State<OvaButton> {
-  Widget ovaButton({OvaButtonThemeData buttonTheme}) {
+  Widget ovaButton({OvaButtonThemeData buttonTheme, OvaTextTheme textTheme}) {
     switch (widget.appearance) {
       case OvaButtonAppearance.filled:
         return RaisedButton(
           onPressed: () {},
-          child: childOvaButton(buttonTheme: buttonTheme),
+          child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           color: buttonTheme.getColor(widget),
           elevation: 0,
           textColor: buttonTheme.getTextColor(widget),
@@ -117,7 +122,7 @@ class _OvaButtonState extends State<OvaButton> {
       case OvaButtonAppearance.outline:
         return OutlineButton(
           onPressed: () {},
-          child: childOvaButton(buttonTheme: buttonTheme),
+          child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           borderSide: BorderSide(
             color: buttonTheme.getColor(widget),
           ),
@@ -128,14 +133,14 @@ class _OvaButtonState extends State<OvaButton> {
       case OvaButtonAppearance.ghost:
         return FlatButton(
           onPressed: () {},
-          child: childOvaButton(buttonTheme: buttonTheme),
+          child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           textColor: buttonTheme.getTextColor(widget),
         );
         break;
       default:
         return RaisedButton(
           onPressed: () {},
-          child: childOvaButton(buttonTheme: buttonTheme),
+          child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           color: buttonTheme.getColor(widget),
           elevation: 0,
         );
@@ -143,7 +148,7 @@ class _OvaButtonState extends State<OvaButton> {
     }
   }
 
-  Widget childOvaButton({OvaButtonThemeData buttonTheme}) {
+  Widget childOvaButton({OvaButtonThemeData buttonTheme, OvaTextTheme textTheme}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: (widget.stretch) ? MainAxisSize.max : MainAxisSize.min,
@@ -158,7 +163,12 @@ class _OvaButtonState extends State<OvaButton> {
           if (widget.icon != null && widget.isLeading) ...[
             SizedBox(width: 8),
           ],
-          widget.child,
+          (widget.child is Text)
+              ? Text(
+                  (widget.child as Text).data,
+                  style: buttonTheme.getTextStyle(widget, textTheme),
+                )
+              : widget.child,
           if (widget.icon != null && !widget.isLeading) ...[
             SizedBox(width: 8),
           ],
@@ -175,6 +185,7 @@ class _OvaButtonState extends State<OvaButton> {
 
   @override
   Widget build(BuildContext context) {
+    OvaTextTheme textTheme = OvaTheme.of(context).textTheme;
     OvaButtonThemeData buttonTheme = OvaButtonTheme.of(context);
 
     return ButtonTheme(
@@ -183,7 +194,7 @@ class _OvaButtonState extends State<OvaButton> {
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       buttonColor: buttonTheme.getColor(widget),
       padding: buttonTheme.getPadding(widget),
-      child: ovaButton(buttonTheme: buttonTheme),
+      child: ovaButton(buttonTheme: buttonTheme, textTheme: textTheme),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -297,6 +296,13 @@ class OvaButtonThemeData with Diagnosticable {
     } else {
       return getColor(button);
     }
+  }
+
+  TextStyle getTextStyle(OvaButton button, OvaTextTheme textTheme) {
+    if (button.textStyle != null) {
+      return button.textStyle;
+    }
+    return textTheme.button[button.size];
   }
 
   EdgeInsetsGeometry getPadding(OvaButton button) {
