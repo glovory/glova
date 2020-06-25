@@ -155,55 +155,31 @@ EdgeInsetsGeometry convertOvaPaddingToEdgeInsetsGeometry({
   }
 }
 
-Map<OvaButtonStatus, Color> _statusColorFallback({
-  Map<OvaButtonStatus, Color> color,
+Map<OvaButtonStatus, EvaColor> _statusColorFallback({
+  Map<OvaButtonStatus, EvaColor> evaColor,
   OvaColorSwatch swatch,
 }) {
-  return <OvaButtonStatus, Color>{
-    OvaButtonStatus.basic: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.basic,
-      defaultColor: swatch.basicColor.shade300,
-    ),
-    OvaButtonStatus.primary: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.primary,
-      defaultColor: swatch.primaryColor.shade500,
-    ),
-    OvaButtonStatus.success: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.success,
-      defaultColor: swatch.successColor.shade500,
-    ),
-    OvaButtonStatus.info: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.info,
-      defaultColor: swatch.infoColor.shade500,
-    ),
-    OvaButtonStatus.warning: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.warning,
-      defaultColor: swatch.warningColor.shade500,
-    ),
-    OvaButtonStatus.danger: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.danger,
-      defaultColor: swatch.dangerColor.shade500,
-    ),
-    OvaButtonStatus.control: _getStatusColor(
-      color: color,
-      status: OvaButtonStatus.control,
-      defaultColor: swatch.basicColor.shade100,
-    ),
+  return <OvaButtonStatus, EvaColor>{
+    OvaButtonStatus.basic:
+        evaColor.containsKey(OvaButtonStatus.basic) ? evaColor[OvaButtonStatus.basic] : null,
+    OvaButtonStatus.primary: evaColor.containsKey(OvaButtonStatus.primary)
+        ? evaColor[OvaButtonStatus.primary]
+        : swatch.primaryColor,
+    OvaButtonStatus.success: evaColor.containsKey(OvaButtonStatus.success)
+        ? evaColor[OvaButtonStatus.success]
+        : swatch.successColor,
+    OvaButtonStatus.info: evaColor.containsKey(OvaButtonStatus.info)
+        ? evaColor[OvaButtonStatus.info]
+        : swatch.infoColor,
+    OvaButtonStatus.warning: evaColor.containsKey(OvaButtonStatus.warning)
+        ? evaColor[OvaButtonStatus.warning]
+        : swatch.warningColor,
+    OvaButtonStatus.danger: evaColor.containsKey(OvaButtonStatus.danger)
+        ? evaColor[OvaButtonStatus.danger]
+        : swatch.dangerColor,
+    OvaButtonStatus.control:
+        evaColor.containsKey(OvaButtonStatus.control) ? evaColor[OvaButtonStatus.control] : null,
   };
-}
-
-Color _getStatusColor(
-    {Map<OvaButtonStatus, Color> color, OvaButtonStatus status, Color defaultColor}) {
-  if (color.containsKey(status)) {
-    return color[status];
-  }
-  return defaultColor;
 }
 
 /// Theme data for OvaButton
@@ -212,8 +188,8 @@ class OvaButtonThemeData with Diagnosticable {
   /// Map of each padding based on ova button size
   final Map<OvaButtonSize, OvaPadding> padding;
 
-  /// List of status color, with fallback to color swatches
-  final Map<OvaButtonStatus, Color> statusColor;
+  /// List of status color, with fallback to Eva color swatches
+  final Map<OvaButtonStatus, EvaColor> statusColor;
 
   /// App color swatch can be obtained from [OvaTheme.of(context).colorSwatch]
   factory OvaButtonThemeData({
@@ -224,7 +200,7 @@ class OvaButtonThemeData with Diagnosticable {
     assert(swatch != null);
     return OvaButtonThemeData.raw(
       statusColor: _statusColorFallback(
-        color: statusColor ?? {},
+        evaColor: statusColor ?? {},
         swatch: swatch,
       ),
       padding: _paddingFallback(
@@ -241,7 +217,7 @@ class OvaButtonThemeData with Diagnosticable {
   factory OvaButtonThemeData.fallback(OvaColorSwatch swatch) {
     return OvaButtonThemeData.raw(
         statusColor: _statusColorFallback(
-          color: {},
+          evaColor: {},
           swatch: swatch,
         ),
         padding: _paddingFallback(
@@ -258,7 +234,7 @@ class OvaButtonThemeData with Diagnosticable {
 
     return OvaButtonThemeData.raw(
         statusColor: _statusColorFallback(
-          color: definedColor,
+          evaColor: definedColor,
           swatch: swatch,
         ),
         padding: _paddingFallback(
@@ -277,7 +253,181 @@ class OvaButtonThemeData with Diagnosticable {
       return button.backgroundColor;
     }
 
-    return statusColor[button.status];
+    if (button.status == OvaButtonStatus.basic) {
+      return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade300;
+    } else if (button.status == OvaButtonStatus.control) {
+      return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade100;
+    } else {
+      return statusColor[button.status].shade500;
+    }
+  }
+
+  Color colorByStatus({OvaButton button, Color basic, Color control, Color other}) {
+    if (button.status == OvaButtonStatus.basic) {
+      return statusColor[OvaButtonStatus.basic] ?? basic;
+    } else if (button.status == OvaButtonStatus.control) {
+      return statusColor[OvaButtonStatus.basic] ?? control;
+    } else {
+      return other;
+    }
+  }
+
+  Color getHoverColor(OvaButton button) {
+    if (!button.enabled) {
+      if (button.disabledColor != null) {
+        return button.disabledColor;
+      }
+      return OvaColor.basic.withOpacity(0.24);
+    }
+
+//    if (button.status == OvaButtonStatus.basic) {
+//      return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade200;
+//    } else if (button.status == OvaButtonStatus.control) {
+//      return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade200;
+//    } else {
+//      return statusColor[button.status].shade400;
+//    }
+
+    switch (button.appearance) {
+      case OvaButtonAppearance.filled:
+        Color other;
+        if (button.status == OvaButtonStatus.basic || button.status == OvaButtonStatus.control) {
+          other = OvaColor.basic;
+        } else {
+          other = statusColor[button.status].shade400;
+        }
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.shade200,
+          control: OvaColor.basic.shade200,
+          other: other,
+        );
+        break;
+      case OvaButtonAppearance.outline:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.16),
+          control: OvaColor.basic.withOpacity(0.16),
+          other: OvaColor.basic.withOpacity(0.16),
+        );
+        break;
+      case OvaButtonAppearance.ghost:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.08),
+          control: OvaColor.basic.withOpacity(0.08),
+          other: OvaColor.basic.withOpacity(0.08),
+        );
+        break;
+      default:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.08),
+          control: OvaColor.basic.withOpacity(0.08),
+          other: OvaColor.basic.withOpacity(0.08),
+        );
+        break;
+    }
+  }
+
+  Color getActiveColor(OvaButton button) {
+    if (!button.enabled) {
+      if (button.disabledColor != null) {
+        return button.disabledColor;
+      }
+      return OvaColor.basic.withOpacity(0.24);
+    }
+
+    switch (button.appearance) {
+      case OvaButtonAppearance.filled:
+        Color other;
+        if (button.status == OvaButtonStatus.basic || button.status == OvaButtonStatus.control) {
+          other = OvaColor.basic;
+        } else {
+          other = statusColor[button.status].shade600;
+        }
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.shade400,
+          control: OvaColor.basic.shade300,
+          other: other,
+        );
+        break;
+      case OvaButtonAppearance.outline:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.24),
+          control: OvaColor.basic.withOpacity(0.24),
+          other: OvaColor.basic.withOpacity(0.24),
+        );
+        break;
+      case OvaButtonAppearance.ghost:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.16),
+          control: OvaColor.basic.withOpacity(0.16),
+          other: OvaColor.basic.withOpacity(0.16),
+        );
+        break;
+      default:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.16),
+          control: OvaColor.basic.withOpacity(0.16),
+          other: OvaColor.basic.withOpacity(0.16),
+        );
+        break;
+    }
+  }
+
+  Color getFocusColor(OvaButton button) {
+    if (!button.enabled) {
+      if (button.disabledColor != null) {
+        return button.disabledColor;
+      }
+      return OvaColor.basic.withOpacity(0.24);
+    }
+
+    switch (button.appearance) {
+      case OvaButtonAppearance.filled:
+        Color other;
+        if (button.status == OvaButtonStatus.basic || button.status == OvaButtonStatus.control) {
+          other = OvaColor.basic;
+        } else {
+          other = statusColor[button.status].shade700;
+        }
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.shade500,
+          control: OvaColor.basic.shade500,
+          other: other,
+        );
+        break;
+      case OvaButtonAppearance.outline:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.24),
+          control: OvaColor.basic.withOpacity(0.24),
+          other: OvaColor.basic.withOpacity(0.24),
+        );
+        break;
+      case OvaButtonAppearance.ghost:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.4),
+          control: OvaColor.basic.withOpacity(0.4),
+          other: OvaColor.basic.withOpacity(0.4),
+        );
+        break;
+      default:
+        return colorByStatus(
+          button: button,
+          basic: OvaColor.basic.withOpacity(0.4),
+          control: OvaColor.basic.withOpacity(0.4),
+          other: OvaColor.basic.withOpacity(0.4),
+        );
+        break;
+    }
   }
 
   Color getTextColor(OvaButton button) {
@@ -287,14 +437,29 @@ class OvaButtonThemeData with Diagnosticable {
       }
       return OvaColor.basic;
     }
+
     if (button.appearance == OvaButtonAppearance.filled) {
       if (button.status == OvaButtonStatus.basic || button.status == OvaButtonStatus.control) {
         return OvaColor.basic.shade800;
       } else {
         return Colors.white;
       }
+    } else if (button.appearance == OvaButtonAppearance.outline) {
+      if (button.status == OvaButtonStatus.basic) {
+        return OvaColor.basic.shade600;
+      } else if (button.status == OvaButtonStatus.control) {
+        return OvaColor.basic.shade100;
+      } else {
+        return getColor(button);
+      }
     } else {
-      return getColor(button);
+      if (button.status == OvaButtonStatus.basic) {
+        return OvaColor.basic.shade600;
+      } else if (button.status == OvaButtonStatus.control) {
+        return OvaColor.basic.shade100;
+      } else {
+        return getColor(button);
+      }
     }
   }
 

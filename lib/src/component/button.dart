@@ -115,8 +115,12 @@ class _OvaButtonState extends State<OvaButton> {
           onPressed: () {},
           child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           color: buttonTheme.getColor(widget),
-          elevation: 0,
           textColor: buttonTheme.getTextColor(widget),
+          elevation: 0,
+          disabledElevation: 0,
+          focusElevation: 0,
+          highlightElevation: 0,
+          hoverElevation: 0,
         );
         break;
       case OvaButtonAppearance.outline:
@@ -143,6 +147,10 @@ class _OvaButtonState extends State<OvaButton> {
           child: childOvaButton(buttonTheme: buttonTheme, textTheme: textTheme),
           color: buttonTheme.getColor(widget),
           elevation: 0,
+          disabledElevation: 0,
+          focusElevation: 0,
+          highlightElevation: 0,
+          hoverElevation: 0,
         );
         break;
     }
@@ -194,6 +202,10 @@ class _OvaButtonState extends State<OvaButton> {
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       buttonColor: buttonTheme.getColor(widget),
       padding: buttonTheme.getPadding(widget),
+      hoverColor: buttonTheme.getHoverColor(widget),
+      focusColor: buttonTheme.getFocusColor(widget),
+      highlightColor: buttonTheme.getActiveColor(widget),
+      splashColor: buttonTheme.getActiveColor(widget),
       child: ovaButton(buttonTheme: buttonTheme, textTheme: textTheme),
     );
   }
