@@ -256,7 +256,7 @@ class OvaButtonThemeData with Diagnosticable {
     if (button.status == OvaButtonStatus.basic) {
       return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade300;
     } else if (button.status == OvaButtonStatus.control) {
-      return statusColor[OvaButtonStatus.basic] ?? OvaColor.basic.shade100;
+      return statusColor[OvaButtonStatus.control] ?? OvaColor.basic.shade100;
     } else {
       return statusColor[button.status].shade500;
     }
@@ -266,7 +266,7 @@ class OvaButtonThemeData with Diagnosticable {
     if (button.status == OvaButtonStatus.basic) {
       return statusColor[OvaButtonStatus.basic] ?? basic;
     } else if (button.status == OvaButtonStatus.control) {
-      return statusColor[OvaButtonStatus.basic] ?? control;
+      return statusColor[OvaButtonStatus.control] ?? control;
     } else {
       return other;
     }
