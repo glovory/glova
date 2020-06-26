@@ -497,6 +497,16 @@ class OvaButtonThemeData with Diagnosticable {
   double getSizeIcon(OvaButton button) {
     return _sizeDefaultIcon[button.size];
   }
+
+  ShapeBorder getShapeBorder(OvaButton button) {
+    if (button.shapeBorder != null) {
+      return button.shapeBorder;
+    }
+
+    return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    );
+  }
 }
 
 class OvaButtonTheme extends InheritedTheme {

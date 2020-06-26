@@ -81,6 +81,9 @@ class OvaButton extends StatefulWidget {
 
   /// text style for button
   final TextStyle textStyle;
+  
+  /// the shape of button
+  final ShapeBorder shapeBorder;
 
   OvaButton({
     this.size = OvaButtonSize.medium,
@@ -96,6 +99,7 @@ class OvaButton extends StatefulWidget {
     this.disabledTextColor,
     this.stretch = false,
     this.textStyle,
+    this.shapeBorder,
   })  : assert(size != null),
         assert(appearance != null),
         assert(status != null),
@@ -206,6 +210,7 @@ class _OvaButtonState extends State<OvaButton> {
       focusColor: buttonTheme.getFocusColor(widget),
       highlightColor: buttonTheme.getActiveColor(widget),
       splashColor: buttonTheme.getActiveColor(widget),
+      shape: buttonTheme.getShapeBorder(widget),
       child: ovaButton(buttonTheme: buttonTheme, textTheme: textTheme),
     );
   }
