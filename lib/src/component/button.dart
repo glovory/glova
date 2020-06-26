@@ -81,7 +81,7 @@ class OvaButton extends StatefulWidget {
 
   /// text style for button
   final TextStyle textStyle;
-  
+
   /// the shape of button
   final ShapeBorder shapeBorder;
 
@@ -180,7 +180,13 @@ class _OvaButtonState extends State<OvaButton> {
                   (widget.child as Text).data,
                   style: buttonTheme.getTextStyle(widget, textTheme),
                 )
-              : widget.child,
+              : (widget.child is OvaSpinner)
+                  ? OvaSpinner(
+                      color: (widget.child as OvaSpinner).color ?? buttonTheme.getTextColor(widget),
+                      strokeWidth: (widget.child as OvaSpinner).strokeWidth ??
+                          buttonTheme.getSizeIcon(widget),
+                    )
+                  : widget.child,
           if (widget.icon != null && !widget.isLeading) ...[
             SizedBox(width: 8),
           ],
