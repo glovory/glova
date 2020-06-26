@@ -178,7 +178,7 @@ class _OvaButtonState extends State<OvaButton> {
           (widget.child is Text)
               ? Text(
                   (widget.child as Text).data,
-                  style: buttonTheme.getTextStyle(widget, textTheme),
+                  style: (widget.child as Text).style ?? buttonTheme.getTextStyle(widget, textTheme),
                 )
               : (widget.child is OvaSpinner)
                   ? OvaSpinner(
